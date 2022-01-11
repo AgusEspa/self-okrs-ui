@@ -1,17 +1,26 @@
 import { useState } from "react";
 import Login from "./components/login";
-import loginService from "./services/login";
-import axios from 'axios'
-const baseUrl = '/api/login'
+import login from "./services/login";
 
 function App() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
 
   const handleLogin = (event) => {
-    event.preventDefault()
-    console.log('logging in with', username, password)
+    event.preventDefault();
+    try {
+      const user = await login({username, password});
+      setUser(user);
+      setUsername('');
+      setPassword('');
+    } catch (exception) {
+      setErrorMessage('Wrong credentials')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)
+    }
   }
 
   return (
