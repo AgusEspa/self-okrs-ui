@@ -11,7 +11,7 @@ function App() {
   const handleLogin = (event) => {
     event.preventDefault();
     try {
-      const user = await login({username, password});
+      const user = login({username, password});
       setUser(user);
       setUsername('');
       setPassword('');
@@ -25,13 +25,15 @@ function App() {
 
   return (
     <div className="App">
-      <Login 
-        handler={handleLogin}
-        setUsername={setUsername}
-        username={username}
-        setPassword={setPassword}
-        password={password}
-      />
+      {user === null &&
+        <Login 
+          handler={handleLogin}
+          setUsername={setUsername}
+          username={username}
+          setPassword={setPassword}
+          password={password}
+        />
+      }
     </div>
   );
 }
