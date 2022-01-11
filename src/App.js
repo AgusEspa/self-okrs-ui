@@ -1,39 +1,31 @@
 import { useState } from "react";
 import Login from "./components/login";
 import login from "./services/login";
+import NavBar from "./components/navbar"
 
 function App() {
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [user, setUser] = useState(null);
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  // const [user, setUser] = useState(null);
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    try {
-      const user = login({username, password});
-      setUser(user);
-      setUsername('');
-      setPassword('');
-    } catch (exception) {
-      setErrorMessage('Wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-    }
-  }
+  // const handleLogin = (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const user = login({username, password});
+  //     setUser(user);
+  //     setUsername('');
+  //     setPassword('');
+  //   } catch (exception) {}
+  // }
+
+  const testingUsername = "Username";
 
   return (
     <div className="App">
-      {user === null &&
-        <Login 
-          handler={handleLogin}
-          setUsername={setUsername}
-          username={username}
-          setPassword={setPassword}
-          password={password}
-        />
-      }
+    
+      <NavBar username={testingUsername} />
+
     </div>
   );
 }
