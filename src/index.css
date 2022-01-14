@@ -19,10 +19,17 @@ body {
 }
 
 .app-title {
-  font-size: 1.5rem;
   margin: 0.8rem 2rem;
+  background-color: #3a2642;
+  border-radius: 0.3rem;
+}
+
+.app-title span {
+  font-size: 1.5rem;
   font-family: 'Allerta';
-  color: #B180C2;
+  color: #b8608c;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .links-menu {
