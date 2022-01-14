@@ -25,7 +25,11 @@ function App() {
   return (
     <div className="App">
     
-      <NavBar username={user.username} />
+      {user === null ?
+        <NavBar username={null} /> 
+        :
+        <NavBar username={user.username} />
+      }
 
       {user === null &&
         <Login handleLogin={handleLogin}
