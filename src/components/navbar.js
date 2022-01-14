@@ -4,12 +4,23 @@ const NavBar = (props) => {
 	return (
 		<nav className="navbar">
       		<div className="app-title"><span>Self.OKRs</span></div>
-      		<div className="links-menu">
+			  
+			{props.username !== null ?
+      			<div className="links-menu">
 			  	<ul>
+					<NavItem title={"About"} />
 					<NavItem title={"Goals"} />
 					<NavItem title={props.username} />
 				</ul>
-			</div>
+				</div> 
+				:
+				<div className="links-menu">
+			  	<ul>
+					<NavItem title={"About"} />
+				</ul>
+				</div>
+			}
+			
     	</nav>
 	);
 }
