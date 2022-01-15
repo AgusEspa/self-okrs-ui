@@ -1,4 +1,4 @@
-import NavItem from "./navitem";
+import NavItem from "./Navitem";
 
 const NavBar = (props) => {
 	return (
