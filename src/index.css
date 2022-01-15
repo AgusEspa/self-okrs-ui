@@ -42,7 +42,7 @@ body {
   padding: 0;
 }
 
-.links-menu li {
+.links-menu > li {
   list-style: none;
 }
 
