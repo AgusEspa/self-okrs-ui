@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Allerta');
-
 * {
   box-sizing: border-box;
 }
@@ -23,12 +21,11 @@ body {
   border-radius: 0.3rem;
 }
 
-.app-title span {
+.app-title h3 {
   font-size: 1.5rem;
   font-family: 'Allerta';
   color: #b8608c;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
+  margin: 0;
 }
 
 .links-menu {

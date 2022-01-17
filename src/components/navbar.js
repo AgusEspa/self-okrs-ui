@@ -3,7 +3,7 @@ import NavItem from "./Navitem";
 const NavBar = (props) => {
 	return (
 		<nav className="navbar">
-      		<div className="app-title"><span>Self.OKRs</span></div>
+      		<div className="app-title"><h3>Self.OKRs</h3></div>
 			  
 			{props.username !== null ?
       			<div className="links-menu">
