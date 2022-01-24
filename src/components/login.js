@@ -1,19 +1,50 @@
-import loginService from "../services/login";
+import { useState } from "react";
+//import loginService from "../services/login";
+import axios from 'axios';
 
 const Login = (props) => {
 
+  const [emailAddress, setEmailAddress] = useState('');
+  const [password, setPassword] = useState('');
+
   const handleLogin = (event) => {
     event.preventDefault();
-    loginService(props.emailAddress, props.password, props.setUsername);
-    props.setEmailAddress('');
-    props.setPassword('');
+    loginService(emailAddress, password, props.setUsername);
+    setEmailAddress('');
+    setPassword('');
+  }
+  const loginService = () => {
+    const credentials = new URLSearchParams();
+    credentials.append('username', emailAddress);
+    credentials.append('password', password);
+  
+    const baseUrl = 'http://localhost:8080/login';
+    const config = {
+    	headers: {
+    	  'Content-Type': 'application/x-www-form-urlencoded'
+    	}
+    }
+      
+    axios.post(baseUrl, credentials, config)
+      .then(response => {
+        if (response.status === 200) return response;
+        else alert("error:" + response.data);
+      	props.setUsername('login')
+      })
+      .then(data => {
+        sessionStorage.setItem("access_token", data.access_token)
+        sessionStorage.setItem("refresh_token", data.refresh_token)
+      })
+      .catch((error) => {
+      	console.log(`Error: ${error}`)
+      })
   }
 
   const handleEmailAddressChange = (event) => {
-    props.setEmailAddress(event.target.value);
+    setEmailAddress(event.target.value);
   }
   const handlePasswordChange = (event) => {
-    props.setPassword(event.target.value);
+    setPassword(event.target.value);
   }
 
 	return (
@@ -23,13 +54,13 @@ const Login = (props) => {
 			<form onSubmit={handleLogin}>
 				<div>
 					<input type="text" placeholder="Email address"
-					value={props.emailAddress}
+					value={emailAddress}
 					onChange={handleEmailAddressChange}
 					/>
 				</div>
 				<div> 
-					<input type="text" placeholder="Password"
-					value={props.password}
+					<input type="password" placeholder="Password"
+					value={password}
 					onChange={handlePasswordChange}
 					/>
 				</div>

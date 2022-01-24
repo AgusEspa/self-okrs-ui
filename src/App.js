@@ -4,25 +4,20 @@ import NavBar from "./components/Navbar";
 
 function App() {
 
-  const [emailAddress, setEmailAddress] = useState('');
-  const [password, setPassword] = useState('');
   const [username, setUsername] = useState(null);
+  const token = sessionStorage.getItem("access_token");
 
   return (
     <div className="App">
     
-      {username === null ?
+      {token === null ?
         <NavBar username={null} /> 
         :
         <NavBar username={username} />
       }
 
-      {username === null &&
-        <Login
-              emailAddress={emailAddress}
-              setEmailAddress={setEmailAddress}
-              password={password}
-              setPassword={setPassword} 
+      {token === null &&
+        <Login 
               setUsername={setUsername}
               />
       }
