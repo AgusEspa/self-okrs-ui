@@ -4,11 +4,9 @@ const Login = (props) => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    try {
-      loginService(props.emailAddress, props.password, props.setUsername);
-      props.setEmailAddress('');
-      props.setPassword('');
-    } catch (exception) {}
+    loginService(props.emailAddress, props.password, props.setUsername);
+    props.setEmailAddress('');
+    props.setPassword('');
   }
 
   const handleEmailAddressChange = (event) => {
