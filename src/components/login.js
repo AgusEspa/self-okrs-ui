@@ -1,49 +1,38 @@
-import { useHistory } from "react-router-dom";
-import { useState } from "react";
-import PropTypes from "prop-types";
+import loginService from "../services/login";
 
-const Login = ({ uri, auth }) => {
-  const [username, setUserName] = useState();
-  const [password, setPassword] = useState();
-  const [errMsg, setErrMsg] = useState();
-  const history = useHistory();
+const Login = (props) => {
 
-  const cancel = () => {
-    const l = history.length;
-    l > 2 ? history.goBack() : history.push("/");
-  };
+  const handleLogin = (event) => {
+    event.preventDefault();
+    try {
+      loginService(props.emailAddress, props.password, props.setUsername);
+      props.setEmailAddress('');
+      props.setPassword('');
+    } catch (exception) {}
+  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await auth.loginUser({
-      username,
-      password,
-    });
-    if (res && res.success) {
-      setErrMsg(null);
-      history.push(uri ? uri : "/");
-    } else {
-      setErrMsg(
-        res && typeof res === "string" ? res : "Invalid Username/Password"
-      );
-    }
-  };
+  const handleEmailAddressChange = (event) => {
+    props.setEmailAddress(event.target.value);
+  }
+  const handlePasswordChange = (event) => {
+    props.setPassword(event.target.value);
+  }
 
 	return (
 		<div className="login">
 			<h3>Login</h3>
 		
-			<form onSubmit={props.handleLogin}>
+			<form onSubmit={handleLogin}>
 				<div>
 					<input type="text" placeholder="Email address"
 					value={props.emailAddress}
-					onChange={props.handleEmailAddress}
+					onChange={handleEmailAddressChange}
 					/>
 				</div>
 				<div> 
 					<input type="text" placeholder="Password"
 					value={props.password}
-					onChange={props.handlePassword}
+					onChange={handlePasswordChange}
 					/>
 				</div>
 				<button type="submit">login</button>
@@ -52,9 +41,5 @@ const Login = ({ uri, auth }) => {
 	)
 
 }
-
-Login.propTypes = {
-	auth: PropTypes.object.isRequired,
-};
 
 export default Login;
