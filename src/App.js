@@ -4,22 +4,22 @@ import NavBar from "./components/Navbar";
 
 function App() {
 
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState('');
   const token = sessionStorage.getItem("access_token");
 
   return (
     <div className="App">
     
-      {token === null ?
+      {(token === null || token === undefined) ?
         <NavBar username={null} /> 
         :
-        <NavBar username={username} />
+        <NavBar username={"username"} />
       }
 
-      {token === null &&
+      {(token === null || token === undefined) &&
         <Login 
               setUsername={setUsername}
-              />
+        />
       }
       
     </div>
