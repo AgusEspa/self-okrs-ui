@@ -1,6 +1,8 @@
 import { useState } from "react";
-import Login from "./components/Login";
-import NavBar from "./components/Navbar";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./components/Home/Home";
+import Login from './components/Login/Login';
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
 
@@ -8,21 +10,14 @@ function App() {
   const token = sessionStorage.getItem("access_token");
 
   return (
-    <div className="App">
-    
-      {(token === null || token === undefined) ?
-        <NavBar username={null} /> 
-        :
-        <NavBar username={"username"} />
-      }
 
-      {(token === null || token === undefined) &&
-        <Login 
-              setUsername={setUsername}
-        />
-      }
-      
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" index element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/dash" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
