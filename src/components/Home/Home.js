@@ -9,7 +9,9 @@ const Home = (props) => {
                 <About />
             </div>
             <div className="login-container">
-                <Login />
+                <Login 
+                    setAccessToken={props.setAccessToken}
+                    setRefreshToken={props.setRefreshToken}/>
             </div>
         </div>
     )

@@ -9,25 +9,31 @@ function App() {
   const [accessToken, setAccessToken] = useState('');
   const [refreshToken, setRefreshToken] = useState('');
 
-  return (
-
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" index element={
-          <Home 
-            setAccessToken={setAccessToken}
-            setRefreshToken={setRefreshToken}
-          />} 
-        />
-        <Route path="/dash" element={
-          <Dashboard 
-            token={accessToken}
-            username={username}
-          />} 
-        />
-      </Routes>
-    </BrowserRouter>
-  );
+  
+  if (accessToken === '' || accessToken === null || accessToken === undefined) {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" index element={
+            <Home 
+              setAccessToken={setAccessToken}
+              setRefreshToken={setRefreshToken}/> 
+          }/>
+        </Routes>
+      </BrowserRouter>
+    );
+  } else {
+    return (
+      <BrowserRouter>
+        <Routes>
+          <Route path="/dash" element={
+            <Dashboard 
+              username={username}/>
+          }/>
+        </Routes>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;

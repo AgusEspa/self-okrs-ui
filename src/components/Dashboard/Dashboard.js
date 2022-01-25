@@ -1,4 +1,4 @@
-import NavBar from "../Navbar";
+import NavBar from "./Navbar";
 
 const Dashboard = (props) => {
    
@@ -7,7 +7,6 @@ const Dashboard = (props) => {
             <div >
 				<NavBar 
                     username={props.username} 
-                    token={props.token}
                 />
             </div>
         </div>
