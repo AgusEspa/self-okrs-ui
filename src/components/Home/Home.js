@@ -1,14 +1,15 @@
-import NavBar from "../Navbar";
+import Login from "./Login";
+import About from "./About";
 
 const Home = (props) => {
    
     return (
-        <div>
-            <div >
-                <NavBar 
-                    username={props.username} 
-                    token={props.token}
-                />
+        <div className="home">
+            <div className="body-container">
+                <About />
+            </div>
+            <div className="login-container">
+                <Login />
             </div>
         </div>
     )

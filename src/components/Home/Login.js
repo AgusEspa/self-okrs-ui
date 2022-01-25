@@ -8,7 +8,7 @@ const Login = (props) => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    loginService(emailAddress, password, props.setUsername);
+    loginService(emailAddress, password);
     setEmailAddress('');
     setPassword('');
   }
@@ -48,8 +48,8 @@ const Login = (props) => {
   }
 
 	return (
-		<div className="login">
-			<h3>Login</h3>
+		<div className="login-box">
+			<h3>Welcome to Self.OKRs</h3>
 		
 			<form onSubmit={handleLogin}>
 				<div>
@@ -64,8 +64,10 @@ const Login = (props) => {
 					onChange={handlePasswordChange}
 					/>
 				</div>
-				<button type="submit">login</button>
+				<button type="submit">Log in</button>
 			</form>
+
+      <div><p>New to Self.OKRs? Create account</p></div>
 		</div>
 	)
 
