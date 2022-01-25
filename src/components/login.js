@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import loginService from "../services/login";
 import axios from 'axios';
 
 const Login = (props) => {
@@ -27,9 +26,8 @@ const Login = (props) => {
       
     axios.post(baseUrl, credentials, config)
       .then(response => {
-        if (response.status === 200) return response;
-        else alert("error:" + response.data);
-      	props.setUsername('login')
+        if (response.status === 200) return response.data;
+        else alert("error");
       })
       .then(data => {
         sessionStorage.setItem("access_token", data.access_token)
