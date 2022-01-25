@@ -8,6 +8,7 @@ function App() {
 
   const [username, setUsername] = useState('Username');
   const [accessToken, setAccessToken] = useState('');
+  const [refreshToken, setRefreshToken] = useState('');
 
   return (
 
@@ -19,8 +20,18 @@ function App() {
             username={username}
           />} 
         />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dash" element={<Dashboard token={"accessToken"}/>} />
+        <Route path="/login" element={
+          <Login 
+            setAccessToken={setAccessToken}
+            setRefreshToken={setRefreshToken}
+          />} 
+        />
+        <Route path="/dash" element={
+          <Dashboard 
+            token={accessToken}
+            username={username}
+          />} 
+        />
       </Routes>
     </BrowserRouter>
   );

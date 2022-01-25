@@ -30,8 +30,10 @@ const Login = (props) => {
         else alert("error");
       })
       .then(data => {
-        sessionStorage.setItem("access_token", data.access_token)
-        sessionStorage.setItem("refresh_token", data.refresh_token)
+        localStorage.setItem("access_token", data.access_token);
+        props.setAccessToken(data.access_token);
+        localStorage.setItem("refresh_token", data.refresh_token);
+        props.setRefreshToken(data.refresh_token);
       })
       .catch((error) => {
       	console.log(`Error: ${error}`)
