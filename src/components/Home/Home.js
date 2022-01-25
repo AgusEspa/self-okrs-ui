@@ -5,7 +5,10 @@ const Home = (props) => {
     return (
         <div>
             <div >
-				<NavBar username={""} />
+                <NavBar 
+                    username={props.username} 
+                    token={props.token}
+                />
             </div>
         </div>
     )

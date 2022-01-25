@@ -6,16 +6,21 @@ import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
 
-  const [username, setUsername] = useState('');
-  const token = sessionStorage.getItem("access_token");
+  const [username, setUsername] = useState('Username');
+  const [accessToken, setAccessToken] = useState('');
 
   return (
 
     <BrowserRouter>
       <Routes>
-        <Route path="/" index element={<Home />} />
+        <Route path="/" index element={
+          <Home 
+            token={accessToken}
+            username={username}
+          />} 
+        />
         <Route path="/login" element={<Login />} />
-        <Route path="/dash" element={<Dashboard />} />
+        <Route path="/dash" element={<Dashboard token={"accessToken"}/>} />
       </Routes>
     </BrowserRouter>
   );

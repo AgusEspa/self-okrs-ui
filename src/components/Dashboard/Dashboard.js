@@ -5,7 +5,10 @@ const Dashboard = (props) => {
     return (
         <div>
             <div >
-				<NavBar username={"Username"} />
+				<NavBar 
+                    username={props.username} 
+                    token={props.token}
+                />
             </div>
         </div>
     )
