@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./components/Home/Home";
 import Dashboard from './components/Dashboard/Dashboard';
@@ -9,6 +9,12 @@ function App() {
   const [accessToken, setAccessToken] = useState('');
   const [refreshToken, setRefreshToken] = useState('');
 
+  useEffect(() => {
+    const fetchedAccessToken = window.localStorage.getItem("access_token");
+    setAccessToken(fetchedAccessToken);
+    const fetchedRefreshToken = window.localStorage.getItem("access_token");
+    setAccessToken(fetchedRefreshToken);
+  }, []);
   
   if (accessToken === '' || accessToken === null || accessToken === undefined) {
     return (
