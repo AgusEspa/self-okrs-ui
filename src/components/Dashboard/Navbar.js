@@ -8,7 +8,7 @@ const NavBar = (props) => {
 	const baseUrl = 'http://localhost:8080';
 
 	useEffect(() => {
-		const config = { headers: { 'Authorization': `Bearer ${props.accessToken}` } };
+		const config = { headers: { Authorization: `Bearer ${props.accessToken}` } };
 		axios.get(`${baseUrl}/api/users/authenticated`, config)
 			.then(response => {
 				setUsername(response.data.username);
