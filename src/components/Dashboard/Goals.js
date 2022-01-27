@@ -1,14 +1,9 @@
-import { useEffect } from "react";
 
-const Goals = () => {
-
-	useEffect(() => {
-        //get goals
-    }, []);
+const Goals = (props) => {
 
 	return (
 		<div>
-			<h1>Goals</h1>
+			<p>{props.goals}</p>
 		</div>
 	);
 }

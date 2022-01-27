@@ -1,26 +1,20 @@
 import NavBar from "./Navbar";
 import Goals from "./Goals";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Dashboard = (props) => {
 
-    const [username, setUsername] = useState('Username');
-
-    useEffect(() => {
-        setUsername(userService(props.accessToken))
-      }, [props.accessToken]);
-
-    const userService = (currentAccessToken) => {
-        // axios get request
-
-    }
+    const [goals, setGoals] = useState(null);
 
     return (
         <div>
 			<NavBar 
-                username={username} 
+                setGoals={setGoals}
+                accessToken={props.accessToken}
             />
-            <Goals />
+            <Goals 
+                goals={goals}
+            />
 
         </div>
     )

@@ -6,25 +6,27 @@ const Login = (props) => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
 
+  const baseUrl = 'http://localhost:8080';
+
   const handleLogin = (event) => {
     event.preventDefault();
     loginService(emailAddress, password);
     setEmailAddress('');
     setPassword('');
   }
+
   const loginService = () => {
     const credentials = new URLSearchParams();
     credentials.append('username', emailAddress);
     credentials.append('password', password);
   
-    const baseUrl = 'http://localhost:8080/login';
     const config = {
     	headers: {
     	  'Content-Type': 'application/x-www-form-urlencoded'
     	}
     }
       
-    axios.post(baseUrl, credentials, config)
+    axios.post(`${baseUrl}/login`, credentials, config)
       .then(response => {
         if (response.status === 200) return response.data;
         else alert("error");

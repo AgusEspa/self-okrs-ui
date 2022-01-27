@@ -18,7 +18,8 @@ function App() {
     return (
       <Home 
         setAccessToken={setAccessToken}
-        setRefreshToken={setRefreshToken}/> 
+        setRefreshToken={setRefreshToken}
+        /> 
     );
   } else {
     return (

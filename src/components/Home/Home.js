@@ -2,7 +2,6 @@ import Login from "./Login";
 import About from "./About";
 
 const Home = (props) => {
-   
     return (
         <div className="home">
             <div className="body-container">
@@ -11,7 +10,9 @@ const Home = (props) => {
             <div className="login-container">
                 <Login 
                     setAccessToken={props.setAccessToken}
-                    setRefreshToken={props.setRefreshToken}/>
+                    setRefreshToken={props.setRefreshToken}
+                    username={props.username}
+                    />
             </div>
         </div>
     )
