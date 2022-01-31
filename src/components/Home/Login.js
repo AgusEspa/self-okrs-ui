@@ -51,7 +51,8 @@ const Login = (props) => {
 
 	return (
 		<div className="login-box">
-			<h3>Welcome to Self.OKRs</h3>
+      <h1>self<span id="logo-dot">.</span>OKRs</h1>
+			<h3>Welcome to self.OKRs</h3>
 		
 			<form onSubmit={handleLogin}>
 				<div>
