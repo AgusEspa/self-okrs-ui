@@ -29,20 +29,15 @@ body {
   margin-right: 2rem;
   padding: 1.5rem;
 }
-.login-box h1 {
-  font-family: 'Asap', sans-serif;
-  font-weight: 600;
-  font-style: italic;
-  font-size: 1.6rem;
-  color: #1f1f1f;
-  margin-top: 0;
-  margin-bottom: 1rem;
+.logo-box {
+  margin: auto;
+  align-items: center;
 }
-#logo-dot {
-  color: #005a3c;
+.logo-box img {
+  width: 8rem;
 }
 .login-box h3 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Asap', sans-serif;
   font-size: 1.2rem;
   color: #1f1f1f;
   margin-top: 0;
@@ -52,7 +47,7 @@ body {
   border: 0;
   margin-bottom: 0.5rem;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Asap', sans-serif;
   padding: 0.5rem;
   background-color: #f3f3f3;
   border-bottom: 1px solid #d3d3d3;
@@ -73,6 +68,11 @@ body {
   border: none;
   outline: 0;
 }
+.login-box p {
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: #1f1f1f;
+}
 
 .navbar {
   display: flex;
@@ -88,7 +88,7 @@ body {
 }
 .app-title h3 {
   font-size: 1.5rem;
-  font-family: 'Allerta', sans-serif;
+  font-family: 'Asap', sans-serif;
   color: #ffffff;
   text-decoration: underline wavy #407c5b;
   margin: 0;
