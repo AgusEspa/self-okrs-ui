@@ -1,16 +1,18 @@
 import { useState } from "react";
 import axios from 'axios';
-import { useNavigate as navigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = (props) => {
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const baseUrl = 'http://localhost:8080';
 
   const handleLogin = (event) => {
     event.preventDefault();
+    
 
     const credentials = new URLSearchParams();
     credentials.append('username', emailAddress);
@@ -71,7 +73,7 @@ const Login = (props) => {
 				<button type="submit">Log in</button>
 			</form>
 
-      <div><p>New to Self.OKRs? Create account</p></div>
+      <div><p>New to Self.OKRs? <Link to="/register">Create account</Link></p></div>
 		</div>
 	)
 

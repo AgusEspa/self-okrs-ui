@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Dashboard from './pages/Dashboard';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 
@@ -25,6 +26,7 @@ function App() {
              setAccessToken={setAccessToken}
             setRefreshToken={setRefreshToken}/>
         }/>
+        <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={
           <Dashboard 
             accessToken={accessToken}/>
