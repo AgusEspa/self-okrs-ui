@@ -8,7 +8,7 @@ const Login = (props) => {
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { userAuth, setUserAuth } = useContext(AuthContext);
+  const { setUserAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const baseUrl = 'http://localhost:8080';
@@ -31,14 +31,15 @@ const Login = (props) => {
             else alert("error");
         })
         .then(data => {
+            window.localStorage.setItem("username", data.username);
             window.localStorage.setItem("access_token", data.access_token);
             window.localStorage.setItem("refresh_token", data.refresh_token);
 
             setUserAuth( {
+                "username": data.username,
                 "access_token": data.access_token,
-                "refresh_token": data.refresh_token,
-                "username": data.username
-            })
+                "refresh_token": data.refresh_token
+            });
             setEmailAddress('');
             setPassword('');
             navigate('/dashboard');

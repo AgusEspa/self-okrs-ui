@@ -9,19 +9,22 @@ import { AuthContext } from './contexts/AuthContext';
 
 function App() {
 
-    const baseUrl = 'http://localhost:8080';
+    //const baseUrl = 'http://localhost:8080';
 
-    // const [accessToken, setAccessToken] = useState('');
-    // const [refreshToken, setRefreshToken] = useState('');
     const [userAuth, setUserAuth] = useState(null);
 
 
-    // useEffect(() => {
-    //     const fetchedAccessToken = window.localStorage.getItem("access_token");
-    //     setAccessToken(fetchedAccessToken);
-    //     const fetchedRefreshToken = window.localStorage.getItem("refresh_token");
-    //     setRefreshToken(fetchedRefreshToken);
-    // }, []);
+    useEffect(() => {
+        const fetchedAccessToken = window.localStorage.getItem("access_token");
+        const fetchedRefreshToken = window.localStorage.getItem("refresh_token");
+        const fetchedUsername = window.localStorage.getItem("username");
+
+        setUserAuth( {
+            "username": fetchedUsername,
+            "access_token": fetchedAccessToken,
+            "refresh_token": fetchedRefreshToken
+        })
+    }, []);
 
     // useEffect(() => {
 	// 	const config = { headers: { Authorization: `Bearer ${accessToken}` } };
