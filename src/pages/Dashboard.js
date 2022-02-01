@@ -10,7 +10,7 @@ const Dashboard = (props) => {
         <div>
 			<NavBar 
                 setGoals={setGoals}
-                accessToken={props.accessToken}
+                userName={props.username}
             />
             <Goals 
                 goals={goals}

@@ -25,23 +25,23 @@ const Login = (props) => {
     }
 
     axios.post(`${baseUrl}/login`, credentials, config)
-      .then(response => {
-        if (response.status === 200) return response.data;
-        else alert("error");
-      })
-      .then(data => {
-        window.localStorage.setItem("access_token", data.access_token);
-        props.setAccessToken(data.access_token);
-        window.localStorage.setItem("refresh_token", data.refresh_token);
-        props.setRefreshToken(data.refresh_token);
-        setEmailAddress('');
-        setPassword('');
-        navigate('/dashboard');
-      })
-      .catch((error) => {
-      	console.log(`Error: ${error}`);
-        setError("Bad credentials");
-      })
+        .then(response => {
+            if (response.status === 200) return response.data;
+            else alert("error");
+        })
+        .then(data => {
+            window.localStorage.setItem("access_token", data.access_token);
+            props.setAccessToken(data.access_token);
+            window.localStorage.setItem("refresh_token", data.refresh_token);
+            props.setRefreshToken(data.refresh_token);
+            setEmailAddress('');
+            setPassword('');
+            navigate('/dashboard');
+        })
+        .catch(error => {
+            console.log(`Error: ${error}`);
+            setError("Bad credentials");
+        });
   }
 
   const handleEmailAddressChange = (event) => {

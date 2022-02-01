@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 
 const NavBar = (props) => {
 
-	const [username, setUsername] = useState('');
+	//const [username, setUsername] = useState('');
 
 	const baseUrl = 'http://localhost:8080';
 
-	useEffect(() => {
-		const config = { headers: { Authorization: `Bearer ${props.accessToken}` } };
-		axios.get(`${baseUrl}/api/users/authenticated`, config)
-			.then(response => {
-				setUsername(response.data.username);
-			});
-    }, [props.accessToken]);
+	// useEffect(() => {
+	// 	const config = { headers: { Authorization: `Bearer ${props.accessToken}` } };
+	// 	axios.get(`${baseUrl}/api/users/authenticated`, config)
+	// 		.then(response => {
+	// 			setUsername(response.data.username);
+	// 		});
+    // }, [props.accessToken]);
 
 	const handleGoalsClic = () => {
 		props.setGoals(getGoals(props.accessToken));
@@ -43,7 +43,7 @@ const NavBar = (props) => {
 						<span className="links-menu-item">Key Results</span>
 					</button></li>
 					<li><button>
-						<span className="links-menu-item">{username}</span>
+						<span className="links-menu-item">{props.username}</span>
 					</button></li>
 				</ul>
 				</div>
