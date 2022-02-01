@@ -16,26 +16,24 @@ function App() {
     setRefreshToken(fetchedRefreshToken);
   }, []);
   
-  if (accessToken === '' || accessToken === null || accessToken === undefined) {
-    return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={
-            <Home 
-              setAccessToken={setAccessToken}
-              setRefreshToken={setRefreshToken}/>
-          } />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
-    );
-  } else {
-    return (
-      <Dashboard 
-        accessToken={accessToken}
-      />
-    );
-  }
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={
+          <Login 
+             setAccessToken={setAccessToken}
+            setRefreshToken={setRefreshToken}/>
+        }/>
+        <Route path="/dashboard" element={
+          <Dashboard 
+            accessToken={accessToken}/>
+        }/>
+      </Routes>
+    </BrowserRouter>
+
+  );
+
 }
 
 export default App;
