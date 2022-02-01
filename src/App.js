@@ -11,7 +11,7 @@ function App() {
 
     //const baseUrl = 'http://localhost:8080';
 
-    const [userAuth, setUserAuth] = useState(null);
+    const [userAuth, setUserAuth] = useState([]);
 
 
     useEffect(() => {
@@ -37,18 +37,27 @@ function App() {
     //         });
     // }, [accessToken]);
   
-    return (
+    if (userAuth.username !== null && userAuth.username !== undefined && userAuth.username !== '') {
+        return (
+            <AuthContext.Provider value={{userAuth, setUserAuth}}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<Dashboard />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                    </Routes>
+                </BrowserRouter>
+            </AuthContext.Provider>
+        );
+    } else return (
         <AuthContext.Provider value={{userAuth, setUserAuth}}>
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
             </BrowserRouter>
         </AuthContext.Provider>
-
     );
 }
 
