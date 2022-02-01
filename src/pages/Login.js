@@ -6,6 +6,7 @@ const Login = (props) => {
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const baseUrl = 'http://localhost:8080';
@@ -38,7 +39,8 @@ const Login = (props) => {
         navigate('/dashboard');
       })
       .catch((error) => {
-      	console.log(`Error: ${error}`)
+      	console.log(`Error: ${error}`);
+        setError("Bad credentials");
       })
   }
 
@@ -70,6 +72,7 @@ const Login = (props) => {
 					onChange={handlePasswordChange}
 					/>
 				</div>
+        <div className="error"><span>{error}</span></div>
 				<button type="submit">Log in</button>
 			</form>
 
