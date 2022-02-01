@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import Home from "./components/Home/Home";
-import Dashboard from './components/Dashboard/Dashboard';
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Dashboard from './pages/Dashboard';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 
 function App() {
 
@@ -16,10 +18,16 @@ function App() {
   
   if (accessToken === '' || accessToken === null || accessToken === undefined) {
     return (
-      <Home 
-        setAccessToken={setAccessToken}
-        setRefreshToken={setRefreshToken}
-        /> 
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={
+            <Home 
+              setAccessToken={setAccessToken}
+              setRefreshToken={setRefreshToken}/>
+          } />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     );
   } else {
     return (

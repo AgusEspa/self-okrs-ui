@@ -1,5 +1,5 @@
-import NavBar from "./Navbar";
-import Goals from "./Goals";
+import NavBar from "../components/Dashboard/Navbar";
+import Goals from "../components/Dashboard/Goals";
 import { useState } from "react";
 
 const Dashboard = (props) => {

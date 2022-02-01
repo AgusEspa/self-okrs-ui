@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from 'axios';
+import { useNavigate as navigate } from 'react-router-dom';
 
 const Login = (props) => {
 
@@ -10,22 +11,16 @@ const Login = (props) => {
 
   const handleLogin = (event) => {
     event.preventDefault();
-    loginService(emailAddress, password);
-    setEmailAddress('');
-    setPassword('');
-  }
 
-  const loginService = () => {
     const credentials = new URLSearchParams();
     credentials.append('username', emailAddress);
     credentials.append('password', password);
-  
     const config = {
     	headers: {
     	  'Content-Type': 'application/x-www-form-urlencoded'
     	}
     }
-      
+
     axios.post(`${baseUrl}/login`, credentials, config)
       .then(response => {
         if (response.status === 200) return response.data;
@@ -36,6 +31,9 @@ const Login = (props) => {
         props.setAccessToken(data.access_token);
         window.localStorage.setItem("refresh_token", data.refresh_token);
         props.setRefreshToken(data.refresh_token);
+        setEmailAddress('');
+        setPassword('');
+        navigate('/dashboard');
       })
       .catch((error) => {
       	console.log(`Error: ${error}`)
