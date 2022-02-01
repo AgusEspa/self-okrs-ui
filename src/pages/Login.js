@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import { AuthContext } from "../contexts/AuthContext";
 
 const Login = (props) => {
 
   const [emailAddress, setEmailAddress] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { userAuth, setUserAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const baseUrl = 'http://localhost:8080';
@@ -14,7 +16,6 @@ const Login = (props) => {
   const handleLogin = (event) => {
     event.preventDefault();
     
-
     const credentials = new URLSearchParams();
     credentials.append('username', emailAddress);
     credentials.append('password', password);
@@ -31,9 +32,13 @@ const Login = (props) => {
         })
         .then(data => {
             window.localStorage.setItem("access_token", data.access_token);
-            props.setAccessToken(data.access_token);
             window.localStorage.setItem("refresh_token", data.refresh_token);
-            props.setRefreshToken(data.refresh_token);
+
+            setUserAuth( {
+                "access_token": data.access_token,
+                "refresh_token": data.refresh_token,
+                "username": data.username
+            })
             setEmailAddress('');
             setPassword('');
             navigate('/dashboard');
@@ -42,7 +47,7 @@ const Login = (props) => {
             console.log(`Error: ${error}`);
             setError("Bad credentials");
         });
-  }
+    }
 
   const handleEmailAddressChange = (event) => {
     setEmailAddress(event.target.value);
