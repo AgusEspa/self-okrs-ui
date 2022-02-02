@@ -3,16 +3,14 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from './pages/Dashboard';
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContext';
-// import axios from 'axios';
 
 function App() {
 
-    //const baseUrl = 'http://localhost:8080';
-
     const [userAuth, setUserAuth] = useState([]);
-
 
     useEffect(() => {
         const fetchedAccessToken = window.localStorage.getItem("access_token");
@@ -25,36 +23,28 @@ function App() {
             "refresh_token": fetchedRefreshToken
         })
     }, []);
-
-    // useEffect(() => {
-	// 	const config = { headers: { Authorization: `Bearer ${accessToken}` } };
-	// 	axios.get(`${baseUrl}/api/users/authenticated`, config)
-	// 		.then(response => {
-	// 			setUsername(response.data.username);
-	// 		})
-    //         .catch(error => {
-    //             console.log(error);
-    //         });
-    // }, [accessToken]);
   
-    if (userAuth.username !== null && userAuth.username !== undefined && userAuth.username !== '') {
-        return (
-            <AuthContext.Provider value={{userAuth, setUserAuth}}>
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
-                    </Routes>
-                </BrowserRouter>
-            </AuthContext.Provider>
-        );
-    } else return (
+    return (
         <AuthContext.Provider value={{userAuth, setUserAuth}}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                <Route path="/"
+                    element={
+                        <PublicRoute><Home /></PublicRoute>}
+                />
+                <Route path="/login"
+                    element={
+                        <PublicRoute><Login /></PublicRoute>}
+                />
+                <Route path="/register"
+                    element={
+                        <PublicRoute><Register /></PublicRoute>}
+                />
+                
+                <Route path="/dashboard"
+                    element={
+                        <ProtectedRoute><Dashboard /></ProtectedRoute>}
+                />
                 </Routes>
             </BrowserRouter>
         </AuthContext.Provider>
