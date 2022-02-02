@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from './pages/Dashboard';
+import PageNotFound from './pages/PageNotFound';
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -18,9 +19,9 @@ function App() {
         const fetchedUsername = window.localStorage.getItem("username");
 
         setUserAuth( {
-            "username": fetchedUsername,
-            "access_token": fetchedAccessToken,
-            "refresh_token": fetchedRefreshToken
+            username: fetchedUsername,
+            accessToken: fetchedAccessToken,
+            refreshToken: fetchedRefreshToken
         })
     }, []);
   
@@ -28,23 +29,24 @@ function App() {
         <AuthContext.Provider value={{userAuth, setUserAuth}}>
             <BrowserRouter>
                 <Routes>
-                <Route path="/"
-                    element={
-                        <PublicRoute><Home /></PublicRoute>}
-                />
-                <Route path="/login"
-                    element={
-                        <PublicRoute><Login /></PublicRoute>}
-                />
-                <Route path="/register"
-                    element={
-                        <PublicRoute><Register /></PublicRoute>}
-                />
-                
-                <Route path="/dashboard"
-                    element={
-                        <ProtectedRoute><Dashboard /></ProtectedRoute>}
-                />
+                    <Route path="/"
+                        element={
+                            <PublicRoute><Home /></PublicRoute>}
+                    />
+                    <Route path="/login"
+                        element={
+                            <PublicRoute><Login /></PublicRoute>}
+                    />
+                    <Route path="/register"
+                        element={
+                            <PublicRoute><Register /></PublicRoute>}
+                    />
+                    
+                    <Route path="/dashboard"
+                        element={
+                            <ProtectedRoute><Dashboard /></ProtectedRoute>}
+                    />
+                    <Route path="*" element={<PageNotFound />} />
                 </Routes>
             </BrowserRouter>
         </AuthContext.Provider>
