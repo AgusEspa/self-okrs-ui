@@ -27,8 +27,9 @@ function App() {
   
     return (
         <AuthContext.Provider value={{userAuth, setUserAuth}}>
-            <BrowserRouter>
-                <Routes>
+        <BrowserRouter>
+            <Routes>
+                
                     <Route path="/"
                         element={
                             <PublicRoute><Home /></PublicRoute>}
@@ -42,9 +43,8 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="*" element={<PageNotFound />} />
-                </Routes>
-            </BrowserRouter>
-        </AuthContext.Provider>
+            </Routes>
+        </BrowserRouter></AuthContext.Provider>
     );
 }
 
