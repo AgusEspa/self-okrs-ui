@@ -1,18 +1,16 @@
 //import axios from 'axios';
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useNavigate } from 'react-router-dom';
 
 const NavBar = (props) => {
 
-	const { userAuth } = useContext(AuthContext);
-	const navigate = useNavigate();
+	const { userAuth, logout } = useContext(AuthContext);
 
 	const handleGoalsClic = () => {
 		props.setGoals(getGoals(props.accessToken));
 	}
 
-	const getGoals = (currentAccessToken) => {
+	const getGoals = () => {
 		// const config = { headers: { 'Authorization': `Bearer ${currentAccessToken}` } };
 
 		// axios.get(`${baseUrl}/api/goals`, config)
@@ -20,13 +18,7 @@ const NavBar = (props) => {
 		// 	.catch(error => { console.log('There was an error!', error) }
 		// );
 	}
-
-	const logOut = () => {
-		window.localStorage.removeItem("access_token");
-		window.localStorage.removeItem("refresh_token");
-        window.localStorage.removeItem("username");
-		navigate('/');
-	}
+	
 
 
 	return (
@@ -45,7 +37,7 @@ const NavBar = (props) => {
 					<li><button>
 						<span className="links-menu-item">{userAuth.username}</span>
 					</button></li>
-					<li><button onClick={logOut}>Logout</button></li>
+					<li><button onClick={logout}>Logout</button></li>
 				</ul>
 				</div>
 			
