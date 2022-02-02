@@ -49,7 +49,7 @@ const Login = () => {
 
         } catch (e) {
             console.log(`Error: ${e}`);
-            setError("Incorrect email or password");
+            setError("Incorrect email / password");
         }
     }
 
