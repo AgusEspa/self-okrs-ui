@@ -33,19 +33,14 @@ function App() {
                         element={
                             <PublicRoute><Home /></PublicRoute>}
                     />
-                    <Route path="/login"
-                        element={
-                            <PublicRoute><Login /></PublicRoute>}
-                    />
-                    <Route path="/register"
-                        element={
-                            <PublicRoute><Register /></PublicRoute>}
-                    />
-                    
+
                     <Route path="/dashboard"
                         element={
                             <ProtectedRoute><Dashboard /></ProtectedRoute>}
                     />
+
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
             </BrowserRouter>

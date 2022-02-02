@@ -3,59 +3,62 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from "../contexts/AuthContext";
 
-const Login = (props) => {
+const Login = () => {
 
-  const [emailAddress, setEmailAddress] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { setUserAuth } = useContext(AuthContext);
-  const navigate = useNavigate();
+    const [emailAddress, setEmailAddress] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const { setUserAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-  const baseUrl = 'http://localhost:8080';
+    const baseUrl = 'http://localhost:8080';
 
-  const handleLogin = (event) => {
-    event.preventDefault();
-    
-    const credentials = new URLSearchParams();
-    credentials.append('username', emailAddress);
-    credentials.append('password', password);
-    const config = {
-    	headers: {
-    	  'Content-Type': 'application/x-www-form-urlencoded'
-    	}
+    const handleLogin = (event) => {
+        event.preventDefault();
+        login();
     }
 
-    axios.post(`${baseUrl}/login`, credentials, config)
-        .then(response => {
-            if (response.status === 200) return response.data;
-            else alert("error");
-        })
-        .then(data => {
-            window.localStorage.setItem("username", data.username);
-            window.localStorage.setItem("access_token", data.access_token);
-            window.localStorage.setItem("refresh_token", data.refresh_token);
+    async function login() {
+        const credentials = new URLSearchParams();
+        credentials.append('username', emailAddress);
+        credentials.append('password', password);
+        
+        const config = {
+    	    headers: {
+    	        'Content-Type': 'application/x-www-form-urlencoded'
+    	    }
+        }
 
+        try {
+            const response = await axios.post(`${baseUrl}/login`, credentials, config);
+
+            window.localStorage.setItem("username", response.data.username);
+            window.localStorage.setItem("access_token", response.data.access_token);
+            window.localStorage.setItem("refresh_token", response.data.refresh_token);
+            
             setUserAuth( {
-                username: data.username,
-                accessToken: data.access_token,
-                refreshToken: data.refresh_token
+                username: response.data.username,
+                accessToken: response.data.access_token,
+                refreshToken: response.data.refresh_token
             });
+
             setEmailAddress('');
             setPassword('');
+
             navigate('/dashboard');
-        })
-        .catch(error => {
-            console.log(`Error: ${error}`);
-            setError("Bad credentials");
-        });
+
+        } catch (e) {
+            console.log(`Error: ${e}`);
+            setError("Incorrect email or password");
+        }
     }
 
-  const handleEmailAddressChange = (event) => {
-    setEmailAddress(event.target.value);
-  }
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  }
+    const handleEmailAddressChange = (event) => {
+        setEmailAddress(event.target.value);
+    }
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    }
 
 	return (
 		<div className="login-box">
@@ -78,14 +81,39 @@ const Login = (props) => {
 					onChange={handlePasswordChange}
 					/>
 				</div>
-        <div className="error"><span>{error}</span></div>
+                <div className="error"><span>{error}</span></div>
 				<button type="submit">Log in</button>
 			</form>
-
-      <div><p>New to Self.OKRs? <Link to="/register">Create account</Link></p></div>
+            <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
+            <div><p>New to Self.OKRs? <Link to="/register">Create account</Link></p></div>
 		</div>
 	)
 
 }
 
 export default Login;
+
+
+// axios.post(`${baseUrl}/login`, credentials, config)
+//         .then(response => {
+//             if (response.status === 200) return response.data;
+//             else alert("error");
+//         })
+//         .then(data => {
+//             window.localStorage.setItem("username", data.username);
+//             window.localStorage.setItem("access_token", data.access_token);
+//             window.localStorage.setItem("refresh_token", data.refresh_token);
+
+//             setUserAuth( {
+//                 username: data.username,
+//                 accessToken: data.access_token,
+//                 refreshToken: data.refresh_token
+//             });
+//             setEmailAddress('');
+//             setPassword('');
+//             navigate('/dashboard');
+//         })
+//         .catch(error => {
+//             console.log(`Error: ${error}`);
+//             setError("Bad credentials");
+//         });

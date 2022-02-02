@@ -2,7 +2,7 @@ import About from "../components/Home/About";
 import Header from "../components/Home/Header";
 
 
-const Home = (props) => {
+const Home = () => {
     return (
         <div>
             <Header />
