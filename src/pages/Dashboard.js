@@ -6,36 +6,46 @@ import { AuthContext } from "../context/AuthContext";
 
 const Dashboard = () => {
 
-    const { userAuth, checkTokenValidity } = useContext(AuthContext);
+    const { userAuth, checkTokenValidity, updateToken } = useContext(AuthContext);
     const [goals, setGoals] = useState([]);
 
     const baseUrl = 'http://localhost:8080';
 
     useEffect( () => {
-        getGoals();
+        handleGetGoals();
     }, []);
 
-    const getGoals = async () => {
+    async function handleGetGoals() {
+        const isTokenValid = checkTokenValidity();
+        
+        if (isTokenValid !== true) {
+            await updateToken();
+            getGoals();
+        } else getGoals();        
+    }
+
+    async function getGoals () {
+
         try {
-            await checkTokenValidity();
+            
 			const config = {
 				headers: {
-					'Authorization': `Bearer ${userAuth.accessToken}`
+					'Authorization': `Bearer ${window.localStorage.getItem("access_token")}`
 				}
 			}
 			const response = await axios.get(`${baseUrl}/api/goals`, config);
 			setGoals(response.data);
-            console.log(response.data);
             
         } catch (e) {
 			console.log(`Error: ${e}`);
 		}
-    }
+    };
+
 
     return (
         <div>
 			<NavBar 
-                setGoals={setGoals}
+                handleGetGoals={handleGetGoals}
             />
             <Goals 
                 goals={goals}

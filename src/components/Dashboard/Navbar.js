@@ -6,21 +6,6 @@ const NavBar = (props) => {
 
 	const { userAuth, logout } = useContext(AuthContext);
 
-	const handleGoalsClic = () => {
-		props.setGoals(getGoals(props.accessToken));
-	}
-
-	const getGoals = () => {
-		// const config = { headers: { 'Authorization': `Bearer ${currentAccessToken}` } };
-
-		// axios.get(`${baseUrl}/api/goals`, config)
-		// 	.then(response => { return response.data })
-		// 	.catch(error => { console.log('There was an error!', error) }
-		// );
-	}
-	
-
-
 	return (
 		<nav className="navbar">
       		
@@ -28,7 +13,7 @@ const NavBar = (props) => {
 			  
 			<div className="links-menu">
 			  	<ul>
-				  	<li><button onClick={handleGoalsClic}>
+				  	<li><button onClick={props.handleGetGoals}>
 					  	<span className="links-menu-item">Goals</span>
 					</button></li>
 					<li><button>

@@ -1,4 +1,4 @@
-import { useState, createContext, useEffect } from "react";
+import { useState, createContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
@@ -10,30 +10,23 @@ export const AuthProvider = ({ children }) => {
 	const [userAuth, setUserAuth] = useState({
 		username: window.localStorage.getItem("username"),
 		accessToken: window.localStorage.getItem("access_token"),
-		refreshToken: window.localStorage.getItem("refresh_token")}
-	);
+		refreshToken: window.localStorage.getItem("refresh_token")});
 
 	const navigate = useNavigate();
 
 	const baseUrl = 'http://localhost:8080';
 
-	useEffect(() => {
-
-	}, []);
-
 	const checkTokenValidity = () => {
 		const decodedToken = jwt_decode(userAuth.accessToken);
-		console.log(decodedToken);
 		const tokenExpirationDate = decodedToken.exp;
-		console.log(tokenExpirationDate);
 		const currentTime = new Date().getTime() / 1000;
-		console.log(currentTime);
 
-		if (tokenExpirationDate < currentTime) updateToken();
+		const isValid = tokenExpirationDate > currentTime;
+		return isValid;
 	}
 
 	const updateToken = async () => {
-		console.log("updating token...");
+		console.log("Updating access_token...");
 		try {
 			const config = {
 				headers: {
@@ -41,17 +34,16 @@ export const AuthProvider = ({ children }) => {
 				}
 			}
 			const response = await axios.get(`${baseUrl}/api/users/token/refresh`, config);
-        
-			if (response.status === 200) {
-				window.localStorage.setItem("access_token", response.data.access_token);
-				setUserAuth({
-					username: userAuth.username,
-					accessToken: response.data.access_token,
-					refreshToken: userAuth.refreshToken}
-				);
-        	} else {
-            	logout();
-			}
+			window.localStorage.setItem("access_token", response.data.access_token)
+					
+			setUserAuth( prevState => ({ 
+				username: prevState.username,
+				accessToken: response.data.access_token,
+				refreshToken: prevState.refreshToken
+			}));			
+
+			return true;
+			
         } catch (e) {
 			console.log(`Error: ${e}`);
 			logout();
@@ -67,7 +59,7 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	return(
-		<AuthContext.Provider value={{ userAuth, setUserAuth, logout, checkTokenValidity }} >
+		<AuthContext.Provider value={{ userAuth, setUserAuth, logout, checkTokenValidity, updateToken }} >
 			{children}
 		</AuthContext.Provider>
 	);
