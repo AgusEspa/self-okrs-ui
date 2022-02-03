@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
 
@@ -92,28 +92,3 @@ const Login = () => {
 }
 
 export default Login;
-
-
-// axios.post(`${baseUrl}/login`, credentials, config)
-//         .then(response => {
-//             if (response.status === 200) return response.data;
-//             else alert("error");
-//         })
-//         .then(data => {
-//             window.localStorage.setItem("username", data.username);
-//             window.localStorage.setItem("access_token", data.access_token);
-//             window.localStorage.setItem("refresh_token", data.refresh_token);
-
-//             setUserAuth( {
-//                 username: data.username,
-//                 accessToken: data.access_token,
-//                 refreshToken: data.refresh_token
-//             });
-//             setEmailAddress('');
-//             setPassword('');
-//             navigate('/dashboard');
-//         })
-//         .catch(error => {
-//             console.log(`Error: ${error}`);
-//             setError("Bad credentials");
-//         });

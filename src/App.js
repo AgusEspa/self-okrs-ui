@@ -6,7 +6,7 @@ import PageNotFound from './pages/PageNotFound';
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   
@@ -18,14 +18,17 @@ function App() {
                         element={
                             <PublicRoute><Home /></PublicRoute>}
                     />
-
                     <Route path="/dashboard"
                         element={
                             <ProtectedRoute><Dashboard /></ProtectedRoute>}
                     />
-
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/login" 
+                        element={<Login />} 
+                    />
+                    <Route path="/register" 
+                        element={
+                            <Register />}                                
+                    />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
             </AuthProvider>

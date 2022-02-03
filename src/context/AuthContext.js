@@ -1,6 +1,7 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import jwt_decode from "jwt-decode";
 
 export const AuthContext = createContext(null);
 
@@ -16,8 +17,23 @@ export const AuthProvider = ({ children }) => {
 
 	const baseUrl = 'http://localhost:8080';
 
-	const updateToken = async () => {
+	useEffect(() => {
 
+	}, []);
+
+	const checkTokenValidity = () => {
+		const decodedToken = jwt_decode(userAuth.accessToken);
+		console.log(decodedToken);
+		const tokenExpirationDate = decodedToken.exp;
+		console.log(tokenExpirationDate);
+		const currentTime = new Date().getTime() / 1000;
+		console.log(currentTime);
+
+		if (tokenExpirationDate < currentTime) updateToken();
+	}
+
+	const updateToken = async () => {
+		console.log("updating token...");
 		try {
 			const config = {
 				headers: {
@@ -46,11 +62,12 @@ export const AuthProvider = ({ children }) => {
 		window.localStorage.removeItem("access_token");
 		window.localStorage.removeItem("refresh_token");
         window.localStorage.removeItem("username");
+		setUserAuth([]);
 		navigate('/');
 	}
 
 	return(
-		<AuthContext.Provider value={{ userAuth, setUserAuth, logout, updateToken }} >
+		<AuthContext.Provider value={{ userAuth, setUserAuth, logout, checkTokenValidity }} >
 			{children}
 		</AuthContext.Provider>
 	);
