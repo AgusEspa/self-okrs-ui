@@ -1,34 +1,46 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, createContext } from "react";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
 
 	const [userAuth, setUserAuth] = useState({
-		username: window.localStorage.getItem("access_token"),
-		accessToken: window.localStorage.getItem("refresh_token"),
-		refreshToken: window.localStorage.getItem("username")}
+		username: window.localStorage.getItem("username"),
+		accessToken: window.localStorage.getItem("access_token"),
+		refreshToken: window.localStorage.getItem("refresh_token")}
 	);
 
 	const navigate = useNavigate();
 
-	// const updateToken = async () => {
+	const baseUrl = 'http://localhost:8080';
 
-	// 	try {
-	// 		// call refresh
+	const updateToken = async () => {
+
+		try {
+			const config = {
+				headers: {
+					'Authorization': `Bearer ${userAuth.refreshToken}`
+				}
+			}
+			const response = await axios.get(`${baseUrl}/api/users/token/refresh`, config);
         
-	// 		if (response.status === 200) {
-	// 			// change accessToken
-    //     	} else {
-    //         	logout();
-	// 		}
-    //     } catch (e) {
-	// 		console.log(`Error: ${e}`);
-	// 	}
-    // }
-
-
+			if (response.status === 200) {
+				window.localStorage.setItem("access_token", response.data.access_token);
+				setUserAuth({
+					username: userAuth.username,
+					accessToken: response.data.access_token,
+					refreshToken: userAuth.refreshToken}
+				);
+        	} else {
+            	logout();
+			}
+        } catch (e) {
+			console.log(`Error: ${e}`);
+			logout();
+		}
+    }
 
 	const logout = () => {
 		window.localStorage.removeItem("access_token");
@@ -37,27 +49,8 @@ export const AuthProvider = ({ children }) => {
 		navigate('/');
 	}
 
-	
-
-    // useEffect(()=> {
-
-    //     if(loading){
-    //         updateToken()
-    //     }
-
-    //     let fourMinutes = 1000 * 60 * 4
-
-    //     let interval =  setInterval(()=> {
-    //         if(authTokens){
-    //             updateToken()
-    //         }
-    //     }, fourMinutes)
-    //     return ()=> clearInterval(interval)
-
-    // }, [authTokens, loading])
-
 	return(
-		<AuthContext.Provider value={{ userAuth, setUserAuth, logout }} >
+		<AuthContext.Provider value={{ userAuth, setUserAuth, logout, updateToken }} >
 			{children}
 		</AuthContext.Provider>
 	);
