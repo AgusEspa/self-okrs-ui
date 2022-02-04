@@ -24,20 +24,22 @@ const useAxios = () => {
 			}
 		}
 
-		const response = await axios.get(refreshURL, config);
+		try {
+			const response = await axios.get(refreshURL, config);
+			
+			window.localStorage.setItem("access_token", response.data.access_token);
 
-		if (response.data.headers === 403) logout();
-				
-		window.localStorage.setItem("access_token", response.data.access_token);
-
-		setUserAuth(prevState => ( {
-			username: prevState.username,
-			accessToken: response.data.access_token,
-			refreshToken: prevState.refreshToken
-		}));
+			setUserAuth(prevState => ( {
+				username: prevState.username,
+				accessToken: response.data.access_token,
+				refreshToken: prevState.refreshToken
+			}));
 
 		return response.data.access_token;
-
+		} catch (error) {
+			logout();
+		}
+		
 	}
 
 	axiosInstance.interceptors.request.use(async request => {
@@ -63,9 +65,11 @@ const useAxios = () => {
 		
 		}, async error => {
 
-			if (error.response.status !== 403) return error;
+			if (error.status !== 403) return error;
 	
 			const refreshedToken = await refreshToken();
+
+			if (refreshToken === undefined) return error;
 
 			const originalRequest = error.config;
 
