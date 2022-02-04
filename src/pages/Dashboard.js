@@ -7,8 +7,6 @@ const Dashboard = () => {
 
     const [goals, setGoals] = useState([]);
 
-    const baseUrl = 'http://localhost:8080';
-
     const api = useRefreshToken();
 
     useEffect( () => {
@@ -18,11 +16,11 @@ const Dashboard = () => {
     const getGoals = async () => {
 
         try {
-            const response = await api.get(`${baseUrl}/api/goals`);
+            const response = await api.get("/goals");
 			setGoals(response.data);
             
-        } catch (e) {
-			console.log(`Error: ${e}`);
+        } catch (error) {
+			console.log(`${error}`);
 		}
     };
 

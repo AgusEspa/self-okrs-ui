@@ -7,11 +7,38 @@ const useRefreshToken = () => {
 
     const { userAuth, setUserAuth } = useContext(AuthContext);
 
-	const baseURL = 'http://localhost:8080';
+	const baseURL = "http://localhost:8080/api";
+	const refreshURL = `${baseURL}/users/token/refresh`; 
 
 	const axiosInstance = axios.create({
+		baseURL: baseURL,
+		timeout: 10000,
 		headers: { 'Authorization': `Bearer ${userAuth.accessToken}`}
 	});
+
+	const refreshToken = async () => {
+
+		const config = {
+			headers: {
+				'Authorization': `Bearer ${userAuth.refreshToken}`
+			}
+		}
+
+		const response = await axios.get(refreshURL, config);
+
+		//log out if request unsuccessful
+				
+		window.localStorage.setItem("access_token", response.data.access_token);
+
+		setUserAuth(prevState => ( {
+			username: prevState.username,
+			accessToken: response.data.access_token,
+			refreshToken: prevState.refreshToken
+		}));
+
+		return response.data.access_token;
+
+	}
 
 	axiosInstance.interceptors.request.use(async request => {
 
@@ -23,50 +50,35 @@ const useRefreshToken = () => {
 	
 		if (isValid) return request;
 
-		const config = {
-			headers: {
-				'Authorization': `Bearer ${userAuth.refreshToken}`
-			}
-		}
-
-		const response = await axios.get(`${baseURL}/api/users/token/refresh`, config);
-				
-		window.localStorage.setItem("access_token", response.data.access_token);
-
-		setUserAuth(prevState => ( {
-			username: prevState.username,
-			accessToken: response.data.access_token,
-			refreshToken: prevState.refreshToken
-		}));
+		const refreshedToken = await refreshToken();
 		
-		request.headers.Authorization = `Bearer ${response.data.access_token}`;
+		request.headers.Authorization = `Bearer ${refreshedToken}`;
 		return request;
 
+	}, error => {
+		return Promise.reject(error);
 	});
 
-	// axios.interceptors.response.use(async response => {
 
-	// 	if (response.status === 200 ) return response;
-
-	// 	const config = {
-	// 		headers: {
-	// 			'Authorization': `Bearer ${userAuth.refreshToken}`
-	// 		}
-	// 	}
-
-	// 	const newResponse = await axios.get(`${baseURL}/api/users/token/refresh`, config);
-				
-	// 	window.localStorage.setItem("access_token", response.data.access_token);
-
-	// 	setUserAuth(prevState => ( {
-	// 		username: prevState.username,
-	// 		accessToken: newResponse.data.access_token,
-	// 		refreshToken: prevState.refreshToken
-	// 	}));
+	// axios.interceptors.response.use( response => {
+	// 	console.log("Hi");
+	// 	return response;
 		
-	// 	request.headers.Authorization = `Bearer ${response.data.access_token}`;
-	// 	return request;
+	// 	}, async error => {
 
+	// 		if (error.response.status !== 403) {
+	// 			return new Promise((resolve, reject) => {
+	// 			  reject(error);
+	// 			});
+	// 		  }
+		
+
+			
+			
+	// 	// axios.request.headers.Authorization = `Bearer ${newResponse.data.access_token}`;
+	// 	// return axios.request;
+
+	// 	return error;
 	// });
     
     return axiosInstance;
