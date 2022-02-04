@@ -69,6 +69,7 @@ const useAxios = () => {
 	
 			const refreshedToken = await refreshToken();
 
+			//refactor, cancel before
 			if (refreshToken === undefined) return error;
 
 			const originalRequest = error.config;
