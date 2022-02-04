@@ -3,7 +3,7 @@ import jwt_decode from "jwt-decode";
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-const useAxios = () => {
+const useRefreshToken = () => {
 
     const { userAuth, setUserAuth } = useContext(AuthContext);
 
@@ -43,8 +43,33 @@ const useAxios = () => {
 		return request;
 
 	});
+
+	// axios.interceptors.response.use(async response => {
+
+	// 	if (response.status === 200 ) return response;
+
+	// 	const config = {
+	// 		headers: {
+	// 			'Authorization': `Bearer ${userAuth.refreshToken}`
+	// 		}
+	// 	}
+
+	// 	const newResponse = await axios.get(`${baseURL}/api/users/token/refresh`, config);
+				
+	// 	window.localStorage.setItem("access_token", response.data.access_token);
+
+	// 	setUserAuth(prevState => ( {
+	// 		username: prevState.username,
+	// 		accessToken: newResponse.data.access_token,
+	// 		refreshToken: prevState.refreshToken
+	// 	}));
+		
+	// 	request.headers.Authorization = `Bearer ${response.data.access_token}`;
+	// 	return request;
+
+	// });
     
     return axiosInstance;
 }
 
-export default useAxios;
+export default useRefreshToken;

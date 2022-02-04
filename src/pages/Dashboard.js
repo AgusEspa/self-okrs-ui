@@ -1,6 +1,6 @@
 import NavBar from "../components/Dashboard/Navbar";
 import Goals from "../components/Dashboard/Goals";
-import useAxios from "../utils/useAxios";
+import useRefreshToken from "../utils/useRefreshToken";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
@@ -11,7 +11,7 @@ const Dashboard = () => {
 
     const baseUrl = 'http://localhost:8080';
 
-    let api = useAxios();
+    const api = useRefreshToken();
 
     useEffect( () => {
         getGoals();
