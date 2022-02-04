@@ -8,7 +8,7 @@ const Login = () => {
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const { setUserAuth } = useContext(AuthContext);
+    const { userAuth, setUserAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const baseUrl = 'http://localhost:8080';
@@ -60,6 +60,7 @@ const Login = () => {
         setPassword(event.target.value);
     }
 
+    console.log(userAuth);
 	return (
 		<div className="login-box">
       <div className="logo-box">
