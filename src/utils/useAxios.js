@@ -3,9 +3,9 @@ import jwt_decode from "jwt-decode";
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-const useRefreshToken = () => {
+const useAxios = () => {
 
-    const { userAuth, setUserAuth } = useContext(AuthContext);
+    const { userAuth, setUserAuth, logout } = useContext(AuthContext);
 
 	const baseURL = "http://localhost:8080/api";
 	const refreshURL = `${baseURL}/users/token/refresh`; 
@@ -26,7 +26,7 @@ const useRefreshToken = () => {
 
 		const response = await axios.get(refreshURL, config);
 
-		//log out if request unsuccessful
+		if (response.data.headers === 403) logout();
 				
 		window.localStorage.setItem("access_token", response.data.access_token);
 
@@ -55,33 +55,27 @@ const useRefreshToken = () => {
 		request.headers.Authorization = `Bearer ${refreshedToken}`;
 		return request;
 
-	}, error => {
-		return Promise.reject(error);
 	});
 
+	axiosInstance.interceptors.response.use( response => {
 
-	// axios.interceptors.response.use( response => {
-	// 	console.log("Hi");
-	// 	return response;
+		return response;
 		
-	// 	}, async error => {
+		}, async error => {
 
-	// 		if (error.response.status !== 403) {
-	// 			return new Promise((resolve, reject) => {
-	// 			  reject(error);
-	// 			});
-	// 		  }
-		
+			if (error.response.status !== 403) return error;
+	
+			const refreshedToken = await refreshToken();
 
-			
-			
-	// 	// axios.request.headers.Authorization = `Bearer ${newResponse.data.access_token}`;
-	// 	// return axios.request;
+			const originalRequest = error.config;
 
-	// 	return error;
-	// });
+			originalRequest.headers.Authorization = `Bearer ${refreshedToken}`;
+
+			return axiosInstance(originalRequest);
+	
+	});
     
     return axiosInstance;
 }
 
-export default useRefreshToken;
+export default useAxios;

@@ -1,13 +1,13 @@
 import NavBar from "../components/Dashboard/Navbar";
 import Goals from "../components/Dashboard/Goals";
-import useRefreshToken from "../utils/useRefreshToken";
+import useAxios from "../utils/useAxios";
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
 
     const [goals, setGoals] = useState([]);
 
-    const api = useRefreshToken();
+    const api = useAxios();
 
     useEffect( () => {
         getGoals();
