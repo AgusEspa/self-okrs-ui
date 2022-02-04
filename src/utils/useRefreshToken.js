@@ -32,7 +32,8 @@ const useRefreshToken = () => {
 			return response.data.access_token;
 		
 		} catch (error) {
-			//logout();
+			logout();
+			throw error;
 		}
 	}
 

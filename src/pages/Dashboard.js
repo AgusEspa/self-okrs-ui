@@ -20,7 +20,7 @@ const Dashboard = () => {
 			setGoals(response.data);
             
         } catch (error) {
-			console.log(`${error}`);
+            console.log(`Request failed: ${error.response.data.error_message}`);
 		}
     };
 
