@@ -1,39 +1,32 @@
 import NavBar from "../components/Dashboard/Navbar";
 import Goals from "../components/Dashboard/Goals";
-import axios from 'axios';
+import useAxios from "../utils/useAxios";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 const Dashboard = () => {
 
-    const { userAuth, checkTokenValidity, updateToken } = useContext(AuthContext);
+    const { userAuth } = useContext(AuthContext);
     const [goals, setGoals] = useState([]);
 
     const baseUrl = 'http://localhost:8080';
 
+    let api = useAxios();
+
     useEffect( () => {
-        handleGetGoals();
+        getGoals();
     }, []);
 
-    async function handleGetGoals() {
-        const isTokenValid = checkTokenValidity();
-        
-        if (isTokenValid !== true) {
-            await updateToken();
-            getGoals();
-        } else getGoals();        
-    }
+    const getGoals = async () => {
 
-    async function getGoals () {
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${userAuth.accessToken}`
+            }
+        }
 
         try {
-            
-			const config = {
-				headers: {
-					'Authorization': `Bearer ${window.localStorage.getItem("access_token")}`
-				}
-			}
-			const response = await axios.get(`${baseUrl}/api/goals`, config);
+            const response = await api.get(`${baseUrl}/api/goals`, config);
 			setGoals(response.data);
             
         } catch (e) {
@@ -45,7 +38,7 @@ const Dashboard = () => {
     return (
         <div>
 			<NavBar 
-                handleGetGoals={handleGetGoals}
+                handleGetGoals={getGoals}
             />
             <Goals 
                 goals={goals}
