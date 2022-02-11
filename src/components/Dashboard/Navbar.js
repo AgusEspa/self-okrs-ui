@@ -12,16 +12,13 @@ const NavBar = (props) => {
 			  
 			<div className="links-menu">
 			  	<ul>
-				  	<li><button onClick={props.handleGetGoals}>
+				  	<li><button onClick={props.handleGetObjectives}>
 					  	<span className="links-menu-item">Objectives</span>
 					</button></li>
-					<li><button>
-						<span className="links-menu-item">Key Results</span>
-					</button></li>
-					<li><button>
+					
+					<li><button onClick={logout}>
 						<span className="links-menu-item">{userAuth.username}</span>
 					</button></li>
-					<li><button onClick={logout}>Logout</button></li>
 				</ul>
 				</div>
 			
