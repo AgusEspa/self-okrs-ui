@@ -1,4 +1,3 @@
-//import axios from 'axios';
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -14,7 +13,7 @@ const NavBar = (props) => {
 			<div className="links-menu">
 			  	<ul>
 				  	<li><button onClick={props.handleGetGoals}>
-					  	<span className="links-menu-item">Goals</span>
+					  	<span className="links-menu-item">Objectives</span>
 					</button></li>
 					<li><button>
 						<span className="links-menu-item">Key Results</span>

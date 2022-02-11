@@ -1,23 +1,23 @@
 import NavBar from "../components/Dashboard/Navbar";
-import Goals from "../components/Dashboard/Goals";
+import Objectives from "../components/Dashboard/Objectives";
 import useAxios from "../utils/useAxios";
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
 
-    const [goals, setGoals] = useState([]);
+    const [objectives, setObjectives] = useState([]);
 
     const api = useAxios();
 
     useEffect( () => {
-        getGoals();
+        getObjectives();
     }, []);
 
-    const getGoals = async () => {
+    const getObjectives = async () => {
 
         try {
-            const response = await api.get("/goals");
-			setGoals(response.data);
+            const response = await api.get("/objectives");
+			setObjectives(response.data);
             
         } catch (error) {
             console.log(`Request failed: ${error.response.data.error_message}`);
@@ -28,12 +28,12 @@ const Dashboard = () => {
     return (
         <div>
 			<NavBar 
-                handleGetGoals={getGoals}
+                handleGetObjectives={getObjectives}
             />
-            <Goals 
-                goals={goals}
+            <Objectives 
+                objectives={objectives}
+                setObjectives={setObjectives}
             />
-
         </div>
     )
 }
