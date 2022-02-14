@@ -16,7 +16,6 @@ const Objective = (props) => {
 		dueDate: ""}
 	);
 	
-
 	const api = useAxios();
 
 	useEffect( () => {
