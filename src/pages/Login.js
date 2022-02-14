@@ -7,7 +7,7 @@ const Login = () => {
 
     const [emailAddress, setEmailAddress] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [credentialsError, setCredentialsError] = useState("");
     const { setUserAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ const Login = () => {
 
         } catch (e) {
             console.log(`Error: ${e}`);
-            setError("Incorrect email / password");
+            setCredentialsError("Incorrect email / password");
         }
     }
 
@@ -74,7 +74,9 @@ const Login = () => {
 					value={emailAddress}
 					onChange={handleEmailAddressChange}
 					/>
+                    {/* <div className="error"><span>{invalidEmailError}</span></div> */}
 				</div>
+                
 				<div> 
 					<input type="password" 
                     placeholder="Password"
@@ -82,8 +84,9 @@ const Login = () => {
 					value={password}
 					onChange={handlePasswordChange}
 					/>
+                    <div className="error"><span>{credentialsError}</span></div>
 				</div>
-                <div className="error"><span>{error}</span></div>
+                
 				<button type="submit">Log in</button>
 			</form>
             <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
