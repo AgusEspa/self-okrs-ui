@@ -4,11 +4,18 @@ import KeyResult from "./KeyResult";
 
 const Objective = (props) => {
 
-	const [ name, setName ] = useState(props.name);
-	const [ importance, setImportance ] = useState(props.importance);
-	const [ keyResults, setKeyResults] = useState([]);
-	const [ keyResultName, setKeyResultName ] = useState('');
-	const [ keyResultDueDate, setKeyResultDueDate ] =useState('');
+	const [ editObjectiveFormData, setEditObjectiveFormData ] = useState( {
+		title: props.title, 
+		importance: props.importance } 
+	);
+
+	const [ keyResults, setKeyResults ] = useState([]);
+
+	const [ createKeyResultFormData, setCreateKeyResultFormData ] = useState( {
+		title: "",
+		dueDate: ""}
+	);
+	
 
 	const api = useAxios();
 
@@ -18,10 +25,8 @@ const Objective = (props) => {
 
 	const getKeyResults = async () => {
 
-		const params = new URLSearchParams({ objectiveId: props.id });
-
         try {
-            const response = await api.get(`/objectives/keyresults?${params}`);
+            const response = await api.get(`/objectives/${props.id}/keyresults`);
 			setKeyResults(response.data);
             
         } catch (error) {
@@ -29,7 +34,7 @@ const Objective = (props) => {
 		}
     }
 
-	const handleDelete = async () => {
+	const handleDeleteObjective = async () => {
 		
 		try {
             await api.delete(`/objectives/${props.id}`);
@@ -42,16 +47,44 @@ const Objective = (props) => {
 
 	}
 
-	const handleEdit = async (event) => {
+	const handleCreateKeyResultFormChange = (event) => {
+		const { name, value } = event.target;
+		setCreateKeyResultFormData( prevState => ( {
+			...prevState,
+			[name]: value
+		}));
+	}
+
+	const handleCreateKeyResult = async (event) => {
 
 		event.preventDefault();
-		const body = {
-			name: name,
-			importance: importance
+
+		try {
+            const response = await api.post(`/objectives/${props.id}/keyresults`, createKeyResultFormData);
+			
+			setKeyResults(prevState => prevState.concat(response.data));
+
+			setCreateKeyResultFormData({title: "", dueDate: ""});
+            
+        } catch (error) {
+            console.log(`Request failed: ${error.response.data.error_message}`);
 		}
+	}
+
+	const handleEditObjectiveFormChange = (event) => {
+		const { name, value } = event.target;
+		setEditObjectiveFormData( prevState => ( {
+			...prevState,
+			[name]: value
+		}));
+	}
+
+	const handleEditObjective = async (event) => {
+
+		event.preventDefault();
 		
 		try {
-            const response = await api.put(`/objectives/${props.id}`, body);
+            const response = await api.put(`/objectives/${props.id}`, editObjectiveFormData);
 			
 			props.setObjectives(prevState => ( 
 				prevState.filter(objective => objective.id !== props.id)
@@ -63,51 +96,14 @@ const Objective = (props) => {
 
 	}
 
-	const handleNewKeyResult = async (event) => {
-
-		event.preventDefault();
-		const body = {
-			name: keyResultName,
-			objectiveId: props.id,
-			dueDate: keyResultDueDate
-		}
-
-		try {
-            const response = await api.post("/objectives/keyresults", body);
-			
-			setKeyResults(prevState => prevState.concat(response.data));
-
-			setKeyResultName('');
-			setKeyResultDueDate('');
-            
-        } catch (error) {
-            console.log(`Request failed: ${error.response.data.error_message}`);
-		}
-	}
-
-
-	const handleNameChange = (event) => {
-		setName(event.target.value);
-	}
-
-	const handleImportanceChange = (event) => {
-		setImportance(event.target.value);
-	}
-
-	const handleKeyResultNameChange = (event) => {
-		setKeyResultName(event.target.value);
-	}
-
-	const handleKeyResultDueDateChange = (event) => {
-		setKeyResultDueDate(event.target.value);
-	}
-
 	const mappedKeyResults = keyResults.map( keyResult => 
 		<KeyResult 
 			key={keyResult.id}
 			id={keyResult.id}
-			name={keyResult.name}
+			objectiveId={props.id}
+			title={keyResult.title}
 			dueDate={keyResult.dueDate}
+			isDone={keyResult.isDone}
 			setKeyResults={setKeyResults}
 		/>
 	);
@@ -120,39 +116,48 @@ const Objective = (props) => {
 			<h3>Key Results:</h3>
 			<ul>{mappedKeyResults}</ul>
 			<div>
-				<form onSubmit={handleNewKeyResult}>
+				<form onSubmit={handleCreateKeyResult}>
 					<div>
-						<input type="text" placeholder="Name"
-						value={keyResultName}
-						onChange={handleKeyResultNameChange}
+						<input type="text" 
+						placeholder="Name"
+						name="title"
+						value={createKeyResultFormData.title}
+						onChange={handleCreateKeyResultFormChange}
 						/>
 					</div>
 					<div>
-						<input type="text" placeholder="yyyy-mm-dd"
-						value={keyResultDueDate}
-						onChange={handleKeyResultDueDateChange}
+						<input type="text" 
+						placeholder="yyyy-mm-dd"
+						name="dueDate"
+						value={createKeyResultFormData.dueDate}
+						onChange={handleCreateKeyResultFormChange}
 						/>
 					</div>
-					<button type="submit">New Key result</button>
+					<button>New Key result</button>
 				</form>
 			</div>
 
-			<button onClick={handleDelete}>Delete</button>
+			<button onClick={handleDeleteObjective}>Delete</button>
+
 			<div>
-				<form onSubmit={handleEdit}>
+				<form onSubmit={handleEditObjective}>
 					<div>
-						<input type="text" placeholder="Name"
-						value={name}
-						onChange={handleNameChange}
+						<input type="text" 
+						placeholder="Title"
+						name="title"
+						value={editObjectiveFormData.title}
+						onChange={handleEditObjectiveFormChange}
 						/>
 					</div>
 					<div>
-						<input type="number" placeholder="Importance (1 to 5)"
-						value={importance}
-						onChange={handleImportanceChange}
+						<input type="number" 
+						placeholder="Importance (1 to 5)"
+						name="importance"
+						value={editObjectiveFormData.importance}
+						onChange={handleEditObjectiveFormChange}
 						/>
 					</div>
-					<button type="submit">Edit</button>
+					<button>Edit</button>
 				</form>
 			</div>
 		</div>

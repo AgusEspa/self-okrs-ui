@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const useRefreshToken = () => {
 
@@ -11,7 +11,7 @@ const useRefreshToken = () => {
 
 	const config = {
 		headers: {
-			'Authorization': `Bearer ${userAuth.refreshToken}`
+			"Authorization": `Bearer ${userAuth.refreshToken}`
 		}
 	}
 	

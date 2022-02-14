@@ -5,8 +5,11 @@ const KeyResult = (props) => {
 
 	const api = useAxios();
 
-	const [ keyResultName, setKeyResultName ] = useState(props.name);
-	const [ keyResultDueDate, setKeyResultDueDate ] = useState(props.dueDate);
+	const [ editKeyResultFormData, setEditKeyResultFormData ] = useState( {
+		title: props.title,
+		dueDate: props.dueDate,
+		isDone: props.isDone }
+	);
 
 	const handleDelete = async () => {
 		
@@ -21,26 +24,31 @@ const KeyResult = (props) => {
 
 	}
 
-	const handleKeyResultNameChange = (event) => {
-		setKeyResultName(event.target.value);
+	const handleEditKeyResultFormChange = (event) => {
+		const { name, value, type, checked } = event.target;
+		setEditKeyResultFormData( prevState => ( {
+			...prevState,
+			[name]: type === "checkbox" ? checked : value
+		}));
 	}
 
-	const handleKeyResultDueDateChange = (event) => {
-		setKeyResultDueDate(event.target.value);
+	const handleCheckbox = (event) => {
+		event.preventDefault();
+		const { name, checked } = event.target;
+		setEditKeyResultFormData( prevState => ( {
+			...prevState,
+			[name]: checked
+		}));
+		handleEditKeyResult(event);
+
 	}
 
 	const handleEditKeyResult = async (event) => {
 
 		event.preventDefault();
-			
-		const body = {
-			name: keyResultName,
-			objectiveId: props.id,
-			dueDate: keyResultDueDate
-		}
 
 		try {
-			const response = await api.put(`/objectives/keyresults/${props.id}`, body);
+			const response = await api.put(`/objectives/${props.objectiveId}/keyresults/${props.id}`, editKeyResultFormData);
 				
 			props.setKeyResults(prevState => ( 
 				prevState.filter(keyResult => keyResult.id !== props.id)
@@ -54,24 +62,37 @@ const KeyResult = (props) => {
 
 	return (
 		<li>
-			<p>{props.name}</p>
+			<div>
+				<input type="checkbox"
+					name="isDone"
+					checked={editKeyResultFormData.isDone}
+					onChange={handleCheckbox}
+				/>
+				<p>{props.title}</p>
+			</div>
+			
 			<div>
 				<form onSubmit={handleEditKeyResult}>
 					<div>
-						<input type="text" placeholder="Name"
-						value={keyResultName}
-						onChange={handleKeyResultNameChange}
+						<input type="text" 
+						placeholder="Name"
+						name="title"
+						value={editKeyResultFormData.title}
+						onChange={handleEditKeyResultFormChange}
 						/>
 					</div>
 					<div>
-						<input type="text" placeholder="yyyy-mm-dd"
-						value={keyResultDueDate}
-						onChange={handleKeyResultDueDateChange}
+						<input type="text" 
+						placeholder="yyyy-mm-dd"
+						name="dueDate"
+						value={editKeyResultFormData.dueDate}
+						onChange={handleEditKeyResultFormChange}
 						/>
 					</div>
 					<button type="submit">Edit</button>
 				</form>
 			</div>
+
 			<button onClick={handleDelete}>Delete</button>
 		</li>
 	)

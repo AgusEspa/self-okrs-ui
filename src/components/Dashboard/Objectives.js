@@ -4,7 +4,10 @@ import Objective from "./Objective";
 
 const Objectives = (props) => {
 
-	const [ formData, setFormData ] = useState( {title: "", importance: ""} );
+	const [ createObjectiveFormData, setCreateObjectiveFormData ] = useState( {
+		title: "", 
+		importance: "" } 
+	);
 
 	const api = useAxios();
 
@@ -13,20 +16,20 @@ const Objectives = (props) => {
 		event.preventDefault();
 
 		try {
-            const response = await api.post("/objectives", formData);
+            const response = await api.post("/objectives", createObjectiveFormData);
 			
 			props.setObjectives(props.objectives.concat(response.data));
 
-			setFormData({title: "", importance: ""});
+			setCreateObjectiveFormData({title: "", importance: ""});
             
         } catch (error) {
             console.log(`Request failed: ${error.response.data.error_message}`);
 		}
 	}
 
-	const handleChange = (event) => {
+	const handleCreateObjectiveFormChange = (event) => {
 		const { name, value } = event.target;
-		setFormData( prevState => ( {
+		setCreateObjectiveFormData( prevState => ( {
 			...prevState,
 			[name]: value
 		}));
@@ -52,16 +55,16 @@ const Objectives = (props) => {
 						<input type="text" 
 						placeholder="Title"
 						name="title"
-						value={formData.title}
-						onChange={handleChange}
+						value={createObjectiveFormData.title}
+						onChange={handleCreateObjectiveFormChange}
 						/>
 					</div>
 					<div>
 						<input type="number" 
 						placeholder="Importance (1 to 5)"
 						name="importance"
-						value={formData.importance}
-						onChange={handleChange}
+						value={createObjectiveFormData.importance}
+						onChange={handleCreateObjectiveFormChange}
 						/>
 					</div>
 					<button type="submit">Create</button>

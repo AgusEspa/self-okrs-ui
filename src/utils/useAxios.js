@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { useEffect, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { useEffect, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import useRefreshToken from "./useRefreshToken";
 
 const useAxios = () => {
@@ -15,7 +15,7 @@ const useAxios = () => {
 	const axiosInstance = axios.create({
 		baseURL: baseURL,
 		timeout: 10000,
-		headers: { 'Authorization': `Bearer ${userAuth.accessToken}`}
+		headers: { "Authorization": `Bearer ${userAuth.accessToken}`}
 	});
 
 
