@@ -114,7 +114,7 @@ const Objective = (props) => {
 
 	return (
 		<div>
-			<h2>{props.name}</h2>
+			<h2>{props.title}</h2>
 			<p>Importance: {props.importance}</p>
 
 			<h3>Key Results:</h3>

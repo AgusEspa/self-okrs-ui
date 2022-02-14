@@ -4,7 +4,7 @@ import Objective from "./Objective";
 
 const Objectives = (props) => {
 
-	const [ formData, setFormData ] = useState( {title: "", importance: null } );
+	const [ formData, setFormData ] = useState( {title: "", importance: ""} );
 
 	const api = useAxios();
 
@@ -17,7 +17,7 @@ const Objectives = (props) => {
 			
 			props.setObjectives(props.objectives.concat(response.data));
 
-			setFormData([]);
+			setFormData({title: "", importance: ""});
             
         } catch (error) {
             console.log(`Request failed: ${error.response.data.error_message}`);
@@ -25,7 +25,7 @@ const Objectives = (props) => {
 	}
 
 	const handleChange = (event) => {
-		const [ name, value ] = event.target;
+		const { name, value } = event.target;
 		setFormData( prevState => ( {
 			...prevState,
 			[name]: value
@@ -36,7 +36,7 @@ const Objectives = (props) => {
 		<Objective 
 			key={objective.id}
 			id={objective.id}
-			name={objective.name}
+			title={objective.title}
 			importance={objective.importance}
 			setObjectives={props.setObjectives}
 		/>
