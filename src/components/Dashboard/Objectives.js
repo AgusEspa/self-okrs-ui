@@ -4,39 +4,32 @@ import Objective from "./Objective";
 
 const Objectives = (props) => {
 
-	const [ name, setName ] = useState('');
-	const [ importance, setImportance ] = useState('');
+	const [ formData, setFormData ] = useState( {title: "", importance: null } );
 
 	const api = useAxios();
 
 	const handleCreateObjective = async (event) => {
 
 		event.preventDefault();
-		
-		const body = {
-			name: name,
-			importance: importance
-		}
 
 		try {
-            const response = await api.post("/objectives", body);
+            const response = await api.post("/objectives", formData);
 			
 			props.setObjectives(props.objectives.concat(response.data));
 
-			setName('');
-			setImportance('');
+			setFormData([]);
             
         } catch (error) {
             console.log(`Request failed: ${error.response.data.error_message}`);
 		}
 	}
 
-	const handleNameChange = (event) => {
-		setName(event.target.value);
-	}
-
-	const handleImportanceChange = (event) => {
-		setImportance(event.target.value);
+	const handleChange = (event) => {
+		const [ name, value ] = event.target;
+		setFormData( prevState => ( {
+			...prevState,
+			[name]: value
+		}));
 	}
 
 	const mappedObjectives = props.objectives.map( objective => 
@@ -56,15 +49,19 @@ const Objectives = (props) => {
 				<form onSubmit={handleCreateObjective}>
 					<h3>Create Objective</h3>
 					<div>
-						<input type="text" placeholder="Name"
-						value={name}
-						onChange={handleNameChange}
+						<input type="text" 
+						placeholder="Title"
+						name="title"
+						value={formData.title}
+						onChange={handleChange}
 						/>
 					</div>
 					<div>
-						<input type="number" placeholder="Importance (1 to 5)"
-						value={importance}
-						onChange={handleImportanceChange}
+						<input type="number" 
+						placeholder="Importance (1 to 5)"
+						name="importance"
+						value={formData.importance}
+						onChange={handleChange}
 						/>
 					</div>
 					<button type="submit">Create</button>
