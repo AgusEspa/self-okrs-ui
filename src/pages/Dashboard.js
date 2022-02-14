@@ -24,7 +24,6 @@ const Dashboard = () => {
 		}
     };
 
-
     return (
         <div>
 			<NavBar 
