@@ -5,23 +5,43 @@ import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
 
-    const [emailAddress, setEmailAddress] = useState("");
-    const [password, setPassword] = useState("");
+    const [loginFormData, setLoginFormData] = useState({emailAddress: "", password: ""});
     const [credentialsError, setCredentialsError] = useState("");
+    const [formValidationErrors, setFormValidationErrors] = useState({});
     const { setUserAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const baseUrl = "http://localhost:8080";
 
+    const handleLoginFormChange = (event) => {
+        const {name, value} = event.target;
+        setLoginFormData( prevState => ({
+            ...prevState,
+            [name]: value 
+        }));
+    }
+
+    const validateForm = (data) => {
+        const errors = {emailAddress:"", password:""};
+        if (!data.emailAddress) errors.emailAddress = "Email is required";
+        if (!data.password) errors.password = "Password is required";
+        return errors;
+    }
+
     const handleLogin = (event) => {
         event.preventDefault();
-        login();
+        const validationErrors = validateForm(loginFormData);
+        setFormValidationErrors(validationErrors);
+
+        if (validationErrors.emailAddress === "" && validationErrors.password === "") {
+            login();        
+        }
     }
 
     async function login() {
         const credentials = new URLSearchParams();
-        credentials.append("username", emailAddress);
-        credentials.append("password", password);
+        credentials.append("username", loginFormData.emailAddress);
+        credentials.append("password", loginFormData.password);
         
         const config = {
     	    headers: {
@@ -42,8 +62,7 @@ const Login = () => {
                 refreshToken: response.data.refresh_token
             });
 
-            setEmailAddress("");
-            setPassword("");
+            setLoginFormData({username: "", password: ""});
 
             navigate("/dashboard");
 
@@ -51,13 +70,6 @@ const Login = () => {
             console.log(`Error: ${e}`);
             setCredentialsError("Incorrect email / password");
         }
-    }
-
-    const handleEmailAddressChange = (event) => {
-        setEmailAddress(event.target.value);
-    }
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
     }
 
 	return (
@@ -70,24 +82,26 @@ const Login = () => {
 		
 			<form onSubmit={handleLogin}>
 				<div>
-					<input type="text" placeholder="Email address"
-					value={emailAddress}
-					onChange={handleEmailAddressChange}
+					<input type="email" 
+                    placeholder="Email address"
+                    name="emailAddress"
+					value={loginFormData.emailAddress}
+					onChange={handleLoginFormChange}
 					/>
-                    {/* <div className="error"><span>{invalidEmailError}</span></div> */}
+                    <div className="error"><span>{formValidationErrors.emailAddress}</span></div>
 				</div>
                 
 				<div> 
 					<input type="password" 
                     placeholder="Password"
                     name="password"
-					value={password}
-					onChange={handlePasswordChange}
+					value={loginFormData.password}
+					onChange={handleLoginFormChange}
 					/>
-                    <div className="error"><span>{credentialsError}</span></div>
+                    <div className="error"><span>{formValidationErrors.password}</span></div>
 				</div>
-                
-				<button type="submit">Log in</button>
+                <div className="error"><span>{credentialsError}</span></div>
+				<button>Log in</button>
 			</form>
             <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
             <div><p>New to Self.OKRs? <Link to="/register">Create account</Link></p></div>
