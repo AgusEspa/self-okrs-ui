@@ -101,7 +101,7 @@ const Objective = (props) => {
 			id={keyResult.id}
 			objectiveId={props.id}
 			title={keyResult.title}
-			dueDate={keyResult.dueDate}
+			// dueDate={keyResult.dueDate}
 			isDone={keyResult.isDone}
 			setKeyResults={setKeyResults}
 		/>
@@ -124,14 +124,14 @@ const Objective = (props) => {
 						onChange={handleCreateKeyResultFormChange}
 						/>
 					</div>
-					<div>
+					{/* <div>
 						<input type="text" 
 						placeholder="yyyy-mm-dd"
 						name="dueDate"
 						value={createKeyResultFormData.dueDate}
 						onChange={handleCreateKeyResultFormChange}
 						/>
-					</div>
+					</div> */}
 					<button>New Key result</button>
 				</form>
 			</div>
