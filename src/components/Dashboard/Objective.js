@@ -26,7 +26,14 @@ const Objective = (props) => {
 
         try {
             const response = await api.get(`/objectives/${props.id}/keyresults`);
-			setKeyResults(response.data);
+			
+			const parsedResponse = response.data.map(item => {
+				if (item.dueDate === null) {
+					return {...item, dueDate: ""}
+				} else return item;
+			});
+			
+			setKeyResults(parsedResponse);
             
         } catch (error) {
             console.log(`Request failed: ${error.response.data.error_message}`);
@@ -47,7 +54,9 @@ const Objective = (props) => {
 	}
 
 	const handleCreateKeyResultFormChange = (event) => {
+
 		const { name, value } = event.target;
+		
 		setCreateKeyResultFormData( prevState => ( {
 			...prevState,
 			[name]: value
@@ -72,6 +81,7 @@ const Objective = (props) => {
 
 	const handleEditObjectiveFormChange = (event) => {
 		const { name, value } = event.target;
+
 		setEditObjectiveFormData( prevState => ( {
 			...prevState,
 			[name]: value
@@ -101,7 +111,7 @@ const Objective = (props) => {
 			id={keyResult.id}
 			objectiveId={props.id}
 			title={keyResult.title}
-			// dueDate={keyResult.dueDate}
+			dueDate={keyResult.dueDate}
 			isDone={keyResult.isDone}
 			setKeyResults={setKeyResults}
 		/>
@@ -124,14 +134,14 @@ const Objective = (props) => {
 						onChange={handleCreateKeyResultFormChange}
 						/>
 					</div>
-					{/* <div>
-						<input type="text" 
-						placeholder="yyyy-mm-dd"
+				
+					<div>
+						<input type="date" 
 						name="dueDate"
 						value={createKeyResultFormData.dueDate}
 						onChange={handleCreateKeyResultFormChange}
 						/>
-					</div> */}
+					</div>
 					<button>New Key result</button>
 				</form>
 			</div>

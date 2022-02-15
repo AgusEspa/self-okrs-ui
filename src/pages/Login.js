@@ -23,10 +23,20 @@ const Login = () => {
 
     const validateForm = (data) => {
         const errors = {emailAddress:"", password:""};
-        if (!data.emailAddress) errors.emailAddress = "Email address is required";
-        //if (data.emailAddress regex) = "Not a valid email address";
-        if (!data.password) errors.password = "Password is required";
-        if (data.password.length < 8) errors.password = "Password must be at least 8 characters";
+    
+        const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    
+        if (!data.emailAddress) {
+            errors.emailAddress = "Email address is required";
+        } 
+        else if (!(emailPattern.test(data.emailAddress))) {
+            errors.emailAddress = "Not a valid email address";
+        }
+        if (!data.password) {
+            errors.password = "Password is required";
+        } else if (data.password.length < 8) {
+            errors.password = "Password must be at least 8 characters";
+        }
         setFormValidationErrors(errors);
         return errors;
     }
@@ -83,7 +93,7 @@ const Login = () => {
 		
 			<form onSubmit={handleLogin}>
 				<div>
-					<input type="email" 
+					<input type="text" 
                     placeholder="Email address"
                     name="emailAddress"
 					value={loginFormData.emailAddress}

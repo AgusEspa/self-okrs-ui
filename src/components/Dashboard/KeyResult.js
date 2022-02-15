@@ -69,6 +69,7 @@ const KeyResult = (props) => {
 					onChange={handleCheckbox}
 				/>
 				<p>{props.title}</p>
+				{props.dueDate !== "" && <p>{props.dueDate}</p>}
 			</div>
 			
 			<div>
@@ -81,14 +82,13 @@ const KeyResult = (props) => {
 						onChange={handleEditKeyResultFormChange}
 						/>
 					</div>
-					{/* <div>
-						<input type="text" 
-						placeholder="yyyy-mm-dd"
+					<div>
+						<input type="date" 
 						name="dueDate"
 						value={editKeyResultFormData.dueDate}
 						onChange={handleEditKeyResultFormChange}
 						/>
-					</div> */}
+					</div>
 					<button type="submit">Edit</button>
 				</form>
 			</div>
