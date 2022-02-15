@@ -7,7 +7,7 @@ const Login = () => {
 
     const [loginFormData, setLoginFormData] = useState({emailAddress: "", password: ""});
     const [credentialsError, setCredentialsError] = useState("");
-    const [formValidationErrors, setFormValidationErrors] = useState({});
+    const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", password: ""});
     const { setUserAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -23,20 +23,21 @@ const Login = () => {
 
     const validateForm = (data) => {
         const errors = {emailAddress:"", password:""};
-        if (!data.emailAddress) errors.emailAddress = "Email is required";
-        // email is valid
+        if (!data.emailAddress) errors.emailAddress = "Email address is required";
+        //if (data.emailAddress regex) = "Not a valid email address";
         if (!data.password) errors.password = "Password is required";
-        // password is valid
+        if (data.password.length < 8) errors.password = "Password must be at least 8 characters";
+        setFormValidationErrors(errors);
         return errors;
     }
 
     const handleLogin = (event) => {
         event.preventDefault();
         const validationErrors = validateForm(loginFormData);
-        setFormValidationErrors(validationErrors);
 
         if (validationErrors.emailAddress === "" && validationErrors.password === "") {
-            login();        
+            login(); 
+            setFormValidationErrors({});
         }
     }
 
@@ -64,8 +65,6 @@ const Login = () => {
                 refreshToken: response.data.refresh_token
             });
 
-            setLoginFormData({username: "", password: ""});
-
             navigate("/dashboard");
 
         } catch (e) {
@@ -90,7 +89,7 @@ const Login = () => {
 					value={loginFormData.emailAddress}
 					onChange={handleLoginFormChange}
 					/>
-                    <div className="error"><span>{formValidationErrors.emailAddress}</span></div>
+                    {formValidationErrors.emailAddress !== "" && <div className="error"><span>{formValidationErrors.emailAddress}</span></div>}
 				</div>
                 
 				<div> 
@@ -100,9 +99,9 @@ const Login = () => {
 					value={loginFormData.password}
 					onChange={handleLoginFormChange}
 					/>
-                    <div className="error"><span>{formValidationErrors.password}</span></div>
+                    {formValidationErrors.password !== "" && <div className="error"><span>{formValidationErrors.password}</span></div>}
 				</div>
-                <div className="error"><span>{credentialsError}</span></div>
+                {credentialsError !== "" && <div className="error"><span>{credentialsError}</span></div>}
 				<button>Log in</button>
 			</form>
             <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
