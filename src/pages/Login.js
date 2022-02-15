@@ -24,7 +24,9 @@ const Login = () => {
     const validateForm = (data) => {
         const errors = {emailAddress:"", password:""};
         if (!data.emailAddress) errors.emailAddress = "Email is required";
+        // email is valid
         if (!data.password) errors.password = "Password is required";
+        // password is valid
         return errors;
     }
 
