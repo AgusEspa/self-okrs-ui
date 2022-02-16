@@ -4,10 +4,10 @@ import KeyResult from "./KeyResult";
 
 const Objective = (props) => {
 
-	const [ editObjectiveFormData, setEditObjectiveFormData ] = useState( {
+	const [ editObjectiveFormData, setEditObjectiveFormData ] = useState( () => ({
 		title: props.title, 
 		importance: props.importance } 
-	);
+	));
 
 	const [ keyResults, setKeyResults ] = useState([]);
 

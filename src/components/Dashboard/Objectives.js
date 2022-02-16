@@ -4,10 +4,10 @@ import Objective from "./Objective";
 
 const Objectives = (props) => {
 
-	const [ createObjectiveFormData, setCreateObjectiveFormData ] = useState( {
+	const [ createObjectiveFormData, setCreateObjectiveFormData ] = useState( () => ({
 		title: "", 
 		importance: "" } 
-	);
+	));
 
 	const api = useAxios();
 

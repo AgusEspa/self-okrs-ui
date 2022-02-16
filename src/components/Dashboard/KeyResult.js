@@ -5,11 +5,11 @@ const KeyResult = (props) => {
 
 	const api = useAxios();
 
-	const [ editKeyResultFormData, setEditKeyResultFormData ] = useState( {
+	const [ editKeyResultFormData, setEditKeyResultFormData ] = useState( () => ({
 		title: props.title,
 		dueDate: props.dueDate,
 		isDone: props.isDone }
-	);
+	));
 
 	const handleDelete = async () => {
 		
