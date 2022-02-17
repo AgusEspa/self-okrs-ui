@@ -78,9 +78,8 @@ const Login = () => {
             navigate("/dashboard");
 
         } catch (e) {
-            console.log(`Error: ${e.response.status}`);
-            const error = e.response.status === 403 ? "Incorrect email / password" : "Network error";
-            setCredentialsError(error);
+            console.log(e);
+            setCredentialsError("Incorrect email / password");
 
         }
     }
