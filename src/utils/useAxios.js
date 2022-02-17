@@ -10,7 +10,7 @@ const useAxios = () => {
 
 	const refresh = useRefreshToken();
 
-	const baseURL = "https://self-okrs-api.herokuapp.com/api";
+	const baseURL = "http://localhost:8080/api";
 
 	const axiosInstance = axios.create({
 		baseURL: baseURL,

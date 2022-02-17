@@ -11,7 +11,7 @@ const Login = () => {
     const { setUserAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const baseUrl = "https://self-okrs-api.herokuapp.com";
+    const baseUrl = "http://localhost:8080";
 
     const handleLoginFormChange = (event) => {
         const {name, value} = event.target;
@@ -78,8 +78,10 @@ const Login = () => {
             navigate("/dashboard");
 
         } catch (e) {
-            console.log(`Error: ${e}`);
-            setCredentialsError("Incorrect email / password");
+            console.log(`Error: ${e.response.status}`);
+            const error = e.response.status === 403 ? "Incorrect email / password" : "Network error";
+            setCredentialsError(error);
+
         }
     }
 
