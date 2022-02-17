@@ -11,7 +11,7 @@ const Login = () => {
     const { setUserAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = "https://self-okrs-api.herokuapp.com";
 
     const handleLoginFormChange = (event) => {
         const {name, value} = event.target;
