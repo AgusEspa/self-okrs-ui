@@ -26,9 +26,7 @@ const Dashboard = () => {
 
     return (
         <div>
-			<NavBar 
-                handleGetObjectives={getObjectives}
-            />
+			<NavBar />
             <Objectives 
                 objectives={objectives}
                 setObjectives={setObjectives}

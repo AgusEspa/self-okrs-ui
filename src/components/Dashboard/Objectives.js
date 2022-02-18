@@ -1,38 +1,26 @@
 import useAxios from "../../utils/useAxios";
-import { useState } from "react";
 import Objective from "./Objective";
+import ToolBar from "./Toolbar";
+
 
 const Objectives = (props) => {
 
-	const [ createObjectiveFormData, setCreateObjectiveFormData ] = useState( () => ({
-		title: "", 
-		importance: "" } 
-	));
-
 	const api = useAxios();
 
-	const handleCreateObjective = async (event) => {
+	const handleCreateObjective = async () => {
 
-		event.preventDefault();
+		const newObjectiveTemplate = {
+			title: "New objective", 
+			importance: "5" }
 
 		try {
-            const response = await api.post("/objectives", createObjectiveFormData);
+            const response = await api.post("/objectives", newObjectiveTemplate);
 			
 			props.setObjectives(props.objectives.concat(response.data));
-
-			setCreateObjectiveFormData({title: "", importance: ""});
             
         } catch (error) {
             console.log(`Request failed: ${error.response.data.error_message}`);
 		}
-	}
-
-	const handleCreateObjectiveFormChange = (event) => {
-		const { name, value } = event.target;
-		setCreateObjectiveFormData( prevState => ( {
-			...prevState,
-			[name]: value
-		}));
 	}
 
 	const mappedObjectives = props.objectives.map( objective => 
@@ -47,28 +35,11 @@ const Objectives = (props) => {
 
 	return (
 		<div>
-			<div>{mappedObjectives}</div>
-			<div>
-				<form onSubmit={handleCreateObjective}>
-					<h3>Create Objective</h3>
-					<div>
-						<input type="text" 
-						placeholder="Title"
-						name="title"
-						value={createObjectiveFormData.title}
-						onChange={handleCreateObjectiveFormChange}
-						/>
-					</div>
-					<div>
-						<input type="number" 
-						placeholder="Importance (1 to 5)"
-						name="importance"
-						value={createObjectiveFormData.importance}
-						onChange={handleCreateObjectiveFormChange}
-						/>
-					</div>
-					<button type="submit">Create</button>
-				</form>
+			<ToolBar 
+				handleCreateObjective={handleCreateObjective}
+			/>
+			<div className="objectives-container">
+				{mappedObjectives}
 			</div>
 		</div>
 	);

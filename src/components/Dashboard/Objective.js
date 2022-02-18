@@ -9,6 +9,8 @@ const Objective = (props) => {
 		importance: props.importance } 
 	));
 
+	const [ objectiveIsChanged, setObjectiveIsChanged ] = useState(false);
+
 	const [ keyResults, setKeyResults ] = useState([]);
 
 	const [ createKeyResultFormData, setCreateKeyResultFormData ] = useState( {
@@ -39,6 +41,38 @@ const Objective = (props) => {
             console.log(`Request failed: ${error.response.data.error_message}`);
 		}
     }
+
+
+	const handleEditObjectiveFormChange = (event) => {
+
+		setObjectiveIsChanged(true);
+
+		const { name, value } = event.target;
+
+		setEditObjectiveFormData( prevState => ( {
+			...prevState,
+			[name]: value
+		}));
+	}
+
+	const handleEditObjective = async (event) => {
+
+		event.preventDefault();
+		
+		try {
+            const response = await api.put(`/objectives/${props.id}`, editObjectiveFormData);
+			
+			props.setObjectives(prevState => ( 
+				prevState.filter(objective => objective.id !== props.id)
+					.concat(response.data)));
+
+			setObjectiveIsChanged(false);
+
+        } catch (error) {
+            console.log(`Request failed: ${error.response.data.error_message}`);
+		}
+
+	}
 
 	const handleDeleteObjective = async () => {
 		
@@ -79,32 +113,6 @@ const Objective = (props) => {
 		}
 	}
 
-	const handleEditObjectiveFormChange = (event) => {
-		const { name, value } = event.target;
-
-		setEditObjectiveFormData( prevState => ( {
-			...prevState,
-			[name]: value
-		}));
-	}
-
-	const handleEditObjective = async (event) => {
-
-		event.preventDefault();
-		
-		try {
-            const response = await api.put(`/objectives/${props.id}`, editObjectiveFormData);
-			
-			props.setObjectives(prevState => ( 
-				prevState.filter(objective => objective.id !== props.id)
-					.concat(response.data)));
-
-        } catch (error) {
-            console.log(`Request failed: ${error.response.data.error_message}`);
-		}
-
-	}
-
 	const mappedKeyResults = keyResults.map( keyResult => 
 		<KeyResult 
 			key={keyResult.id}
@@ -118,11 +126,32 @@ const Objective = (props) => {
 	);
 
 	return (
-		<div>
-			<h2>{props.title}</h2>
-			<p>Importance: {props.importance}</p>
-
-			<h3>Key Results:</h3>
+		<div className="objective-box">
+			<form onSubmit={handleEditObjective}>
+				<div>
+					<textarea className="objective-title" rows="4" cols="15"
+					type="text" 
+					placeholder="Title"
+					name="title"
+					value={editObjectiveFormData.title}
+					onChange={handleEditObjectiveFormChange}
+					/>
+				</div>
+				<div>
+					<span className="objective-card-subtitle">Importance: </span>
+					<input className="input-number"
+					type="number" 
+					placeholder="Importance (1 to 5)"
+					name="importance"
+					value={editObjectiveFormData.importance}
+					min="1" max="5"
+					onChange={handleEditObjectiveFormChange}
+					/>
+				</div>
+				{objectiveIsChanged && <button>Save changes</button>}
+			</form>
+			
+			<span className="objective-card-subtitle">Key Results:</span>
 			<ul>{mappedKeyResults}</ul>
 			<div>
 				<form onSubmit={handleCreateKeyResult}>
@@ -146,30 +175,10 @@ const Objective = (props) => {
 				</form>
 			</div>
 
-			<button onClick={handleDeleteObjective}>Delete</button>
+		<button onClick={handleDeleteObjective}>Delete</button>
 
-			<div>
-				<form onSubmit={handleEditObjective}>
-					<div>
-						<input type="text" 
-						placeholder="Title"
-						name="title"
-						value={editObjectiveFormData.title}
-						onChange={handleEditObjectiveFormChange}
-						/>
-					</div>
-					<div>
-						<input type="number" 
-						placeholder="Importance (1 to 5)"
-						name="importance"
-						value={editObjectiveFormData.importance}
-						onChange={handleEditObjectiveFormChange}
-						/>
-					</div>
-					<button>Edit</button>
-				</form>
-			</div>
 		</div>
+
 	)
 }
 

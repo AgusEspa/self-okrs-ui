@@ -8,14 +8,12 @@ const NavBar = (props) => {
 	return (
 		<nav className="navbar">
       		
-			<div className="app-title"><h3>Self.OKRs</h3></div>
+			<div className="logo-box">
+        		<img src={"./logo.png"} alt="self.OKRs logo"/> 
+      		</div>
 			  
 			<div className="links-menu">
 			  	<ul>
-				  	<li><button onClick={props.handleGetObjectives}>
-					  	<span className="links-menu-item">Objectives</span>
-					</button></li>
-					
 					<li><button onClick={logout}>
 						<span className="links-menu-item">{userAuth.username}</span>
 					</button></li>
