@@ -11,6 +11,8 @@ const KeyResult = (props) => {
 		isDone: props.isDone }
 	));
 
+	const [ keyResultIsChanged, setKeyResultIsChanged ] = useState(false);
+
 	const handleDelete = async () => {
 		
 		try {
@@ -25,22 +27,12 @@ const KeyResult = (props) => {
 	}
 
 	const handleEditKeyResultFormChange = (event) => {
+		setKeyResultIsChanged(true);
 		const { name, value, type, checked } = event.target;
 		setEditKeyResultFormData( prevState => ( {
 			...prevState,
 			[name]: type === "checkbox" ? checked : value
 		}));
-	}
-
-	const handleCheckbox = (event) => {
-		event.preventDefault();
-		const { name, checked } = event.target;
-		setEditKeyResultFormData( prevState => ( {
-			...prevState,
-			[name]: checked
-		}));
-		handleEditKeyResult(event);
-
 	}
 
 	const handleEditKeyResult = async (event) => {
@@ -53,6 +45,8 @@ const KeyResult = (props) => {
 			props.setKeyResults(prevState => ( 
 				prevState.filter(keyResult => keyResult.id !== props.id)
 					.concat(response.data)));
+
+			setKeyResultIsChanged(false);
 				
 		} catch (error) {
 			console.log(`Request failed: ${error.response.data.error_message}`);
@@ -61,38 +55,30 @@ const KeyResult = (props) => {
 	}
 
 	return (
-		<li>
-			<div>
+		<li className="key-result-item">
+			<form onSubmit={handleEditKeyResult}>
 				<input type="checkbox"
 					name="isDone"
 					checked={editKeyResultFormData.isDone}
-					onChange={handleCheckbox}
+					onChange={handleEditKeyResultFormChange}
 				/>
-				<p>{props.title}</p>
-				{props.dueDate !== "" && <p>{props.dueDate}</p>}
-			</div>
-			
-			<div>
-				<form onSubmit={handleEditKeyResult}>
-					<div>
-						<input type="text" 
-						placeholder="Name"
-						name="title"
-						value={editKeyResultFormData.title}
-						onChange={handleEditKeyResultFormChange}
-						/>
-					</div>
-					<div>
-						<input type="date" 
-						name="dueDate"
-						value={editKeyResultFormData.dueDate}
-						onChange={handleEditKeyResultFormChange}
-						/>
-					</div>
-					<button type="submit">Edit</button>
-				</form>
-			</div>
+				<input type="text" 
+					name="title"
+					value={editKeyResultFormData.title}
+					onChange={handleEditKeyResultFormChange}
+				/> 
 
+				{props.dueDate !== "" ? <p>{props.dueDate}</p> : <button>add due date</button>}
+				<input type="date" 
+					name="dueDate"
+					value={editKeyResultFormData.dueDate}
+					onChange={handleEditKeyResultFormChange}
+				/>
+
+				{keyResultIsChanged && <button className="save-changes">Save changes</button>}
+
+			</form>
+			
 			<button onClick={handleDelete}>Delete</button>
 		</li>
 	)

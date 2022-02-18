@@ -10,7 +10,7 @@ const Objectives = (props) => {
 	const handleCreateObjective = async () => {
 
 		const newObjectiveTemplate = {
-			title: "New objective", 
+			title: "Title", 
 			importance: "5" }
 
 		try {

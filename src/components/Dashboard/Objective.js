@@ -4,6 +4,8 @@ import KeyResult from "./KeyResult";
 
 const Objective = (props) => {
 
+	const [ keyResults, setKeyResults ] = useState([]);
+
 	const [ editObjectiveFormData, setEditObjectiveFormData ] = useState( () => ({
 		title: props.title, 
 		importance: props.importance } 
@@ -11,12 +13,7 @@ const Objective = (props) => {
 
 	const [ objectiveIsChanged, setObjectiveIsChanged ] = useState(false);
 
-	const [ keyResults, setKeyResults ] = useState([]);
-
-	const [ createKeyResultFormData, setCreateKeyResultFormData ] = useState( {
-		title: "",
-		dueDate: ""}
-	);
+	const [ toggledKeyResultView, setToggledKeyResultView ] = useState(false);
 	
 	const api = useAxios();
 
@@ -87,26 +84,20 @@ const Objective = (props) => {
 
 	}
 
-	const handleCreateKeyResultFormChange = (event) => {
-
-		const { name, value } = event.target;
-		
-		setCreateKeyResultFormData( prevState => ( {
-			...prevState,
-			[name]: value
-		}));
+	const handleToggleKeyResultView = () => {
+		setToggledKeyResultView(prevState => !prevState);
 	}
 
-	const handleCreateKeyResult = async (event) => {
-
-		event.preventDefault();
+	const handleCreateKeyResult = async () => {
+		const newKeyResultTemplate = {
+			title: "Title", 
+			dueDate: "",
+			isDone: false }
 
 		try {
-            const response = await api.post(`/objectives/${props.id}/keyresults`, createKeyResultFormData);
+            const response = await api.post(`/objectives/${props.id}/keyresults`, newKeyResultTemplate);
 			
 			setKeyResults(prevState => prevState.concat(response.data));
-
-			setCreateKeyResultFormData({title: "", dueDate: ""});
             
         } catch (error) {
             console.log(`Request failed: ${error.response.data.error_message}`);
@@ -127,58 +118,43 @@ const Objective = (props) => {
 
 	return (
 		<div className="objective-box">
-			<form onSubmit={handleEditObjective}>
-				<div>
-					<textarea className="objective-title" rows="4" cols="15"
-					type="text" 
-					placeholder="Title"
-					name="title"
-					value={editObjectiveFormData.title}
-					onChange={handleEditObjectiveFormChange}
-					/>
-				</div>
-				<div>
-					<span className="objective-card-subtitle">Importance: </span>
-					<input className="input-number"
-					type="number" 
-					placeholder="Importance (1 to 5)"
-					name="importance"
-					value={editObjectiveFormData.importance}
-					min="1" max="5"
-					onChange={handleEditObjectiveFormChange}
-					/>
-				</div>
-				{objectiveIsChanged && <button>Save changes</button>}
-			</form>
-			
-			<span className="objective-card-subtitle">Key Results:</span>
-			<ul>{mappedKeyResults}</ul>
 			<div>
-				<form onSubmit={handleCreateKeyResult}>
-					<div>
-						<input type="text" 
-						placeholder="Name"
+				<form onSubmit={handleEditObjective}>
+					<textarea className="objective-title" rows="3" cols="15"
+						type="text" 
+						placeholder="Title"
 						name="title"
-						value={createKeyResultFormData.title}
-						onChange={handleCreateKeyResultFormChange}
-						/>
-					</div>
-				
+						value={editObjectiveFormData.title}
+						onChange={handleEditObjectiveFormChange}
+					/>
 					<div>
-						<input type="date" 
-						name="dueDate"
-						value={createKeyResultFormData.dueDate}
-						onChange={handleCreateKeyResultFormChange}
-						/>
-					</div>
-					<button>New Key result</button>
+					<label className="objective-card-label">Importance: </label>
+						<input className="input-number"
+							type="number" 
+							placeholder="Importance (1 to 5)"
+							name="importance"
+							value={editObjectiveFormData.importance}
+							min="1" max="5"
+							onChange={handleEditObjectiveFormChange}
+							/>
+					</div>	
+					{objectiveIsChanged && <button className="save-changes">Save changes</button>}
 				</form>
 			</div>
 
-		<button onClick={handleDeleteObjective}>Delete</button>
+			<div>
+				<h3 className="objective-card-subtitle">Key Results: {keyResults.length}</h3>
+				<button onClick={handleToggleKeyResultView}>{toggledKeyResultView ? "hide" : "show"}</button>
+				{toggledKeyResultView && (
+					<div>
+						<ul>{mappedKeyResults}</ul>
+						<button onClick={handleCreateKeyResult}>Add key result</button>
+					</div>)
+				}
+			</div>
 
+			<button onClick={handleDeleteObjective}>Delete objective</button>
 		</div>
-
 	)
 }
 

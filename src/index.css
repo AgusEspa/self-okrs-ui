@@ -11,6 +11,7 @@ body {
   color: red;
 }
 
+/* Home page */
 .home {
   display: flex;
   position: relative;
@@ -22,6 +23,7 @@ body {
   background-color: #78aa7e;
 }
 
+/* Login page */
 .login-container {
   float: right;
   background-color: #f3f3f3;
@@ -79,6 +81,7 @@ body {
   color: #1f1f1f;
 }
 
+/* Navbar component */
 .navbar {
   display: flex;
   position: relative;
@@ -107,7 +110,7 @@ body {
   font-size: 1.1rem;
 }
 
-
+/* Toolbar Component */
 .toolbar {
   display: flex;
   position: relative;
@@ -137,13 +140,13 @@ body {
 
 }
 
-/* Objectives */
+/* Objectives component */
 .objectives-container {
   position: relative;
 }
 .objective-box {
   float: inline-start;
-  outline: 1px solid #000000;
+  outline: 1px solid #bebebe;
   border-radius: 0.5rem;
   margin: 2rem 0rem 0rem 2rem;
   width: 15rem;
@@ -160,14 +163,31 @@ body {
   height: fit-content;
   background-color:transparent;
 }
+.save-changes {
+  color:red;
+}
+.objective-card-label {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.1rem;
+}
 .input-number {
+  font-size: 1.2rem;
   border: none;
   outline: none;
-  width: 3rem;
+  width: 2.5rem;
   background-color:transparent;
 }
-
 .objective-card-subtitle {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin-top: 0.5rem;
+  margin-bottom: 0.3rem;
+  display: inline-block;
+}
+
+/* Key Result component */
+.key-result-item {
+  list-style-type: none;
+  text-decoration: none;
 }
