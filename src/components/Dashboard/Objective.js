@@ -147,7 +147,7 @@ const Objective = (props) => {
 				<button onClick={handleToggleKeyResultView}>{toggledKeyResultView ? "hide" : "show"}</button>
 				{toggledKeyResultView && (
 					<div>
-						<ul>{mappedKeyResults}</ul>
+						<ul className="key-results-list">{mappedKeyResults}</ul>
 						<button onClick={handleCreateKeyResult}>Add key result</button>
 					</div>)
 				}

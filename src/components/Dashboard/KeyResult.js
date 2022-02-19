@@ -28,11 +28,20 @@ const KeyResult = (props) => {
 
 	const handleEditKeyResultFormChange = (event) => {
 		setKeyResultIsChanged(true);
-		const { name, value, type, checked } = event.target;
+		const { name, value } = event.target;
 		setEditKeyResultFormData( prevState => ( {
 			...prevState,
-			[name]: type === "checkbox" ? checked : value
+			[name]: value
 		}));
+	}
+
+	const handleEditKeyResultCheckboxChange = (event) => {
+		const { name, checked } = event.target;
+		setEditKeyResultFormData( prevState => ( {
+			...prevState,
+			[name]: checked
+		}));
+		handleEditKeyResult(event);
 	}
 
 	const handleEditKeyResult = async (event) => {
@@ -54,27 +63,42 @@ const KeyResult = (props) => {
 		}
 	}
 
+	const handleNewDueDate = () => {
+		const newDate = new Date();
+		const currentDay = newDate.getDate();
+		const currentMonth = newDate.getMonth() + 1;
+		const currentYear = newDate.getFullYear();
+		const currentDate = `${currentYear}-${currentMonth<10 ?`0${currentMonth}`:`${currentMonth}`}-${currentDay<10?`0${currentDay}`:`${currentDay}`}`
+		setEditKeyResultFormData( prevState => ( {
+			...prevState,
+			dueDate: currentDate
+		}));
+	}
+
 	return (
 		<li className="key-result-item">
 			<form onSubmit={handleEditKeyResult}>
 				<input type="checkbox"
 					name="isDone"
 					checked={editKeyResultFormData.isDone}
-					onChange={handleEditKeyResultFormChange}
+					onChange={handleEditKeyResultCheckboxChange}
 				/>
-				<input type="text" 
+				<textarea className="key-result-title" rows="3" cols="15"
+					type="text" 
 					name="title"
 					value={editKeyResultFormData.title}
 					onChange={handleEditKeyResultFormChange}
 				/> 
 
-				{props.dueDate !== "" ? <p>{props.dueDate}</p> : <button>add due date</button>}
-				<input type="date" 
-					name="dueDate"
-					value={editKeyResultFormData.dueDate}
-					onChange={handleEditKeyResultFormChange}
-				/>
-
+				{(editKeyResultFormData.dueDate === "" || editKeyResultFormData.dueDate === null) ? 
+					<button onClick={handleNewDueDate}>add due date</button> : 
+					<input type="date" 
+						name="dueDate"
+						value={editKeyResultFormData.dueDate}
+						onChange={handleEditKeyResultFormChange}
+					/> 
+				}
+				
 				{keyResultIsChanged && <button className="save-changes">Save changes</button>}
 
 			</form>

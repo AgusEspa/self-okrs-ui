@@ -5,7 +5,7 @@
 body {
   margin: 0;
   padding: 0;
-  background: #ffffff;
+  background: #432f70;
 }
 .error span {
   color: red;
@@ -87,7 +87,7 @@ body {
   position: relative;
   justify-content: space-between;
   align-items: center;
-  background-color: #6CE0ED;
+  background-color: #b34270;
 }
 .links-menu {
   height: 100%;
@@ -116,7 +116,7 @@ body {
   position: relative;
   justify-content: center;
   align-items: center;
-  background-color: #56CBF9;
+  background-color: #713770;
 }
 .tools-menu {
   height: 100%;
@@ -187,7 +187,21 @@ body {
 }
 
 /* Key Result component */
+.key-results-list {
+  margin: 0rem;
+}
 .key-result-item {
   list-style-type: none;
   text-decoration: none;
+  margin-left: 0;
+}
+.key-result-title {
+  border: none;
+  outline: none;
+  color: rgb(22, 22, 22);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  resize: none;
+  height: fit-content;
+  background-color:transparent;
 }
