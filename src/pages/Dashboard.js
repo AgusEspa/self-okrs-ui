@@ -13,9 +13,9 @@ const Dashboard = () => {
         getObjectives();
     }, []);
 
-    const sortFuncion = (a, b) => {
+    const sortFunction = (a, b) => {
 		const fa = a.title.toLowerCase();
-		const fb = b.tiyle.toLowerCase();
+		const fb = b.title.toLowerCase();
         const ia = a.importance;
         const ib = b.importance;
         if (ia < ib) return -1;
@@ -31,7 +31,7 @@ const Dashboard = () => {
 
         try {
             const response = await api.get("/objectives");
-            const sortedResponse = response.data.sort(sortFuncion);
+            const sortedResponse = response.data.sort(sortFunction);
 			setObjectives(sortedResponse);
             
         } catch (error) {
