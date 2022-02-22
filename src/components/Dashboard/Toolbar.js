@@ -6,9 +6,7 @@ const ToolBar = (props) => {
       					  
 			<div className="tools-menu">	
 			  	<ul>
-				  	<li>
-						<button onClick={props.handleCreateObjective}><span className="tools-menu-item">New Objective</span></button>
-					</li>
+				  	
 				  	<li>
 					  	<form>
 							<input type="search" 
@@ -18,13 +16,10 @@ const ToolBar = (props) => {
 						</form>
 					</li>
 
-				  	<li>
-						<button><span className="tools-menu-item">Sort</span></button>
-					</li>
-					
 					<li>
-						<button><span className="tools-menu-item">Filter</span></button>
+						<button onClick={props.handleCreateObjective}><span className="tools-menu-item">New Objective</span></button>
 					</li>
+				 
 				</ul>
 			</div>
 			

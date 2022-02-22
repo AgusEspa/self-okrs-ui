@@ -23,15 +23,15 @@ const Objectives = (props) => {
 		}
 	}
 
-	const mappedObjectives = props.objectives.map( objective => 
+	const mappedObjectives = props.objectives.map(objective => 
 		<Objective 
 			key={objective.id}
 			id={objective.id}
 			title={objective.title}
 			importance={objective.importance}
 			setObjectives={props.setObjectives}
-		/>
-	);
+		/>);			
+
 
 	return (
 		<div>
