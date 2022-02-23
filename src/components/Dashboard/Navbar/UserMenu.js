@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 
 const UserMenu = (props) => {
 
-
 	return(
 		<div>
 			<ul>
