@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useAxios from "../../utils/useAxios";
 import Objective from "./Objective";
 import ToolBar from "./Toolbar";
@@ -5,13 +6,15 @@ import ToolBar from "./Toolbar";
 
 const Objectives = (props) => {
 
+	const [searchTerm, setSearchTerm] = useState("");
+
 	const api = useAxios();
 
 	const handleCreateObjective = async () => {
 
 		const newObjectiveTemplate = {
 			title: "Title", 
-			importance: "5" }
+			importance: "1" }
 
 		try {
             const response = await api.post("/objectives", newObjectiveTemplate);
@@ -23,28 +26,77 @@ const Objectives = (props) => {
 		}
 	}
 
-	const searchObjectives = (searchTerm) => {
-
+	const sortFunction = (a, b) => {
+		const fa = a.title.toLowerCase();
+		const fb = b.title.toLowerCase();
+        const ia = a.importance;
+        const ib = b.importance;
+        
+        if (ia < ib) return 1;
+        else if (ia > ib) return -1;
+        else if (ia === ib) {
+            if (fa < fb) return -1;
+            if (fa > fb) return 1;
+        }
+		else return 0;
 	}
 
-	const mappedObjectives = props.objectives.map(objective => 
-		<Objective 
-			key={objective.id}
-			id={objective.id}
-			title={objective.title}
-			importance={objective.importance}
-			setObjectives={props.setObjectives}
-		/>);			
+	// const searchObjectives = (searchTerm) => {
+	// 	if (searchTerm === "" || searchTerm === undefined) {
+	// 		console.log("no search");
+	// 		return props.objectives
+	// 			.sort(sortFunction)
+	// 			.map(objective => 
+	// 				<Objective 
+	// 					key={objective.id}
+	// 					id={objective.id}
+	// 					title={objective.title}
+	// 					importance={objective.importance}
+	// 					setObjectives={props.setObjectives}
+	// 				/>);
+	// 	} else {
+	// 		console.log("search passed: " + searchTerm);
+	// 		return props.objectives
+	// 			.filter(objective => objective.title.toLowerCase().startsWith(searchTerm.toLowerCase()))
+	// 			.sort(sortFunction)
+	// 			.map(objective => 
+	// 				<Objective 
+	// 					key={objective.id}
+	// 					id={objective.id}
+	// 					title={objective.title}
+	// 					importance={objective.importance}
+	// 					setObjectives={props.setObjectives}
+	// 				/>);
+	// 	}
+	// }		
+
+	const searchObjectives = () => {
+		if (searchTerm === "" || searchTerm === undefined) return props.objectives;
+		else { 
+			return props.objectives.filter(objective => objective.title.toLowerCase().includes(searchTerm.toLowerCase()));
+		}
+	}
+	
+	const mappedSearchedObjectives = searchObjectives().sort(sortFunction)
+				.map(objective => 
+					<Objective 
+						key={objective.id}
+						id={objective.id}
+						title={objective.title}
+						importance={objective.importance}
+						setObjectives={props.setObjectives}
+					/>);
 
 
 	return (
 		<div>
 			<ToolBar 
 				handleCreateObjective={handleCreateObjective}
-				searchObjectives={searchObjectives}
+				searchTerm={searchTerm}
+				setSearchTerm={setSearchTerm}
 			/>
 			<div className="objectives-container">
-				{mappedObjectives}
+				{mappedSearchedObjectives}
 			</div>
 		</div>
 	);
