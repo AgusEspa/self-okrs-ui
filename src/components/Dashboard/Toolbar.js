@@ -1,5 +1,24 @@
+import { useState } from "react";
 
 const ToolBar = (props) => {
+
+	const [searchTerm, setSearchTerm] = useState("");
+	const [searchIsOn, setSearchIsOn] = useState(false);
+
+	const handleSearchTermChange = (event) => {
+		setSearchTerm(event.target.value);
+	}
+
+	const handleSubmitSearch = (event) => {
+		event.preventDefault();
+		setSearchIsOn(true);
+	}
+
+	const handleClearSearch = (event) => {
+		event.preventDefault();
+		setSearchIsOn(false);
+		setSearchTerm("");
+	}
 
 	return (
 		<div className="toolbar">
@@ -8,11 +27,14 @@ const ToolBar = (props) => {
 			  	<ul>
 				  	
 				  	<li>
-					  	<form>
+					  	<form onSubmit={handleSubmitSearch}>
 							<input type="search" 
-								placeholder="search" 
+								placeholder="search"
+								name="searchTerm"
+								value={searchTerm} 
+								onChange={handleSearchTermChange}
 							/>
-							<button>🔍</button>
+							{searchIsOn ? <button type="button" onClick={handleClearSearch}>X</button> : <button type="submit">S</button>}
 						</form>
 					</li>
 

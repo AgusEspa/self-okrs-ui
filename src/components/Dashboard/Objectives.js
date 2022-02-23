@@ -23,6 +23,10 @@ const Objectives = (props) => {
 		}
 	}
 
+	const searchObjectives = (searchTerm) => {
+
+	}
+
 	const mappedObjectives = props.objectives.map(objective => 
 		<Objective 
 			key={objective.id}
@@ -37,6 +41,7 @@ const Objectives = (props) => {
 		<div>
 			<ToolBar 
 				handleCreateObjective={handleCreateObjective}
+				searchObjectives={searchObjectives}
 			/>
 			<div className="objectives-container">
 				{mappedObjectives}
