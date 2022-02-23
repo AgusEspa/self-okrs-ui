@@ -16,10 +16,10 @@ const NavBar = (props) => {
 			  
 			<div className="links-menu">
 			  	<ul>
-					<li>
-						<div onMouseEnter={() => setUserMenuDisplay(true)}
-        					onMouseLeave={() => setUserMenuDisplay(false)}
-							className="links-menu-item">{userAuth.username}</div>
+					<li
+						onMouseEnter={() => setUserMenuDisplay(true)}
+        				onMouseLeave={() => setUserMenuDisplay(false)}>
+						<div>{userAuth.username}</div>
 						{userMenuDisplay && <UserMenu logout={logout} />}
 					</li>
 				</ul>

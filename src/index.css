@@ -96,15 +96,42 @@ body {
 .links-menu ul {
   display: flex;
   margin: 0;
-  padding: 0;
-}
-.links-menu li {
-  display: block;
   padding: 1rem;
 }
-.links-menu-item {
+.links-menu li {
+  cursor: pointer;
   list-style-type: none;
   text-decoration: none;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.1rem;
+}
+.dropdown-menu-container {
+  background-color: transparent;
+  position: absolute;
+  right: 1rem;
+  z-index: 1;
+  padding-top: 0.7rem;
+}
+.dropdown-menu-box {
+  background-color: #292929;
+  display: block;
+}
+.dropdown-menu {
+  list-style-type: none;
+  text-decoration: none;
+}
+.dropdown-menu li {
+  list-style-type: none;
+  text-decoration: none;
+  display:inline-block;
+}
+.dropdown-menu button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.dropdown-menu span {
   color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.1rem;
@@ -125,11 +152,14 @@ body {
 .tools-menu ul {
   display: flex;
   margin: 0;
-  padding: 0;
+  padding: 1rem;
 }
 .tools-menu li {
   display: block;
-  padding: 1rem;
+  margin-right: 2rem;
+}
+.tools-menu button {
+  cursor: pointer;
 }
 .tools-menu-item {
   list-style-type: none;
