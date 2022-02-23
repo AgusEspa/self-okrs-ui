@@ -1,4 +1,4 @@
-import NavBar from "../components/Dashboard/Navbar";
+import NavBar from "../components/Dashboard/Navbar/Navbar";
 import Objectives from "../components/Dashboard/Objectives";
 import useAxios from "../utils/useAxios";
 import { useState, useEffect } from "react";
