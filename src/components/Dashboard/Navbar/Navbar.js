@@ -7,11 +7,6 @@ const NavBar = (props) => {
 	const { userAuth, logout } = useContext(AuthContext);
 	const [userMenuDisplay, setUserMenuDisplay] = useState(false);
 
-	const handleUserMenuDisplayChange = (event) => {
-		event.preventDefault();
-		setUserMenuDisplay(prevState => !prevState);
-	}
-
 	return (
 		<nav className="navbar">
       		
@@ -21,9 +16,10 @@ const NavBar = (props) => {
 			  
 			<div className="links-menu">
 			  	<ul>
-					<li><button onClick={handleUserMenuDisplayChange}>
-						<span className="links-menu-item">{userAuth.username}</span>
-						</button>
+					<li>
+						<div onMouseEnter={() => setUserMenuDisplay(true)}
+        					onMouseLeave={() => setUserMenuDisplay(false)}
+							className="links-menu-item">{userAuth.username}</div>
 						{userMenuDisplay && <UserMenu logout={logout} />}
 					</li>
 				</ul>
