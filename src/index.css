@@ -10,6 +10,9 @@ body {
 .error span {
   color: red;
 }
+button {
+  cursor: pointer;
+}
 
 /* Home page */
 .home {
@@ -106,6 +109,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.1rem;
 }
+/* Dropdown menu */
 .dropdown-menu-container {
   background-color: transparent;
   position: absolute;
@@ -113,23 +117,21 @@ body {
   z-index: 1;
   padding-top: 0.7rem;
 }
-.dropdown-menu-box {
-  background-color: #292929;
-  display: block;
-}
 .dropdown-menu {
+  background-color: #292929;
+}
+.dropdown-menu ul {
   list-style-type: none;
-  text-decoration: none;
 }
 .dropdown-menu li {
-  list-style-type: none;
-  text-decoration: none;
-  display:inline-block;
+  display: inline-block;
 }
-.dropdown-menu button {
+.dropdown-menu button, .dropdown-menu a {
   border: none;
   background-color: transparent;
   cursor: pointer;
+  text-decoration: none;
+  padding: 0;
 }
 .dropdown-menu span {
   color: white;
@@ -172,11 +174,11 @@ body {
 
 /* Objectives component */
 .objectives-container {
-  position: relative;
+  position: absolute;
 }
 .objective-box {
-  float: inline-start;
-  outline: 1px solid #bebebe;
+  display: inline-block;
+  border: 2px solid #a3a3a3;
   border-radius: 0.5rem;
   margin: 2rem 0rem 0rem 2rem;
   width: 15rem;

@@ -4,8 +4,8 @@ const UserMenu = (props) => {
 
 	return(
 		<div className="dropdown-menu-container">
-			<div className="dropdown-menu-box">
-				<ul className="dropdown-menu">
+			<div className="dropdown-menu">
+				<ul>
 					<li>
 						<Link to="/settings"><span>Settings</span></Link>
 					</li>

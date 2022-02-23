@@ -5,7 +5,7 @@ import UserMenu from "./UserMenu";
 const NavBar = (props) => {
 
 	const { userAuth, logout } = useContext(AuthContext);
-	const [userMenuDisplay, setUserMenuDisplay] = useState(false);
+	const [userMenuDisplay, setUserMenuDisplay] = useState(true);
 
 	return (
 		<nav className="navbar">
