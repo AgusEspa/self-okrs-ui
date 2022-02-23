@@ -1,12 +1,19 @@
+import { Link } from "react-router-dom";
 
 const UserMenu = (props) => {
+
 
 	return(
 		<div>
 			<ul>
-				<li><button onClick={props.logout}>
+				<li>
+					<Link to="/settings">Settings</Link>
+				</li>
+				<li>
+					<button onClick={props.logout}>
 						<span className="links-menu-item">logout</span>
-					</button></li>
+					</button>
+				</li>
 			</ul>
 			
 		</div>

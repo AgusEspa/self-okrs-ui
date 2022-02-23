@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import Settings from "./pages/Settings";
 import PageNotFound from "./pages/PageNotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
@@ -21,6 +22,10 @@ function App() {
                     <Route path="/dashboard"
                         element={
                             <ProtectedRoute><Dashboard /></ProtectedRoute>}
+                    />
+                    <Route path="/settings"
+                        element={
+                            <ProtectedRoute><Settings /></ProtectedRoute>}
                     />
                     <Route path="/login" 
                         element={<Login />} 
