@@ -134,11 +134,11 @@ button {
 .dropdown-menu {
   background-color: #292929;
   margin: 0;
-  border-radius: 0.5rem;
+  border-radius: 0.7rem;
 }
 .dropdown-menu ul {
   list-style-type: none;
-  display: inline-block;
+  display: block;
   padding: 0.5rem;
 }
 .dropdown-menu li {
