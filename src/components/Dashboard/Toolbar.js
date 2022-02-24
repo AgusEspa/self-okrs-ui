@@ -16,7 +16,7 @@ const ToolBar = (props) => {
 				  	
 				  	<li>
 						<input type="search" 
-							placeholder="search"
+							placeholder="Search"
 							name="searchTerm"
 							value={props.searchTerm} 
 							onChange={handleSearchTermChange}
