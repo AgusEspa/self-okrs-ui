@@ -28,10 +28,13 @@ button {
 
 /* Login page */
 .login-container {
-  float: right;
-  background-color: #f3f3f3;
+  display: flex;
 }
 .login-box {
+  position: absolute;
+  display: inline-block;
+  background-color: #e2e2e2;
+  border: 2px solid #a3a3a3;
   border-radius: 0.5rem;
   margin-top: 2rem;
   margin-right: 2rem;
@@ -75,8 +78,12 @@ button {
   color:  #fff; 
   font-size:  1rem;
   margin-left: auto;
+  margin-bottom: 1rem;
   border: none;
   outline: 0;
+}
+.login-box button:hover {
+  background-color: #5e5e5e;
 }
 .login-box p {
   font-family: 'Asap', sans-serif;
@@ -102,7 +109,12 @@ button {
 .links-menu li {
   cursor: pointer;
   list-style-type: none;
+  padding: 0.5rem;
   margin-right: 2.5rem;
+}
+.links-menu li:hover {
+  background-color: #c75884;
+  border-radius: 0.7rem;
 }
 .links-menu span, .links-menu a {
   color: white;
@@ -110,21 +122,18 @@ button {
   text-decoration: none;
   font-size: 1.15rem;
 }
-.links-menu span:hover, .links-menu a:hover {
-  color: #ffdbef;
-}
 /* Dropdown menu */
 .dropdown-menu-container {
   background-color: transparent;
   position: absolute;
   right: 1rem;
   z-index: 1;
-  padding-top: 0.7rem;
-  margin: 0;
+  padding-top: 1.4rem;
 }
 .dropdown-menu {
   background-color: #292929;
   margin: 0;
+  border-radius: 0.5rem;
 }
 .dropdown-menu ul {
   list-style-type: none;
@@ -132,7 +141,14 @@ button {
   padding: 0.5rem;
 }
 .dropdown-menu li {
+  cursor: pointer;
+  list-style-type: none;
+  padding: 0.5rem;
   margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+.dropdown-menu li:hover {
+  background-color: #713770;
+  border-radius: 0.7rem;
 }
 .dropdown-menu button, .dropdown-menu a {
   border: none;
@@ -168,9 +184,25 @@ button {
 .tools-menu li {
   display: block;
   margin-right: 2rem;
+  padding: 0;
+}
+.tools-menu input {
+  font-size: 1rem;
+  background-color: #eeeeee;
+  border: none;
+  height: 1.8rem;
+  border-radius: 0.3rem;
+  padding: .3rem .5rem .3rem .5rem;
 }
 .tools-menu button {
   cursor: pointer;
+  background-color: #eeeeee;
+  border-radius: 0.3rem;
+  padding: .3rem .5rem .3rem .5rem;
+  border: none;
+}
+.tools-menu button:hover {
+  background-color: #dbdbdb;
 }
 .tools-menu-item {
   list-style-type: none;
@@ -178,7 +210,6 @@ button {
   color: rgb(22, 22, 22);
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1rem;
-
 }
 
 /* Objectives component */

@@ -85,39 +85,39 @@ const Login = () => {
     }
 
 	return (
-		<div className="login-box">
-      <div className="logo-box">
-        <img src={"./logo.png"} alt="self.OKRs logo"/> 
-      </div>
+        <div className="login-container">
+            <div className="login-box">
+                <div className="logo-box">
+                    <img src={"./logo.png"} alt="self.OKRs logo"/> 
+                </div>
 
-			<h3>Welcome to self.OKRs</h3>
-		
-			<form onSubmit={handleLogin}>
-				<div>
-					<input type="text" 
-                    placeholder="Email address"
-                    name="emailAddress"
-					value={loginFormData.emailAddress}
-					onChange={handleLoginFormChange}
-					/>
-                    {formValidationErrors.emailAddress !== "" && <div className="error"><span>{formValidationErrors.emailAddress}</span></div>}
-				</div>
-                
-				<div> 
-					<input type="password" 
-                    placeholder="Password"
-                    name="password"
-					value={loginFormData.password}
-					onChange={handleLoginFormChange}
-					/>
-                    {formValidationErrors.password !== "" && <div className="error"><span>{formValidationErrors.password}</span></div>}
-				</div>
-                {credentialsError !== "" && <div className="error"><span>{credentialsError}</span></div>}
-				<button>Log in</button>
-			</form>
-            <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
-            <div><p>New to Self.OKRs? <Link to="/register">Create account</Link></p></div>
-		</div>
+                <form onSubmit={handleLogin}>
+                    <div>
+                        <input type="text" 
+                        placeholder="Email address"
+                        name="emailAddress"
+                        value={loginFormData.emailAddress}
+                        onChange={handleLoginFormChange}
+                        />
+                        {formValidationErrors.emailAddress !== "" && <div className="error"><span>{formValidationErrors.emailAddress}</span></div>}
+                    </div>
+                    
+                    <div> 
+                        <input type="password" 
+                        placeholder="Password"
+                        name="password"
+                        value={loginFormData.password}
+                        onChange={handleLoginFormChange}
+                        />
+                        {formValidationErrors.password !== "" && <div className="error"><span>{formValidationErrors.password}</span></div>}
+                    </div>
+                    {credentialsError !== "" && <div className="error"><span>{credentialsError}</span></div>}
+                    <button>Log in</button>
+                </form>
+                <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
+                <div><p>New to self.OKRs? <Link to="/register">Register</Link></p></div>
+            </div>
+        </div>
 	)
 
 }
