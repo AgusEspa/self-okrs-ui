@@ -6,7 +6,7 @@ import UserMenu from "./UserMenu";
 const NavBar = (props) => {
 
 	const { userAuth, logout } = useContext(AuthContext);
-	const [userMenuDisplay, setUserMenuDisplay] = useState(true);
+	const [userMenuDisplay, setUserMenuDisplay] = useState(false);
 
 	return (
 		<nav className="navbar">
@@ -23,7 +23,7 @@ const NavBar = (props) => {
 					<li
 						onMouseEnter={() => setUserMenuDisplay(true)}
         				onMouseLeave={() => setUserMenuDisplay(false)}>
-						<div>{userAuth.username}</div>
+						<span>{userAuth.username}</span>
 						{userMenuDisplay && <UserMenu logout={logout} />}
 					</li>
 				</ul>
