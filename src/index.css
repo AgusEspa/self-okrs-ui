@@ -28,13 +28,13 @@ button {
 
 /* Login page */
 .login-container {
-  display: flex;
+  margin: auto;
 }
 .login-box {
   position: absolute;
   display: inline-block;
   background-color: #e2e2e2;
-  border: 2px solid #a3a3a3;
+  border: 2px solid #8a8a8a;
   border-radius: 0.5rem;
   margin-top: 2rem;
   margin-right: 2rem;
@@ -63,10 +63,11 @@ button {
   font-family: 'Asap', sans-serif;
   padding: 0.5rem;
   background-color: #f3f3f3;
-  border-bottom: 1px solid #d3d3d3;
+  border-bottom: 1px solid #c4c4c4;
+  border-radius: 0.5rem;
 }
 .login-box ::placeholder {
-  color: #bebebe;
+  color: #a5a5a5;
 }
 .login-box button {
   margin-top: 1rem;
@@ -218,7 +219,7 @@ button {
 }
 .objective-box {
   display: inline-block;
-  border: 2px solid #a3a3a3;
+  border: 2px solid #8a8a8a;
   border-radius: 0.5rem;
   margin: 2rem 0rem 0rem 2rem;
   width: 15rem;
