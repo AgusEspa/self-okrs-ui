@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import { Link } from "react-router-dom";
 import UserMenu from "./UserMenu";
 
 const NavBar = (props) => {
@@ -16,6 +17,9 @@ const NavBar = (props) => {
 			  
 			<div className="links-menu">
 			  	<ul>
+				  	<li>
+					  	<Link to="/dashboard"><span>Dashboard</span></Link>
+					</li>
 					<li
 						onMouseEnter={() => setUserMenuDisplay(true)}
         				onMouseLeave={() => setUserMenuDisplay(false)}>

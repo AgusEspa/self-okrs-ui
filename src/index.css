@@ -101,14 +101,19 @@ button {
   margin: 0;
   padding: 1rem;
 }
-.links-menu li {
+.links-menu li, .links-menu a {
   cursor: pointer;
   list-style-type: none;
   text-decoration: none;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  margin-left: 2.5rem;
 }
+.links-menu li:hover, .links-menu a:hover {
+  color: #f0f0f0;
+}
+
 /* Dropdown menu */
 .dropdown-menu-container {
   background-color: transparent;
@@ -125,6 +130,7 @@ button {
 }
 .dropdown-menu li {
   display: inline-block;
+  margin: 0;
 }
 .dropdown-menu button, .dropdown-menu a {
   border: none;

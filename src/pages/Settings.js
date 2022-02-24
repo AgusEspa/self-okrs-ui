@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import NavBar from "../components/Dashboard/Navbar/Navbar";
 
 const Settings = () => {
 
@@ -82,40 +83,41 @@ const Settings = () => {
     }
 
 	return (
-		<div className="login-box">
-      <div className="logo-box">
-        <img src={"./logo.png"} alt="self.OKRs logo"/> 
-      </div>
+        <div>
+            <NavBar />
+        
+            <div className="login-box">
 
-			<h2>Settings</h2>
+                <h2>Settings</h2>
 
-            <h3>Change user details:</h3>
-		
-			<form onSubmit={handleLogin}>
-				<div>
-					<input type="text" 
-                    placeholder="Email address"
-                    name="emailAddress"
-					value={loginFormData.emailAddress}
-					onChange={handleLoginFormChange}
-					/>
-                    {formValidationErrors.emailAddress !== "" && <div className="error"><span>{formValidationErrors.emailAddress}</span></div>}
-				</div>
-                
-				<div> 
-					<input type="password" 
-                    placeholder="Password"
-                    name="password"
-					value={loginFormData.password}
-					onChange={handleLoginFormChange}
-					/>
-                    {formValidationErrors.password !== "" && <div className="error"><span>{formValidationErrors.password}</span></div>}
-				</div>
-                {credentialsError !== "" && <div className="error"><span>{credentialsError}</span></div>}
-				<button>Save changes</button>
-			</form>
+                <h3>Change user details:</h3>
+            
+                <form onSubmit={handleLogin}>
+                    <div>
+                        <input type="text" 
+                        placeholder="Email address"
+                        name="emailAddress"
+                        value={loginFormData.emailAddress}
+                        onChange={handleLoginFormChange}
+                        />
+                        {formValidationErrors.emailAddress !== "" && <div className="error"><span>{formValidationErrors.emailAddress}</span></div>}
+                    </div>
+                    
+                    <div> 
+                        <input type="password" 
+                        placeholder="Password"
+                        name="password"
+                        value={loginFormData.password}
+                        onChange={handleLoginFormChange}
+                        />
+                        {formValidationErrors.password !== "" && <div className="error"><span>{formValidationErrors.password}</span></div>}
+                    </div>
+                    {credentialsError !== "" && <div className="error"><span>{credentialsError}</span></div>}
+                    <button>Save changes</button>
+                </form>
 
-		</div>
+            </div>
+        </div>
 	)
 
 }
