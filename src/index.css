@@ -1,4 +1,4 @@
-/* Global */
+/* || GENERAL STYLES */
 * {
   box-sizing: border-box;
 }
@@ -14,7 +14,7 @@ button {
   cursor: pointer;
 }
 
-/* Home page */
+/* HOME PAGE */
 .home {
   display: flex;
   position: relative;
@@ -26,7 +26,7 @@ button {
   background-color: #78aa7e;
 }
 
-/* Login page */
+/* LOGIN PAGE */
 .login-container {
   margin-top: 5rem;
 }
@@ -92,7 +92,7 @@ button {
   color: #1f1f1f;
 }
 
-/* Navbar component */
+/* NAVBAR */
 .navbar {
   display: flex;
   position: relative;
@@ -123,7 +123,7 @@ button {
   text-decoration: none;
   font-size: 1.15rem;
 }
-/* Dropdown menu */
+/* DROPDOWN MENU */
 .dropdown-menu-container {
   background-color: transparent;
   position: absolute;
@@ -165,7 +165,7 @@ button {
   font-size: 1.1rem;
 }
 
-/* Toolbar Component */
+/* TOOLBAR */
 .toolbar {
   display: flex;
   position: relative;
@@ -213,7 +213,7 @@ button {
   font-size: 1rem;
 }
 
-/* Objectives component */
+/* OBJECTIVES */
 .objectives-container {
   position: absolute;
 }
@@ -259,7 +259,7 @@ button {
   display: inline-block;
 }
 
-/* Key Result component */
+/* KEY RESULTS */
 .key-results-list {
   margin: 0rem;
 }
