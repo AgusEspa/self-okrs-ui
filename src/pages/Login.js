@@ -85,11 +85,9 @@ const Login = () => {
     }
 
 	return (
-        <div className="login-container">
+        <main className="login-container">
             <div className="login-box">
-                <div className="logo-box">
-                    <img src={"./logo.png"} alt="self.OKRs logo"/> 
-                </div>
+                <img className="logo-box" src={"./logo.png"} alt="self.OKRs logo"/> 
 
                 <form onSubmit={handleLogin}>
                     <div>
@@ -99,7 +97,7 @@ const Login = () => {
                         value={loginFormData.emailAddress}
                         onChange={handleLoginFormChange}
                         />
-                        {formValidationErrors.emailAddress !== "" && <div className="error"><span>{formValidationErrors.emailAddress}</span></div>}
+                        {formValidationErrors.emailAddress !== "" && <p id="login-error">{formValidationErrors.emailAddress}</p>}
                     </div>
                     
                     <div> 
@@ -109,15 +107,15 @@ const Login = () => {
                         value={loginFormData.password}
                         onChange={handleLoginFormChange}
                         />
-                        {formValidationErrors.password !== "" && <div className="error"><span>{formValidationErrors.password}</span></div>}
+                        {formValidationErrors.password !== "" && <p id="login-error">{formValidationErrors.password}</p>}
                     </div>
-                    {credentialsError !== "" && <div className="error"><span>{credentialsError}</span></div>}
+                    {credentialsError !== "" && <p id="login-error">{credentialsError}</p>}
                     <button>Log in</button>
                 </form>
                 <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
                 <div><p>New to self.OKRs? <Link to="/register">Register</Link></p></div>
             </div>
-        </div>
+        </main>
 	)
 
 }

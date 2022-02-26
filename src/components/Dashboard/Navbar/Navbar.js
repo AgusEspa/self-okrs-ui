@@ -11,9 +11,7 @@ const NavBar = (props) => {
 	return (
 		<nav className="navbar">
       		
-			<div className="logo-box">
-        		<img src={"./logo.png"} alt="self.OKRs logo"/> 
-      		</div>
+			<img className="logo-box" src={"./logo.png"} alt="self.OKRs logo"/> 
 			  
 			<div className="links-menu">
 			  	<ul>

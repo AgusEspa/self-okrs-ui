@@ -1,10 +1,10 @@
 
 const About = () => {
 	return (
-		<div>
+		<main>
 			<h1>Welcome to selfOKRs</h1>
 			<p>Description</p>
-		</div>
+		</main>
 	);
 }
 

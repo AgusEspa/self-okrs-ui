@@ -1,17 +1,15 @@
 /* || GENERAL STYLES */
-* {
-  box-sizing: border-box;
-}
 body {
   margin: 0;
   padding: 0;
   background: #432f70;
 }
-.error span {
-  color: red;
-}
 button {
   cursor: pointer;
+}
+input, textarea {
+  margin: 0;
+  padding: 0;
 }
 
 /* HOME PAGE */
@@ -28,25 +26,24 @@ button {
 
 /* LOGIN PAGE */
 .login-container {
-  margin-top: 5rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .login-box {
-  position: absolute;
-  display: inline-block;
   background-color: #e2e2e2;
   border: 2px solid #8a8a8a;
   border-radius: 0.5rem;
-  margin-top: 2rem;
-  margin-right: 2rem;
+  margin: 2rem;
   padding: 1.5rem;
 }
 .logo-box {
-  display: flex;
-  margin-left: 1rem;
-  padding: 1rem;
-}
-.logo-box img {
+  margin: 1rem;
   width: 8rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 .login-box h3 {
   font-family: 'Asap', sans-serif;
@@ -57,8 +54,7 @@ button {
 }
 .login-box input {
   border: 0;
-  margin-top: 1rem;
-  margin-bottom: 0.5rem;
+  margin: 1.5rem 3rem .5rem 3rem;
   font-size: 1rem;
   font-family: 'Asap', sans-serif;
   padding: 0.5rem;
@@ -70,16 +66,14 @@ button {
   color: #a5a5a5;
 }
 .login-box button {
-  margin-top: 1rem;
-  width:  auto;
-  border-radius:  1.2rem; 
-  text-align:  center; 
-  padding:  0.5rem 1rem;
+  margin: 1.5rem 3rem .5rem 3rem;
+  width: auto;
+  border-radius: 1.2rem; 
+  text-align: center; 
+  padding: 0.5rem 1rem;
   background-color: #7e7e7e; 
-  color:  #fff; 
-  font-size:  1rem;
-  margin-left: auto;
-  margin-bottom: 1rem;
+  color: #fff; 
+  font-size: 1rem;
   border: none;
   outline: 0;
 }
@@ -90,6 +84,13 @@ button {
   font-family: 'Asap', sans-serif;
   font-size: 1rem;
   color: #1f1f1f;
+  text-align: center;
+}
+#login-error {
+  color: red;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
 }
 
 /* NAVBAR */
@@ -99,6 +100,10 @@ button {
   justify-content: space-between;
   align-items: center;
   background-color: #b34270;
+}
+.logo-box {
+  margin: 1rem;
+  width: 8rem;
 }
 .links-menu {
   height: 100%;
@@ -148,7 +153,7 @@ button {
   margin: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 .dropdown-menu li:hover {
-  background-color: #713770;
+  background-color: #414141;
   border-radius: 0.7rem;
 }
 .dropdown-menu button, .dropdown-menu a {
@@ -215,28 +220,34 @@ button {
 
 /* OBJECTIVES */
 .objectives-container {
-  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
 }
 .objective-box {
-  display: inline-block;
-  border: 2px solid #8a8a8a;
+  display: inline-block;  
+  border: 1px solid #c0c0c0;
   border-radius: 0.5rem;
   margin: 2rem 0rem 0rem 2rem;
-  width: 15rem;
-  padding: 0.4rem;
-  background-color: #e2e2e2;
+  padding: 0.7rem;
+  background-color: white;
 }
 .objective-title {
+  display: inline-block;
   border: none;
   outline: none;
-  color: rgb(22, 22, 22);
+  color: black;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.5rem;
   resize: none;
+  background-color: transparent;
   height: fit-content;
-  background-color:transparent;
+  min-height: 6rem;
+  width: 14rem;
+  margin-bottom: 0.5rem;
+  padding: 0.2rem;
 }
 .save-changes {
+  position: absolute;
   color:red;
 }
 .objective-card-label {

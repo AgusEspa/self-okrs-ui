@@ -120,7 +120,7 @@ const Objective = (props) => {
 		<div className="objective-box">
 			<div>
 				<form onSubmit={handleEditObjective}>
-					<textarea className="objective-title" rows="3" cols="15"
+					<textarea className="objective-title" 
 						type="text" 
 						placeholder="Title"
 						name="title"
