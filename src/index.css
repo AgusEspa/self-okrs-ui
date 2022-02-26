@@ -24,7 +24,7 @@ input, textarea {
   background-color: #78aa7e;
 }
 
-/* LOGIN PAGE */
+/* LOGIN & REGISTRATION PAGES */
 .login-container {
   padding: 2rem;
   display: flex;
@@ -39,11 +39,13 @@ input, textarea {
   padding: 1.5rem;
 }
 .logo-box {
-  margin: 1rem;
-  width: 8rem;
-  display: block;
+  margin: 2rem;
+  width: 43%;
   margin-left: auto;
   margin-right: auto;
+}
+.logo {
+  width: 9.4rem;
 }
 .login-box h3 {
   font-family: 'Asap', sans-serif;
@@ -53,6 +55,8 @@ input, textarea {
   margin-bottom: 1rem;
 }
 .login-box input {
+  display: block;
+  width: 15rem;
   border: 0;
   margin: 1.5rem 3rem .5rem 3rem;
   font-size: 1rem;
@@ -101,8 +105,10 @@ input, textarea {
   align-items: center;
   background-color: #b34270;
 }
-.logo-box {
-  margin: 1rem;
+.nav-logo-box {
+  margin: 0.6rem;
+}
+.nav-logo {
   width: 8rem;
 }
 .links-menu {
@@ -180,12 +186,10 @@ input, textarea {
 }
 .tools-menu {
   height: 100%;
-  margin-right: 2rem;
 }
 .tools-menu ul {
   display: flex;
-  margin: 0;
-  padding: 1rem;
+  margin: 0.7rem;
 }
 .tools-menu li {
   display: block;
@@ -289,4 +293,76 @@ input, textarea {
   resize: none;
   height: fit-content;
   background-color:transparent;
+}
+
+
+/* SETTINGS PAGE */
+.settings-container {
+  padding: 2rem;
+  display: block;
+  background-color: #e2e2e2;
+  border-radius: 0.5rem;
+  margin: 2rem;
+  padding: 1.5rem;
+}
+.settings-container h2 {
+  font-family: 'Asap', sans-serif;
+  font-size: 1.5rem;
+  color: #1f1f1f;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.user-box {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+.user-box h3 {
+  font-family: 'Asap', sans-serif;
+  font-size: 1.2rem;
+  color: #1f1f1f;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.user-box input {
+  display: block;
+  width: 15rem;
+  border: 0;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  font-family: 'Asap', sans-serif;
+  padding: 0.5rem;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #c4c4c4;
+  border-radius: 0.5rem;
+}
+.user-box ::placeholder {
+  color: #a5a5a5;
+}
+.user-box button {
+  margin-top: 1.5rem;
+  width: auto;
+  border-radius: 1.2rem; 
+  text-align: center; 
+  padding: 0.5rem 1rem;
+  background-color: #7e7e7e; 
+  color: #fff; 
+  font-size: 1rem;
+  border: none;
+  outline: 0;
+}
+.user-box button:hover {
+  background-color: #5e5e5e;
+}
+.user-box p {
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: #1f1f1f;
+  text-align: center;
+}
+#user-error {
+  color: red;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
 }

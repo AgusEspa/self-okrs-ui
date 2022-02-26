@@ -41,35 +41,6 @@ const Objectives = (props) => {
 		else return 0;
 	}
 
-	// const searchObjectives = (searchTerm) => {
-	// 	if (searchTerm === "" || searchTerm === undefined) {
-	// 		console.log("no search");
-	// 		return props.objectives
-	// 			.sort(sortFunction)
-	// 			.map(objective => 
-	// 				<Objective 
-	// 					key={objective.id}
-	// 					id={objective.id}
-	// 					title={objective.title}
-	// 					importance={objective.importance}
-	// 					setObjectives={props.setObjectives}
-	// 				/>);
-	// 	} else {
-	// 		console.log("search passed: " + searchTerm);
-	// 		return props.objectives
-	// 			.filter(objective => objective.title.toLowerCase().startsWith(searchTerm.toLowerCase()))
-	// 			.sort(sortFunction)
-	// 			.map(objective => 
-	// 				<Objective 
-	// 					key={objective.id}
-	// 					id={objective.id}
-	// 					title={objective.title}
-	// 					importance={objective.importance}
-	// 					setObjectives={props.setObjectives}
-	// 				/>);
-	// 	}
-	// }		
-
 	const searchObjectives = () => {
 		if (searchTerm === "" || searchTerm === undefined) return props.objectives;
 		else { 

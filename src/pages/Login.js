@@ -47,7 +47,6 @@ const Login = () => {
 
         if (validationErrors.emailAddress === "" && validationErrors.password === "") {
             login(); 
-            setFormValidationErrors({});
         }
     }
 
@@ -87,11 +86,13 @@ const Login = () => {
 	return (
         <main className="login-container">
             <div className="login-box">
-                <img className="logo-box" src={"./logo.png"} alt="self.OKRs logo"/> 
+                <div className="logo-box">
+                    <img className="logo" src={"./logo.png"} alt="self.OKRs logo"/> 
+                </div>
 
                 <form onSubmit={handleLogin}>
                     <div>
-                        <input type="text" 
+                        <input type="email" 
                         placeholder="Email address"
                         name="emailAddress"
                         value={loginFormData.emailAddress}

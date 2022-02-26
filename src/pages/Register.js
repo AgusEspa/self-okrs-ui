@@ -4,74 +4,86 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
 
-	const [emailAddress, setEmailAddress] = useState("");
-	const [password, setPassword] = useState("");
+    const [formData, setFormData] = useState({emailAddress: "", username:"", password: "", passwordVerification:""});
+    const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", password: ""});
+    const [credentialsError, setCredentialsError] = useState("");
 	const navigate = useNavigate();
 
-	const baseUrl = "http://localhost:8080";
+	const baseUrl = "http://localhost:8080/api";
 
-  	const handleRegistration = (event) => {
+	const handleFormChange = (event) => {
+        const {name, value} = event.target;
+        setFormData( prevState => ({
+            ...prevState,
+            [name]: value 
+        }));
+    }
+
+  	const handleRegistration = async (event) => {
 		event.preventDefault();
 
-		const credentials = new URLSearchParams();
-		credentials.append("username", emailAddress);
-		credentials.append("password", password);
-		const config = {
-			headers: {
-			"Content-Type": "application/x-www-form-urlencoded"
-			}
-		}
+		const requestBody = {username: formData.username, 
+			emailAddress: formData.emailAddress,
+			password: formData.password};
 
-		axios.post(`${baseUrl}/login`, credentials, config)
-		.then(response => {
-			if (response.status === 200) return response.data;
-			else alert("error");
-		})
-		.then(data => {
-			setEmailAddress("");
-			setPassword("");
-			navigate("/login");
-		})
-		.catch((error) => {
-			console.log(`Error: ${error}`)
-		})
+		try {
+			await axios.post(`${baseUrl}/users/signup`, requestBody);
+			navigate("/dashboard");
+		} catch (error) {
+			console.log(`Error: ${error.response.data}`)
+			setCredentialsError(error.response.data);
+		} 
   	}
 
-	const handleEmailAddressChange = (event) => {
-		setEmailAddress(event.target.value);
-	}
-	const handlePasswordChange = (event) => {
-		setPassword(event.target.value);
-	}
-
 	return (
-		<div className="login-box">
-      		<div className="logo-box">
-        		<img src={"./logo.png"} alt="self.OKRs logo"/> 
-      		</div>
+		<main className="login-container">
+            <div className="login-box">
+                <div className="logo-box">
+					<img className="logo" src={"./logo.png"} alt="self.OKRs logo"/>
+				</div>  
 
-			<h3>Register</h3>
-		
-			<form onSubmit={handleRegistration}>
-				<div>
-					<input type="text" 
-					placeholder="Email address"
-					name="emailAddress"
-					value={emailAddress}
-					onChange={handleEmailAddressChange}
-					/>
-				</div>
-				<div> 
-					<input type="password" 
-					placeholder="Password"
-					name="pasword"
-					value={password}
-					onChange={handlePasswordChange}
-					/>
-				</div>
-				<button type="submit">Log in</button>
-			</form>
-		</div>
+                <form onSubmit={handleRegistration}>
+					<div>
+                        <input type="text" 
+                        placeholder="Username"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleFormChange}
+                        />
+                        {formValidationErrors.emailAddress !== "" && <p id="login-error">{formValidationErrors.emailAddress}</p>}
+                    </div>
+
+                    <div>
+                        <input type="email" 
+                        placeholder="Email address"
+                        name="emailAddress"
+                        value={formData.emailAddress}
+                        onChange={handleFormChange}
+                        />
+                        {formValidationErrors.emailAddress !== "" && <p id="login-error">{formValidationErrors.emailAddress}</p>}
+                    </div>
+                    
+                    <div> 
+                        <input type="password" 
+                        placeholder="Password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleFormChange}
+                        />
+                        <input type="password" 
+                        placeholder="Repeat password"
+                        name="passwordVerification"
+                        value={formData.passwordVerification}
+                        onChange={handleFormChange}
+                        />
+                        {formValidationErrors.emailAddress !== "" && <p id="login-error">{formValidationErrors.emailAddress}</p>}
+                    </div>
+
+                    {credentialsError !== "" && <p id="login-error">{credentialsError}</p>}
+                    <button>Create account</button>
+                </form>
+            </div>
+        </main>
 	)
 }
 

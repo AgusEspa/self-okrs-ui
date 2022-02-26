@@ -5,16 +5,16 @@ import NavBar from "../components/Dashboard/Navbar/Navbar";
 
 const Settings = () => {
 
-    const [loginFormData, setLoginFormData] = useState({emailAddress: "", password: ""});
+    const { userAuth, logout } = useContext(AuthContext);
+    const [formData, setFormData] = useState({emailAddress: "", username: userAuth.username, password: ""});
     const [credentialsError, setCredentialsError] = useState("");
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", password: ""});
-    const { setUserAuth } = useContext(AuthContext);
 
-    const baseUrl = "http://localhost:8080";
+    const baseUrl = "http://localhost:8080/api";
 
-    const handleLoginFormChange = (event) => {
+    const handleFormChange = (event) => {
         const {name, value} = event.target;
-        setLoginFormData( prevState => ({
+        setFormData( prevState => ({
             ...prevState,
             [name]: value 
         }));
@@ -40,83 +40,60 @@ const Settings = () => {
         return errors;
     }
 
-    const handleLogin = (event) => {
-        event.preventDefault();
-        const validationErrors = validateForm(loginFormData);
-
-        if (validationErrors.emailAddress === "" && validationErrors.password === "") {
-            login(); 
-            setFormValidationErrors({});
-        }
-    }
-
-    async function login() {
-        const credentials = new URLSearchParams();
-        credentials.append("username", loginFormData.emailAddress);
-        credentials.append("password", loginFormData.password);
+    const handleEditUser = async () => {
         
-        const config = {
-    	    headers: {
-    	        "Content-Type": "application/x-www-form-urlencoded"
-    	    }
-        }
-
-        try {
-            const response = await axios.post(`${baseUrl}/login`, credentials, config);
-
-            window.localStorage.setItem("username", response.data.username);
-            window.localStorage.setItem("access_token", response.data.access_token);
-            window.localStorage.setItem("refresh_token", response.data.refresh_token);
-            
-            setUserAuth({
-                username: response.data.username,
-                accessToken: response.data.access_token,
-                refreshToken: response.data.refresh_token
-            });
-
-
-        } catch (e) {
-            console.log(e);
-            setCredentialsError("Incorrect email / password");
-
-        }
     }
+
 
 	return (
         <div>
             <NavBar />
         
-            <div className="login-box">
+            <main className="settings-container">
 
                 <h2>Settings</h2>
 
-                <h3>Change user details:</h3>
-            
-                <form onSubmit={handleLogin}>
-                    <div>
-                        <input type="text" 
-                        placeholder="Email address"
-                        name="emailAddress"
-                        value={loginFormData.emailAddress}
-                        onChange={handleLoginFormChange}
-                        />
-                        {formValidationErrors.emailAddress !== "" && <div className="error"><span>{formValidationErrors.emailAddress}</span></div>}
-                    </div>
-                    
-                    <div> 
-                        <input type="password" 
-                        placeholder="Password"
-                        name="password"
-                        value={loginFormData.password}
-                        onChange={handleLoginFormChange}
-                        />
-                        {formValidationErrors.password !== "" && <div className="error"><span>{formValidationErrors.password}</span></div>}
-                    </div>
-                    {credentialsError !== "" && <div className="error"><span>{credentialsError}</span></div>}
-                    <button>Save changes</button>
-                </form>
+                <div className="user-box">
 
-            </div>
+                    <h3>Edit username and email adress:</h3>
+                
+                    <form onSubmit={handleEditUser}>
+                        <div>
+                            <input type="text" 
+                            placeholder="Username"
+                            name="username"
+                            value={formData.username}
+                            onChange={handleFormChange}
+                            />
+                            {formValidationErrors.emailAddress !== "" && <p id="user-error">{formValidationErrors.emailAddress}</p>}
+                        </div>
+
+                        <div>
+                            <input type="email" 
+                            placeholder="Email address"
+                            name="emailAddress"
+                            value={formData.emailAddress}
+                            onChange={handleFormChange}
+                            />
+                            {formValidationErrors.emailAddress !== "" && <p id="user-error">{formValidationErrors.emailAddress}</p>}
+                        </div>
+                        
+                        <div> 
+                            <input type="password" 
+                            placeholder="Current password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleFormChange}
+                            />
+                            {formValidationErrors.emailAddress !== "" && <p id="user-error">{formValidationErrors.emailAddress}</p>}
+                        </div>
+
+                        {credentialsError !== "" && <p id="user-error">{credentialsError}</p>}
+                        <button>Save changes</button>
+                    </form>
+                </div>
+
+            </main>
         </div>
 	)
 

@@ -10,8 +10,9 @@ const NavBar = (props) => {
 
 	return (
 		<nav className="navbar">
-      		
-			<img className="logo-box" src={"./logo.png"} alt="self.OKRs logo"/> 
+      		<div className="nav-logo-box">
+				<img className="nav-logo" src={"./logo.png"} alt="self.OKRs logo"/> 
+			</div>
 			  
 			<div className="links-menu">
 			  	<ul>
