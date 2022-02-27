@@ -71,7 +71,7 @@ input, textarea {
   margin: 0;
 }
 
-/* LOGIN & REGISTRATION PAGES */
+/* LOGIN PAGE */
 .login-container {
   padding: 2rem;
   display: flex;
@@ -80,10 +80,11 @@ input, textarea {
 }
 .login-box {
   background-color: #e2e2e2;
-  border: 2px solid #8a8a8a;
+  border: 1px solid #8a8a8a;
   border-radius: 0.5rem;
   margin: 2rem;
   padding: 1.5rem;
+  max-width: 22rem;
 }
 .logo-box {
   margin: 2rem;
@@ -101,11 +102,6 @@ input, textarea {
   margin-top: 0;
   margin-bottom: 1rem;
 }
-.input-label {
-  font-family: 'Asap', sans-serif;
-  font-size: 1rem;
-  color: black;
-}
 .login-box input {
   display: block;
   width: 15rem;
@@ -122,8 +118,8 @@ input, textarea {
   color: #a5a5a5;
 }
 .login-box button {
+  display: block;
   margin: 1.5rem 3rem .5rem 3rem;
-  width: auto;
   border-radius: 1.2rem; 
   text-align: center; 
   padding: 0.5rem 1rem;
@@ -137,21 +133,98 @@ input, textarea {
   background-color: #5e5e5e;
 }
 .login-box p {
+  display: block;
   font-family: 'Asap', sans-serif;
   font-size: 1rem;
   color: #1f1f1f;
-  text-align: center;
+  margin: 0rem 0rem 0rem 3rem;
 }
 #login-error {
   color: red;
   font-size: 0.9rem;
-  margin: 0;
-  padding: 0;
+}
+
+/* REGISTRATION PAGE */
+.register-container {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.register-box {
+  background-color: #e2e2e2;
+  border: 1px solid #8a8a8a;
+  border-radius: 0.5rem;
+  margin: 2rem;
+  padding: 1.5rem;
+  max-width: 22rem;
+}
+.logo-box {
+  margin: 2rem;
+  width: 43%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.logo {
+  width: 9.4rem;
+}
+.register-box h3 {
+  font-family: 'Asap', sans-serif;
+  font-size: 1.2rem;
+  color: #1f1f1f;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+.register-box input {
+  display: block;
+  width: 15rem;
+  border: 0;
+  margin: .3rem 3rem .3rem 3rem;
+  font-size: 1rem;
+  font-family: 'Asap', sans-serif;
+  padding: 0.5rem;
+  background-color: #f3f3f3;
+  border-bottom: 1px solid #c4c4c4;
+  border-radius: 0.5rem;
+}
+.register-box ::placeholder {
+  color: #a5a5a5;
+}
+.register-box button {
+  display: block;
+  margin: 1.5rem 3rem .5rem 3rem;
+  width: auto;
+  border-radius: 1.2rem; 
+  text-align: center; 
+  padding: 0.5rem 1rem;
+  background-color: #7e7e7e; 
+  color: #fff; 
+  font-size: 1rem;
+  border: none;
+  outline: 0;
+}
+.register-box button:hover {
+  background-color: #5e5e5e;
+}
+.register-box p {
+  display: block;
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: #1f1f1f;
+  margin: 0rem 0rem 0rem 3rem;
+}
+.register-box label {
+  display: block;
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: #1f1f1f;
+  margin: 1.5rem 3rem 0rem 3rem;
 }
 #description{
   font-size: 0.9rem;
   color: #414141;
-  text-align: left;
+  margin: .5rem 3rem 0rem 3rem;
+  width: 50%;
 }
 
 /* NAVBAR */

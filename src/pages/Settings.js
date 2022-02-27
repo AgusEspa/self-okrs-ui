@@ -20,8 +20,8 @@ const Settings = () => {
         }));
     }
 
-    const validateForm = (data) => {
-        const errors = {username:"", emailAddress: "", oldPassword: "", newPassword: "",passwordVerification: ""};
+    const validateDetailsForm = (data) => {
+        const errors = {username:"", emailAddress: "", oldPassword: ""};
     
         const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     
@@ -45,28 +45,16 @@ const Settings = () => {
             errors.oldPassword = "Password must be at least 8 characters long";
         }
 
-        if (!data.newPassword) {
-            errors.newPassword = "Password is required";
-        } else if (data.newPassword.length < 8) {
-            errors.newPassword = "Password must be at least 8 characters long";
-        }
-
-        if (!data.passwordVerification) {
-            errors.passwordVerification = "Plese re-enter the password";
-        } else if (data.newPassword !== data.passwordVerification) {
-            errors.passwordVerification = "Passwords don't match";
-        }
-
         setFormValidationErrors(errors);
         return errors;
     }
 
-    const handleEditUser = async (event) => {
+    const handleEditUserDetails = async (event) => {
         event.preventDefault();
 
-        const validationErrors = validateForm(formData);
+        const validationErrors = validateDetailsForm(formData);
         
-        if (validationErrors.emailAddress === "" && validationErrors.username === "" && validationErrors.oldPassword === "" && validationErrors.newPassword === "" && validationErrors.passwordVerification === "" ) {
+        if (validationErrors.emailAddress === "" && validationErrors.username === "" && validationErrors.oldPassword === "") {
             
             try {
                 await api.put("/users", formData);
@@ -85,15 +73,88 @@ const Settings = () => {
         
     }
 
+    const validatePasswordForm = (data) => {
+        const errors = {oldPassword: "", newPassword: "", passwordVerification: ""};
+    
+        if (!data.oldPassword) {
+            errors.oldPassword = "Password is required";
+        } else if (data.oldPassword.length < 8) {
+            errors.oldPassword = "Password must be at least 8 characters long";
+        }
+
+        if (!data.newPassword) {
+            errors.newPassword = "Password is required";
+        } else if (data.newPassword.length < 8) {
+            errors.newPassword = "Password must be at least 8 characters long";
+        }
+
+        if (!data.passwordVerification) {
+            errors.passwordVerification = "Plese re-enter the password";
+        } else if (data.newPassword !== data.passwordVerification) {
+            errors.passwordVerification = "Passwords don't match";
+        }
+
+        setFormValidationErrors(errors);
+        return errors;
+    }
+
+    const handleEditUserPassword =  async (event) => {
+        event.preventDefault();
+
+        const validationErrors = validatePasswordForm(formData);
+        
+        if (validationErrors.oldPassword === "" && validationErrors.newPassword === "" && validationErrors.passwordVerification === "" ) {
+            
+            try {
+                await api.put("/users", formData);
+                logout();
+
+            } catch (error) {
+                if (!error.response) {
+                    //console.log(error);
+                    setCredentialsError("Unable to contact the server. Try again later.");
+                } else {
+                    //console.log(`Error: ${error.response.data}`);
+                    setCredentialsError(error.response.data);
+                }
+            }
+        }
+        
+    }
+
+    const validateDeleteForm = (data) => {
+        const errors = {emailAddress: "", oldPassword: ""};
+    
+        const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    
+        if (!data.emailAddress) {
+            errors.emailAddress = "Email address is required";
+        } 
+        else if (!(emailPattern.test(data.emailAddress))) {
+            errors.emailAddress = "Not a valid email address";
+        }
+
+        if (!data.oldPassword) {
+            errors.oldPassword = "Password is required";
+        } else if (data.oldPassword.length < 8) {
+            errors.oldPassword = "Password must be at least 8 characters long";
+        }
+
+        setFormValidationErrors(errors);
+        return errors;
+    }
+
     const handleDeleteUser = async (event) => {
         event.preventDefault();
 
-        const validationErrors = validateForm(formData);
+        const validationErrors = validateDeleteForm(formData);
         
-        if (validationErrors.emailAddress === "" && validationErrors.username === "" && validationErrors.oldPassword === "" && validationErrors.newPassword === "" && validationErrors.passwordVerification === "" ) {
+        if (validationErrors.emailAddress === "" && validationErrors.oldPassword === "") {
 
             try {
-                await api.delete("/users", formData);
+                console.log(formData);
+
+                await api.delete("/users", {data: formData});
                 logout();
             } catch (error) {
                 if (!error.response) {
@@ -121,7 +182,7 @@ const Settings = () => {
 
                     <h3>Edit username and email address</h3>
                 
-                    <form onSubmit={handleEditUser}>
+                    <form onSubmit={handleEditUserDetails} >
                         <div>
                             <label className="input-label">Username:</label>
                             <input type="text" 
@@ -163,7 +224,7 @@ const Settings = () => {
 
                     <h3>Change password</h3>
                 
-                    <form onSubmit={handleEditUser}>
+                    <form onSubmit={handleEditUserPassword} >
                         <div> 
                             <label className="input-label">Current password:</label>
                             <input type="password" 
@@ -195,12 +256,12 @@ const Settings = () => {
 
                 <div className="user-box">
                     <h3>Permanently Delete Account</h3>
-                    <form onSubmit={handleDeleteUser}>
+                    <form onSubmit={handleDeleteUser} >
                         <div>
                             <label className="input-label">Email address:</label>
                             <input type="text" 
-                            placeholder="Email address"
                             name="emailAddress"
+                            autoComplete="false"
                             value={formData.emailAddress}
                             onChange={handleFormChange}
                             />
@@ -208,6 +269,7 @@ const Settings = () => {
                             <label className="input-label">Current password:</label>
                             <input type="password" 
                             name="oldPassword"
+                            autoComplete="new-password"
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />

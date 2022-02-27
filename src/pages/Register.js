@@ -7,6 +7,7 @@ const Register = () => {
     const [formData, setFormData] = useState({emailAddress: "", username:"", password: "", passwordVerification:""});
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", username:"", password: "", passwordVerification:""});
     const [credentialsError, setCredentialsError] = useState("");
+    const [isRegistered, setIsRegistered] = useState(false);
 	const navigate = useNavigate();
 
 	const baseUrl = "http://localhost:8080/api";
@@ -67,7 +68,11 @@ const Register = () => {
 
             try {
                 await axios.post(`${baseUrl}/users/signup`, requestBody);
-                navigate("/dashboard");
+                setIsRegistered(true);
+                setFormValidationErrors({});
+                setCredentialsError("");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                navigate("/login");
             } catch (error) {
                 if (!error.response) {
                     //console.log(error);
@@ -82,8 +87,8 @@ const Register = () => {
 
 
 	return (
-		<main className="login-container">
-            <div className="login-box">
+		<main className="register-container">
+            <div className="register-box">
                 <div className="logo-box">
 					<img className="logo" src={"./logo.png"} alt="self.OKRs logo"/>
 				</div>  
@@ -111,7 +116,7 @@ const Register = () => {
                     
                     <div> 
                         <label className="input-label">Password:</label>
-                        <p id="description">Passwords must contain at least eight characters,<br/>including at least 1 letter and 1 number.</p>
+                        
                         <input type="password" 
                         name="password"
                         value={formData.password}
@@ -130,6 +135,12 @@ const Register = () => {
                     {credentialsError !== "" && <p id="login-error">{credentialsError}</p>}
                     <button>Create account</button>
                 </form>
+
+                {isRegistered && 
+                <div>
+                    <p>Your account was succesfully created.</p>
+                    <p>Redirecting to login page...</p>
+                </div>}
             </div>
         </main>
 	)
