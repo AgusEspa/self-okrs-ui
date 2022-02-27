@@ -35,7 +35,7 @@ const Login = () => {
         if (!data.password) {
             errors.password = "Password is required";
         } else if (data.password.length < 8) {
-            errors.password = "Password must be at least 8 characters";
+            errors.password = "Password must be at least 8 characters long";
         }
         setFormValidationErrors(errors);
         return errors;
@@ -76,10 +76,14 @@ const Login = () => {
 
             navigate("/dashboard");
 
-        } catch (e) {
-            console.log(e);
-            setCredentialsError("Incorrect email / password");
-
+        } catch (error) {
+            if (!error.response) {
+                //console.log(error);
+                setCredentialsError("Unable to contact the server. Please try again later.");
+            } else {
+                //console.log(error);
+                setCredentialsError("Incorrect email / password");
+            }
         }
     }
 
@@ -92,7 +96,7 @@ const Login = () => {
 
                 <form onSubmit={handleLogin}>
                     <div>
-                        <input type="email" 
+                        <input type="text" 
                         placeholder="Email address"
                         name="emailAddress"
                         value={loginFormData.emailAddress}

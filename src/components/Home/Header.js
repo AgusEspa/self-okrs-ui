@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 const Header = () => {
 
 	return (
-		<header>
-			<div className="logo-box">
-        		<img src={"./logo.png"} alt="self.OKRs logo"/> 
+		<header className="header-container">
+			<div className="header-logo-box">
+        		<img className="header-logo" src={"./logo.png"} alt="self.OKRs logo"/> 
       		</div>
-			<Link to="/login">Login</Link>
+			<div className="get-started-link">
+				<Link to="/login">Get started!</Link>
+			</div>
+			
 		</header>
 	);	
 }

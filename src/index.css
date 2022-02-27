@@ -13,15 +13,62 @@ input, textarea {
 }
 
 /* HOME PAGE */
-.home {
+.header-container {
   display: flex;
   position: relative;
   justify-content: space-between;
-  align-items: center;
+  background: #503a83;
 }
-.body-container {
-  float: left;
-  background-color: #78aa7e;
+.header-logo-box {
+  margin: 2rem 0rem 2rem 5rem;
+}
+.header-logo {
+  width: 10rem;
+}
+.get-started-link {
+  margin: 2rem 5rem 2rem 0rem;
+}
+.get-started-link a {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0.7rem;
+  color: white;
+  font-family: 'Asap', sans-serif;
+  font-size: 1.2rem;
+  background-color: #b34270;
+  border-radius: 0.7rem;
+}
+.get-started-link a:hover {
+  background-color: #c5517f;
+  border-radius: 0.7rem;
+}
+.about-container {
+  padding: 1rem;
+  display: block;
+  background-color: #e2e2e2;
+  border-radius: 0.5rem;
+  margin: 2rem;
+}
+.about-container h2 {
+  font-family: 'Asap', sans-serif;
+  font-size: 1.7rem;
+  color: #1f1f1f;
+  margin: 0;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.about-container h3 {
+  font-family: 'Asap', sans-serif;
+  font-size: 1.4rem;
+  color: #1f1f1f;
+  padding-bottom: 1rem;
+  margin: 0;
+}
+.about-container p {
+  font-size: 1.1rem;
+  font-family: 'Asap', sans-serif;
+  margin: 0;
 }
 
 /* LOGIN & REGISTRATION PAGES */
@@ -53,6 +100,11 @@ input, textarea {
   color: #1f1f1f;
   margin-top: 0;
   margin-bottom: 1rem;
+}
+.input-label {
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: black;
 }
 .login-box input {
   display: block;
@@ -96,6 +148,11 @@ input, textarea {
   margin: 0;
   padding: 0;
 }
+#description{
+  font-size: 0.9rem;
+  color: #414141;
+  text-align: left;
+}
 
 /* NAVBAR */
 .navbar {
@@ -130,7 +187,7 @@ input, textarea {
 }
 .links-menu span, .links-menu a {
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Asap', sans-serif;
   text-decoration: none;
   font-size: 1.15rem;
 }
@@ -172,7 +229,7 @@ input, textarea {
 }
 .dropdown-menu span {
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Asap', sans-serif;
   font-size: 1.1rem;
 }
 
@@ -218,7 +275,7 @@ input, textarea {
   list-style-type: none;
   text-decoration: none;
   color: rgb(22, 22, 22);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Asap', sans-serif;
   font-size: 1rem;
 }
 
@@ -241,7 +298,7 @@ input, textarea {
   border-radius: 0.5rem;
   outline: none;
   color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Asap', sans-serif;
   font-size: 1.5rem;
   resize: none;
   background-color: white;
@@ -256,7 +313,7 @@ input, textarea {
   color:red;
 }
 .objective-card-label {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Asap', sans-serif;
   font-size: 1.1rem;
 }
 .input-number {
@@ -267,7 +324,7 @@ input, textarea {
   background-color:transparent;
 }
 .objective-card-subtitle {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Asap', sans-serif;
   font-size: 1.1rem;
   font-weight: 300;
   margin-top: 0.5rem;
