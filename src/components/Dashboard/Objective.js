@@ -37,6 +37,7 @@ const Objective = (props) => {
         } catch (error) {
             console.log(`Request failed: ${error.response.data.error_message}`);
 		}
+
     }
 
 

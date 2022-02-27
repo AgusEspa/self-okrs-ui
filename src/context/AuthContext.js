@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
 
 	const [userAuth, setUserAuth] = useState( () => ({
 		username: window.localStorage.getItem("username"),
+		emailAddress: window.localStorage.getItem("email_address"),
 		accessToken: window.localStorage.getItem("access_token"),
 		refreshToken: window.localStorage.getItem("refresh_token")}
 	));

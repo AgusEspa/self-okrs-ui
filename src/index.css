@@ -373,6 +373,7 @@ input, textarea {
   background-color: #ffffff;
   border-radius: 0.5rem;
   padding: 1.5rem;
+  margin-bottom: 1rem;
 }
 .user-box h3 {
   font-family: 'Asap', sans-serif;
