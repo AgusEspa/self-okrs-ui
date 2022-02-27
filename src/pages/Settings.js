@@ -51,7 +51,7 @@ const Settings = () => {
         
             <main className="settings-container">
 
-                <h2>Settings</h2>
+                <h2>Account Settings</h2>
 
                 <div className="user-box">
 
