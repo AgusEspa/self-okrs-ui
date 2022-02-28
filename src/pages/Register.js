@@ -8,6 +8,7 @@ const Register = () => {
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", username:"", password: "", passwordVerification:""});
     const [credentialsError, setCredentialsError] = useState("");
     const [isRegistered, setIsRegistered] = useState(false);
+	const [passwordHelperDisplay, setPasswordHelperDisplay] = useState(false);
 	const navigate = useNavigate();
 
 	const baseUrl = "http://localhost:8080/api";
@@ -99,7 +100,7 @@ const Register = () => {
 
                 <form onSubmit={handleRegistration} noValidate>
 
-                    <label className="input-label">Username:</label>
+                    <label>Username:</label>
                     {formValidationErrors.username !== "" ?
                     <div>
                     <input id="validation-error" type="text" 
@@ -116,7 +117,7 @@ const Register = () => {
                         />
                     }
 
-                    <label className="input-label">Email address:</label>
+                    <label>Email address:</label>
                     {formValidationErrors.emailAddress !== "" ?
                     <div>
                         <input id="validation-error" type="email"
@@ -133,7 +134,12 @@ const Register = () => {
                     />
                     }
 
-                    <label className="input-label">Password:</label>
+                    <div className="password">
+                        <label>Password:</label>
+                        <span onMouseEnter={() => setPasswordHelperDisplay(true)}
+        				    onMouseLeave={() => setPasswordHelperDisplay(false)}>?</span>
+                        {passwordHelperDisplay && <span className="password-helper">Password must have at least 8 characters</span>}
+                    </div>
                     {formValidationErrors.password !== "" ?
                     <div> 
                         <input id="validation-error" type="password" 
@@ -150,7 +156,7 @@ const Register = () => {
                     />
                     }
 
-                    <label className="input-label">Re-enter password:</label>
+                    <label>Re-enter password:</label>
                     {formValidationErrors.passwordVerification !== "" ?
                     <div> 
                         <input id="validation-error" type="password" 

@@ -100,6 +100,7 @@ input[type="search"], input[type="checkbox"], select {
   margin-left: auto;
   margin-right: auto;
   margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 .logo {
   width: 9.4rem;
@@ -221,7 +222,36 @@ input[type="search"], input[type="checkbox"], select {
   font-family: 'Asap', sans-serif;
   font-size: 1rem;
   color: #1f1f1f;
-  margin: 1.5rem 3rem 0rem 3rem;
+  margin: 1.5rem 3rem 0rem 3.2rem;
+}
+.password {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  margin: 1.5rem 3rem 0rem 3.2rem;
+
+}
+.password label, span {
+  display: block;
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: #1f1f1f;
+  margin: 0;
+}
+.password span {
+  cursor:default;
+  margin-right: 0.3rem;
+}
+.password-helper {
+  background-color: white;
+  position: absolute;
+  right: 1rem;
+  z-index: 1;
+  width: 8rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  color: #414141;
 }
 #description{
   font-size: 0.9rem;
