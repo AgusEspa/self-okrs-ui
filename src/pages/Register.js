@@ -82,8 +82,14 @@ const Register = () => {
                     //console.log(error);
                     setCredentialsError("Unable to contact the server. Try again later.");
                 } else {
+                    if (error.response.status === 422) {
+                        setFormValidationErrors( prevState => ({
+                            ...prevState,
+                            emailAddress: error.response.data 
+                        }));
+                    } else setCredentialsError(error.response.data);
                     //console.log(`Error: ${error.response.data}`);
-                    setCredentialsError(error.response.data);
+                    
                 }
             } 
         }

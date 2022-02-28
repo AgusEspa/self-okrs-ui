@@ -9,6 +9,9 @@ const Settings = () => {
     const [formData, setFormData] = useState({username: userAuth.username, emailAddress: userAuth.emailAddress, oldPassword: "", newPassword: "", passwordVerification: ""});
     const [credentialsError, setCredentialsError] = useState("");
     const [formValidationErrors, setFormValidationErrors] = useState({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
+    const [toggleUsername, setToggleUsername] = useState(false);
+    const [togglePassword, setTogglePassword] = useState(false);
+    const [toggleDelete, setToggleDelete] = useState(false);
 
 	const api = useAxios();
 
@@ -70,8 +73,14 @@ const Settings = () => {
                     //console.log(error);
                     setCredentialsError("Unable to contact the server. Try again later.");
                 } else {
+                    if (error.response.status === 422) {
+                        setFormValidationErrors( prevState => ({
+                            ...prevState,
+                            emailAddress: error.response.data 
+                        }));
+                    } else setCredentialsError(error.response.data);
                     //console.log(`Error: ${error.response.data}`);
-                    setCredentialsError(error.response.data);
+                    
                 }
             }
         }
@@ -171,7 +180,27 @@ const Settings = () => {
                 }
             }
         }
+    }
 
+    const handleUsernameToggle = (event) => {
+        event.preventDefault();
+        setToggleUsername(prevState => !prevState);
+        setTogglePassword(false);
+        setToggleDelete(false);
+    }
+
+    const handlePasswordToggle = (event) => {
+        event.preventDefault();
+        setTogglePassword(prevState => !prevState);
+        setToggleUsername(false);
+        setToggleDelete(false);
+    }
+
+    const handleDeleteToggle = (event) => {
+        event.preventDefault();
+        setToggleDelete(prevState => !prevState);
+        setToggleUsername(false);
+        setTogglePassword(false);
     }
 
 
@@ -180,177 +209,180 @@ const Settings = () => {
             <NavBar />
         
             <main className="settings-container">
-
                 <h2>Account Settings</h2>
+                <div className="settings-grid">
 
-                <div className="user-box">
+                    <div className="button-box">
+                        <button onClick={handleUsernameToggle}>User details</button>
+                        <button onClick={handlePasswordToggle}>Password</button>
+                        <button onClick={handleDeleteToggle}>Delete Account</button>
+                    </div>
 
-                    <h3>Edit username and email address</h3>
-                
-                    <form onSubmit={handleEditUserDetails} noValidate>
-                        
-                        <label className="input-label">Username:</label>
-                        {formValidationErrors.username !== "" ?
-                        <div>
-                        <input id="validation-error" type="text" 
-                            name="username"
-                            value={formData.username}
-                            onChange={handleFormChange}
-                            />
-                            <p id="user-validation-error-message">{formValidationErrors.username}</p>
-                        </div> :
-                        <input type="text" 
-                            name="username"
-                            value={formData.username}
-                            onChange={handleFormChange}
-                            />
-                        }
+                    {toggleUsername &&
+                    <div className="user-box"> 
+                        <h3>Edit username and email address</h3>
+                        <form onSubmit={handleEditUserDetails} noValidate>
+                            
+                            <label className="input-label">Username:</label>
+                            {formValidationErrors.username !== "" ?
+                            <div>
+                            <input id="validation-error" type="text" 
+                                name="username"
+                                value={formData.username}
+                                onChange={handleFormChange}
+                                />
+                                <p id="user-validation-error-message">{formValidationErrors.username}</p>
+                            </div> :
+                            <input type="text" 
+                                name="username"
+                                value={formData.username}
+                                onChange={handleFormChange}
+                                />
+                            }
 
-                        <label className="input-label">Email address:</label>
-                        {formValidationErrors.emailAddress !== "" ?
-                        <div>
-                            <input id="validation-error" type="email"
+                            <label className="input-label">Email address:</label>
+                            {formValidationErrors.emailAddress !== "" ?
+                            <div>
+                                <input id="validation-error" type="email"
+                                name="emailAddress"
+                                value={formData.emailAddress}
+                                onChange={handleFormChange}
+                                />
+                                <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
+                            </div> :
+                            <input type="email" 
                             name="emailAddress"
                             value={formData.emailAddress}
                             onChange={handleFormChange}
                             />
-                            <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
-                        </div> :
-                        <input type="email" 
-                        name="emailAddress"
-                        value={formData.emailAddress}
-                        onChange={handleFormChange}
-                        />
-                        }
-                        
-                        <label className="input-label">Current password:</label>
-                        {formValidationErrors.oldPassword !== "" ?
-                        <div> 
-                            <input id="validation-error" type="password" 
+                            }
+                            
+                            <label className="input-label">Current password:</label>
+                            {formValidationErrors.oldPassword !== "" ?
+                            <div> 
+                                <input id="validation-error" type="password" 
+                                name="oldPassword"
+                                value={formData.oldPassword}
+                                onChange={handleFormChange}
+                                />
+                                <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
+                            </div> :
+                            <input type="password" 
                             name="oldPassword"
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />
-                            <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
-                        </div> :
-                        <input type="password" 
-                        name="oldPassword"
-                        value={formData.oldPassword}
-                        onChange={handleFormChange}
-                        />
-                        }
+                            }
 
-                        {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
-                        <button>Save changes</button>
-                    </form>
-                </div>
+                            {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
+                            <button>Save changes</button>
+                        </form>
+                    </div>}
 
-                <div className="user-box">
+                    {togglePassword &&
+                    <div className="user-box">
+                        <h3>Change password</h3>
+                        <form onSubmit={handleEditUserPassword} noValidate>
 
-                    <h3>Change password</h3>
-                
-                    <form onSubmit={handleEditUserPassword} noValidate>
-
-                        <label className="input-label">Current password:</label>
-                        {formValidationErrors.oldPassword !== "" ?
-                        <div> 
-                            <input id="validation-error" type="password" 
+                            <label className="input-label">Current password:</label>
+                            {formValidationErrors.oldPassword !== "" ?
+                            <div> 
+                                <input id="validation-error" type="password" 
+                                name="oldPassword"
+                                value={formData.oldPassword}
+                                onChange={handleFormChange}
+                                />
+                                <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
+                            </div> :
+                            <input type="password" 
                             name="oldPassword"
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />
-                            <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
-                        </div> :
-                        <input type="password" 
-                        name="oldPassword"
-                        value={formData.oldPassword}
-                        onChange={handleFormChange}
-                        />
-                        }
-                        
-                        <label className="input-label">New password:</label>
-                        {formValidationErrors.newPassword !== "" ?
-                        <div> 
-                            <input id="validation-error" type="password" 
+                            }
+                            
+                            <label className="input-label">New password:</label>
+                            {formValidationErrors.newPassword !== "" ?
+                            <div> 
+                                <input id="validation-error" type="password" 
+                                name="newPassword"
+                                value={formData.newPassword}
+                                onChange={handleFormChange}
+                                />
+                                <p id="user-validation-error-message">{formValidationErrors.newPassword}</p>
+                            </div> :
+                            <input type="password" 
                             name="newPassword"
                             value={formData.newPassword}
                             onChange={handleFormChange}
                             />
-                            <p id="user-validation-error-message">{formValidationErrors.newPassword}</p>
-                        </div> :
-                        <input type="password" 
-                        name="newPassword"
-                        value={formData.newPassword}
-                        onChange={handleFormChange}
-                        />
-                        }
+                            }
 
-                        <label className="input-label">Re-enter password:</label>
-                        {formValidationErrors.passwordVerification !== "" ?
-                        <div> 
-                            <input id="validation-error" type="password" 
+                            <label className="input-label">Re-enter password:</label>
+                            {formValidationErrors.passwordVerification !== "" ?
+                            <div> 
+                                <input id="validation-error" type="password" 
+                                name="passwordVerification"
+                                value={formData.passwordVerification}
+                                onChange={handleFormChange}
+                                />
+                                <p id="user-validation-error-message">{formValidationErrors.passwordVerification}</p>
+                            </div> :
+                            <input type="password" 
                             name="passwordVerification"
                             value={formData.passwordVerification}
                             onChange={handleFormChange}
                             />
-                            <p id="user-validation-error-message">{formValidationErrors.passwordVerification}</p>
-                        </div> :
-                        <input type="password" 
-                        name="passwordVerification"
-                        value={formData.passwordVerification}
-                        onChange={handleFormChange}
-                        />
-                        }
+                            }
 
-                        {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
-                        <button>Save changes</button>
-                    </form>
-                </div>
+                            {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
+                            <button>Save changes</button>
+                        </form>
+                    </div>}
 
-                <div className="user-box">
-                    <h3>Permanently Delete Account</h3>
-                    <form onSubmit={handleDeleteUser} noValidate>
-                        <label className="input-label">Email address:</label>
-                        {formValidationErrors.emailAddress !== "" ?
-                        <div>
-                            <input id="validation-error" type="email"
+                    {toggleDelete &&
+                    <div className="user-box">
+                        <h3>Permanently Delete Account</h3>
+                        <form onSubmit={handleDeleteUser} noValidate>
+                            <label className="input-label">Email address:</label>
+                            {formValidationErrors.emailAddress !== "" ?
+                            <div>
+                                <input id="validation-error" type="email"
+                                name="emailAddress"
+                                value={formData.emailAddress}
+                                onChange={handleFormChange}
+                                />
+                                <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
+                            </div> :
+                            <input type="email" 
                             name="emailAddress"
                             value={formData.emailAddress}
                             onChange={handleFormChange}
                             />
-                            <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
-                        </div> :
-                        <input type="email" 
-                        name="emailAddress"
-                        value={formData.emailAddress}
-                        onChange={handleFormChange}
-                        />
-                        }
-                        
-                        <label className="input-label">Current password:</label>
-                        {formValidationErrors.oldPassword !== "" ?
-                        <div> 
-                            <input id="validation-error" type="password" 
+                            }
+                            
+                            <label className="input-label">Current password:</label>
+                            {formValidationErrors.oldPassword !== "" ?
+                            <div> 
+                                <input id="validation-error" type="password" 
+                                name="oldPassword"
+                                value={formData.oldPassword}
+                                onChange={handleFormChange}
+                                />
+                                <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
+                            </div> :
+                            <input type="password" 
                             name="oldPassword"
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />
-                            <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
-                        </div> :
-                        <input type="password" 
-                        name="oldPassword"
-                        value={formData.oldPassword}
-                        onChange={handleFormChange}
-                        />
-                        }
+                            }
 
-                        {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
-                        <button>Delete</button>
-                        <span>WARNING - All content will be lost.</span>
-                    </form>
-
+                            {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
+                            <button id="delete">Delete</button>
+                        </form>
+                    </div>}
                 </div>
-
             </main>
         </div>
 	)
