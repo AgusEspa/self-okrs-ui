@@ -8,7 +8,7 @@ const Settings = () => {
     const { userAuth, logout } = useContext(AuthContext);
     const [formData, setFormData] = useState({username: userAuth.username, emailAddress: userAuth.emailAddress, oldPassword: "", newPassword: "", passwordVerification: ""});
     const [credentialsError, setCredentialsError] = useState("");
-    const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", password: ""});
+    const [formValidationErrors, setFormValidationErrors] = useState({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
 
 	const api = useAxios();
 
@@ -18,6 +18,11 @@ const Settings = () => {
             ...prevState,
             [name]: value 
         }));
+        setFormValidationErrors( prevState => ({
+            ...prevState,
+            [name]: "" 
+        }));
+        setCredentialsError("");
     }
 
     const validateDetailsForm = (data) => {
@@ -192,7 +197,7 @@ const Settings = () => {
                             value={formData.username}
                             onChange={handleFormChange}
                             />
-                            <p id="validation-error-message">{formValidationErrors.username}</p>
+                            <p id="user-validation-error-message">{formValidationErrors.username}</p>
                         </div> :
                         <input type="text" 
                             name="username"
@@ -209,7 +214,7 @@ const Settings = () => {
                             value={formData.emailAddress}
                             onChange={handleFormChange}
                             />
-                            <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
+                            <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
                         </div> :
                         <input type="email" 
                         name="emailAddress"
@@ -226,7 +231,7 @@ const Settings = () => {
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />
-                            <p id="validation-error-message">{formValidationErrors.oldPassword}</p>
+                            <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
                         </div> :
                         <input type="password" 
                         name="oldPassword"
@@ -235,7 +240,7 @@ const Settings = () => {
                         />
                         }
 
-                        {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
+                        {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                         <button>Save changes</button>
                     </form>
                 </div>
@@ -254,7 +259,7 @@ const Settings = () => {
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />
-                            <p id="validation-error-message">{formValidationErrors.oldPassword}</p>
+                            <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
                         </div> :
                         <input type="password" 
                         name="oldPassword"
@@ -271,7 +276,7 @@ const Settings = () => {
                             value={formData.newPassword}
                             onChange={handleFormChange}
                             />
-                            <p id="validation-error-message">{formValidationErrors.newPassword}</p>
+                            <p id="user-validation-error-message">{formValidationErrors.newPassword}</p>
                         </div> :
                         <input type="password" 
                         name="newPassword"
@@ -288,7 +293,7 @@ const Settings = () => {
                             value={formData.passwordVerification}
                             onChange={handleFormChange}
                             />
-                            <p id="validation-error-message">{formValidationErrors.passwordVerification}</p>
+                            <p id="user-validation-error-message">{formValidationErrors.passwordVerification}</p>
                         </div> :
                         <input type="password" 
                         name="passwordVerification"
@@ -297,7 +302,7 @@ const Settings = () => {
                         />
                         }
 
-                        {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
+                        {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                         <button>Save changes</button>
                     </form>
                 </div>
@@ -313,7 +318,7 @@ const Settings = () => {
                             value={formData.emailAddress}
                             onChange={handleFormChange}
                             />
-                            <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
+                            <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
                         </div> :
                         <input type="email" 
                         name="emailAddress"
@@ -330,7 +335,7 @@ const Settings = () => {
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />
-                            <p id="validation-error-message">{formValidationErrors.oldPassword}</p>
+                            <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
                         </div> :
                         <input type="password" 
                         name="oldPassword"
@@ -339,7 +344,7 @@ const Settings = () => {
                         />
                         }
 
-                        {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
+                        {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                         <button>Delete</button>
                         <span>WARNING - All content will be lost.</span>
                     </form>

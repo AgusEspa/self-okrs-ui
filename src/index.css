@@ -132,7 +132,8 @@ input[type="search"], input[type="checkbox"], select {
 }
 .login-box button {
   display: block;
-  margin: 1.5rem 3rem 1.5rem 3rem;
+  width: 16rem;
+  margin: 2rem 3rem 1.5rem 3rem;
   border-radius: 1.2rem; 
   text-align: center; 
   padding: 0.5rem 1rem;
@@ -153,8 +154,10 @@ input[type="search"], input[type="checkbox"], select {
   margin: 0.5rem 0rem 0rem 3rem;
 }
 #validation-error-message {
+  font-family: 'Asap', sans-serif;
   color: red;
   font-size: 0.9rem;
+  margin: 0rem 0rem 0rem 3.2rem;
 }
 
 /* REGISTRATION PAGE */
@@ -196,8 +199,8 @@ input[type="search"], input[type="checkbox"], select {
 }
 .register-box button {
   display: block;
-  margin: 1.5rem 3rem .5rem 3rem;
-  width: auto;
+  margin: 2rem 3rem 1.5rem 3rem;
+  width: 16rem;
   border-radius: 1.2rem; 
   text-align: center; 
   padding: 0.5rem 1rem;
@@ -239,18 +242,23 @@ input[type="search"], input[type="checkbox"], select {
   margin: 0;
 }
 .password span {
-  cursor:default;
+  cursor: default;
+  margin-right: 0.3rem;
+}
+.password img {
+  width: 1.1rem;
   margin-right: 0.3rem;
 }
 .password-helper {
   background-color: white;
   position: absolute;
-  right: 1rem;
+  right: 1.2rem;
   z-index: 1;
   width: 8rem;
+  border: 1.5px solid #535353;
   border-radius: 0.5rem;
   padding: 0.5rem;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #414141;
 }
 #description{
@@ -304,7 +312,7 @@ input[type="search"], input[type="checkbox"], select {
   position: absolute;
   right: 1rem;
   z-index: 1;
-  padding-top: 1.4rem;
+  padding-top: 1.2rem;
 }
 .dropdown-menu {
   background-color: #292929;
@@ -475,6 +483,7 @@ input[type="search"], input[type="checkbox"], select {
   color: #1f1f1f;
   margin-top: 0;
   margin-bottom: 1rem;
+  margin-left: 1.5rem;
 }
 .user-box {
   background-color: #ffffff;
@@ -489,11 +498,18 @@ input[type="search"], input[type="checkbox"], select {
   margin-top: 0;
   margin-bottom: 1rem;
 }
+.user-box label {
+  display: block;
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: #1f1f1f;
+  margin: 1.5rem 0rem 0rem 0.2rem;
+}
 .user-box input {
   display: block;
   width: 15rem;
+  margin: .3rem 0rem .3rem 0rem;
   border: 0;
-  margin-top: 1.5rem;
   font-size: 1rem;
   font-family: 'Asap', sans-serif;
   padding: 0.5rem;
@@ -523,11 +539,11 @@ input[type="search"], input[type="checkbox"], select {
   font-family: 'Asap', sans-serif;
   font-size: 1rem;
   color: #1f1f1f;
-  text-align: center;
+  margin: 0;
 }
-#user-error {
+#user-validation-error-message {
+  font-family: 'Asap', sans-serif;
   color: red;
   font-size: 0.9rem;
-  margin: 0;
-  padding: 0;
+  margin: 0rem 0rem 0rem 0.2rem;
 }

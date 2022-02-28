@@ -23,6 +23,7 @@ const Register = () => {
             ...prevState,
             [name]: "" 
         }));
+        setCredentialsError("");
     }
 
     const validateForm = (data) => {
@@ -74,8 +75,6 @@ const Register = () => {
             try {
                 await axios.post(`${baseUrl}/users/signup`, requestBody);
                 setIsRegistered(true);
-                setFormValidationErrors({});
-                setCredentialsError("");
                 await new Promise(resolve => setTimeout(resolve, 5000));
                 navigate("/login");
             } catch (error) {
@@ -136,8 +135,9 @@ const Register = () => {
 
                     <div className="password">
                         <label>Password:</label>
-                        <span onMouseEnter={() => setPasswordHelperDisplay(true)}
-        				    onMouseLeave={() => setPasswordHelperDisplay(false)}>?</span>
+                        <img src={"./info.png"} alt="information icon"
+                            onMouseEnter={() => setPasswordHelperDisplay(true)}
+        				    onMouseLeave={() => setPasswordHelperDisplay(false)} />
                         {passwordHelperDisplay && <span className="password-helper">Password must have at least 8 characters</span>}
                     </div>
                     {formValidationErrors.password !== "" ?
