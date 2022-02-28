@@ -18,6 +18,10 @@ const Register = () => {
             ...prevState,
             [name]: value 
         }));
+        setFormValidationErrors( prevState => ({
+            ...prevState,
+            [name]: "" 
+        }));
     }
 
     const validateForm = (data) => {
@@ -29,7 +33,7 @@ const Register = () => {
             errors.emailAddress = "Email address is required";
         } 
         else if (!(emailPattern.test(data.emailAddress))) {
-            errors.emailAddress = "Not a valid email address";
+            errors.emailAddress = "Please enter a valid email address";
         }
 
         if (!data.username) {
@@ -93,46 +97,77 @@ const Register = () => {
 					<img className="logo" src={"./logo.png"} alt="self.OKRs logo"/>
 				</div>  
 
-                <form onSubmit={handleRegistration}>
-					<div>
-                        <label className="input-label">Username:</label>
-                        <input type="text" 
+                <form onSubmit={handleRegistration} noValidate>
+
+                    <label className="input-label">Username:</label>
+                    {formValidationErrors.username !== "" ?
+                    <div>
+                    <input id="validation-error" type="text" 
                         name="username"
                         value={formData.username}
                         onChange={handleFormChange}
                         />
-                        {formValidationErrors.username !== "" && <p id="login-error">{formValidationErrors.username}</p>}
-                    </div>
+                        <p id="validation-error-message">{formValidationErrors.username}</p>
+                    </div> :
+                    <input type="text" 
+                        name="username"
+                        value={formData.username}
+                        onChange={handleFormChange}
+                        />
+                    }
 
+                    <label className="input-label">Email address:</label>
+                    {formValidationErrors.emailAddress !== "" ?
                     <div>
-                        <label className="input-label">Email address:</label>
-                        <input type="text" 
+                        <input id="validation-error" type="email"
                         name="emailAddress"
                         value={formData.emailAddress}
                         onChange={handleFormChange}
                         />
-                        {formValidationErrors.emailAddress !== "" && <p id="login-error">{formValidationErrors.emailAddress}</p>}
-                    </div>
-                    
+                        <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
+                    </div> :
+                    <input type="email" 
+                    name="emailAddress"
+                    value={formData.emailAddress}
+                    onChange={handleFormChange}
+                    />
+                    }
+
+                    <label className="input-label">Password:</label>
+                    {formValidationErrors.password !== "" ?
                     <div> 
-                        <label className="input-label">Password:</label>
-                        
-                        <input type="password" 
+                        <input id="validation-error" type="password" 
                         name="password"
                         value={formData.password}
                         onChange={handleFormChange}
                         />
-                        {formValidationErrors.password !== "" && <p id="login-error">{formValidationErrors.password}</p>}
-                        <label className="input-label">Re-enter password:</label>
-                        <input type="password" 
+                        <p id="validation-error-message">{formValidationErrors.password}</p>
+                    </div> :
+                    <input type="password" 
+                    name="password"
+                    value={formData.password}
+                    onChange={handleFormChange}
+                    />
+                    }
+
+                    <label className="input-label">Re-enter password:</label>
+                    {formValidationErrors.passwordVerification !== "" ?
+                    <div> 
+                        <input id="validation-error" type="password" 
                         name="passwordVerification"
                         value={formData.passwordVerification}
                         onChange={handleFormChange}
                         />
-                        {formValidationErrors.passwordVerification !== "" && <p id="login-error">{formValidationErrors.passwordVerification}</p>}
-                    </div>
-
-                    {credentialsError !== "" && <p id="login-error">{credentialsError}</p>}
+                        <p id="validation-error-message">{formValidationErrors.passwordVerification}</p>
+                    </div> :
+                    <input type="password" 
+                    name="passwordVerification"
+                    value={formData.passwordVerification}
+                    onChange={handleFormChange}
+                    />
+                    }
+                    
+                    {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                     <button>Create account</button>
                 </form>
 

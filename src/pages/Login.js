@@ -19,6 +19,10 @@ const Login = () => {
             ...prevState,
             [name]: value 
         }));
+        setFormValidationErrors( prevState => ({
+            ...prevState,
+            [name]: "" 
+        }));
     }
 
     const validateForm = (data) => {
@@ -30,7 +34,7 @@ const Login = () => {
             errors.emailAddress = "Email address is required";
         } 
         else if (!(emailPattern.test(data.emailAddress))) {
-            errors.emailAddress = "Not a valid email address";
+            errors.emailAddress = "Please enter a valid email address";
         }
         if (!data.password) {
             errors.password = "Password is required";
@@ -96,27 +100,44 @@ const Login = () => {
                     <img className="logo" src={"./logo.png"} alt="self.OKRs logo"/> 
                 </div>
 
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleLogin} noValidate>
+                    {formValidationErrors.emailAddress !== "" ?
                     <div>
-                        <input type="text" 
+                        <input id="validation-error" type="email"
                         placeholder="Email address"
                         name="emailAddress"
                         value={loginFormData.emailAddress}
                         onChange={handleLoginFormChange}
                         />
-                        {formValidationErrors.emailAddress !== "" && <p id="login-error">{formValidationErrors.emailAddress}</p>}
+                        <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
+                    </div> :
+                    <div>
+                        <input type="email" 
+                        placeholder="Email address"
+                        name="emailAddress"
+                        value={loginFormData.emailAddress}
+                        onChange={handleLoginFormChange}
+                        />
                     </div>
-                    
+                    }
+                    {formValidationErrors.password !== "" ?
                     <div> 
-                        <input type="password" 
+                        <input id="validation-error" type="password" 
                         placeholder="Password"
                         name="password"
                         value={loginFormData.password}
                         onChange={handleLoginFormChange}
                         />
-                        {formValidationErrors.password !== "" && <p id="login-error">{formValidationErrors.password}</p>}
-                    </div>
-                    {credentialsError !== "" && <p id="login-error">{credentialsError}</p>}
+                        <p id="validation-error-message">{formValidationErrors.password}</p>
+                    </div> :
+                    <input type="password" 
+                        placeholder="Password"
+                        name="password"
+                        value={loginFormData.password}
+                        onChange={handleLoginFormChange}
+                        />
+                    }
+                    {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                     <button>Log in</button>
                 </form>
                 <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>

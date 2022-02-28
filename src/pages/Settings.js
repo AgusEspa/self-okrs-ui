@@ -29,7 +29,7 @@ const Settings = () => {
             errors.emailAddress = "Email address is required";
         } 
         else if (!(emailPattern.test(data.emailAddress))) {
-            errors.emailAddress = "Not a valid email address";
+            errors.emailAddress = "Please enter a valid email address";
         }
 
         if (!data.username) {
@@ -131,7 +131,7 @@ const Settings = () => {
             errors.emailAddress = "Email address is required";
         } 
         else if (!(emailPattern.test(data.emailAddress))) {
-            errors.emailAddress = "Not a valid email address";
+            errors.emailAddress = "Please enter a valid email address";
         }
 
         if (!data.oldPassword) {
@@ -182,40 +182,60 @@ const Settings = () => {
 
                     <h3>Edit username and email address</h3>
                 
-                    <form onSubmit={handleEditUserDetails} >
+                    <form onSubmit={handleEditUserDetails} noValidate>
+                        
+                        <label className="input-label">Username:</label>
+                        {formValidationErrors.username !== "" ?
                         <div>
-                            <label className="input-label">Username:</label>
-                            <input type="text" 
-                            placeholder="Username"
+                        <input id="validation-error" type="text" 
                             name="username"
                             value={formData.username}
                             onChange={handleFormChange}
                             />
-                            {formValidationErrors.username !== "" && <p id="user-error">{formValidationErrors.username}</p>}
-                        </div>
+                            <p id="validation-error-message">{formValidationErrors.username}</p>
+                        </div> :
+                        <input type="text" 
+                            name="username"
+                            value={formData.username}
+                            onChange={handleFormChange}
+                            />
+                        }
 
+                        <label className="input-label">Email address:</label>
+                        {formValidationErrors.emailAddress !== "" ?
                         <div>
-                            <label className="input-label">Email address:</label>
-                            <input type="text" 
-                            placeholder="Email address"
+                            <input id="validation-error" type="email"
                             name="emailAddress"
                             value={formData.emailAddress}
                             onChange={handleFormChange}
                             />
-                            {formValidationErrors.emailAddress !== "" && <p id="user-error">{formValidationErrors.emailAddress}</p>}
-                        </div>
+                            <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
+                        </div> :
+                        <input type="email" 
+                        name="emailAddress"
+                        value={formData.emailAddress}
+                        onChange={handleFormChange}
+                        />
+                        }
                         
+                        <label className="input-label">Current password:</label>
+                        {formValidationErrors.oldPassword !== "" ?
                         <div> 
-                            <label className="input-label">Current password:</label>
-                            <input type="password" 
+                            <input id="validation-error" type="password" 
                             name="oldPassword"
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />
-                            {formValidationErrors.oldPassword !== "" && <p id="user-error">{formValidationErrors.oldPassword}</p>}
-                        </div>
+                            <p id="validation-error-message">{formValidationErrors.oldPassword}</p>
+                        </div> :
+                        <input type="password" 
+                        name="oldPassword"
+                        value={formData.oldPassword}
+                        onChange={handleFormChange}
+                        />
+                        }
 
-                        {credentialsError !== "" && <p id="user-error">{credentialsError}</p>}
+                        {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                         <button>Save changes</button>
                     </form>
                 </div>
@@ -224,57 +244,102 @@ const Settings = () => {
 
                     <h3>Change password</h3>
                 
-                    <form onSubmit={handleEditUserPassword} >
+                    <form onSubmit={handleEditUserPassword} noValidate>
+
+                        <label className="input-label">Current password:</label>
+                        {formValidationErrors.oldPassword !== "" ?
                         <div> 
-                            <label className="input-label">Current password:</label>
-                            <input type="password" 
+                            <input id="validation-error" type="password" 
                             name="oldPassword"
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />
-                            {formValidationErrors.oldPassword !== "" && <p id="user-error">{formValidationErrors.oldPassword}</p>}
-                            <label className="input-label">New password:</label>
-                            <input type="password" 
+                            <p id="validation-error-message">{formValidationErrors.oldPassword}</p>
+                        </div> :
+                        <input type="password" 
+                        name="oldPassword"
+                        value={formData.oldPassword}
+                        onChange={handleFormChange}
+                        />
+                        }
+                        
+                        <label className="input-label">New password:</label>
+                        {formValidationErrors.newPassword !== "" ?
+                        <div> 
+                            <input id="validation-error" type="password" 
                             name="newPassword"
                             value={formData.newPassword}
                             onChange={handleFormChange}
                             />
-                            {formValidationErrors.newPassword !== "" && <p id="user-error">{formValidationErrors.newPassword}</p>}
-                            <label className="input-label">Re-enter password:</label>
-                            <input type="password" 
+                            <p id="validation-error-message">{formValidationErrors.newPassword}</p>
+                        </div> :
+                        <input type="password" 
+                        name="newPassword"
+                        value={formData.newPassword}
+                        onChange={handleFormChange}
+                        />
+                        }
+
+                        <label className="input-label">Re-enter password:</label>
+                        {formValidationErrors.passwordVerification !== "" ?
+                        <div> 
+                            <input id="validation-error" type="password" 
                             name="passwordVerification"
                             value={formData.passwordVerification}
                             onChange={handleFormChange}
                             />
-                            {formValidationErrors.passwordVerification !== "" && <p id="login-error">{formValidationErrors.passwordVerification}</p>}
-                        </div>
+                            <p id="validation-error-message">{formValidationErrors.passwordVerification}</p>
+                        </div> :
+                        <input type="password" 
+                        name="passwordVerification"
+                        value={formData.passwordVerification}
+                        onChange={handleFormChange}
+                        />
+                        }
 
-                        {credentialsError !== "" && <p id="user-error">{credentialsError}</p>}
+                        {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                         <button>Save changes</button>
                     </form>
                 </div>
 
                 <div className="user-box">
                     <h3>Permanently Delete Account</h3>
-                    <form onSubmit={handleDeleteUser} >
+                    <form onSubmit={handleDeleteUser} noValidate>
+                        <label className="input-label">Email address:</label>
+                        {formValidationErrors.emailAddress !== "" ?
                         <div>
-                            <label className="input-label">Email address:</label>
-                            <input type="text" 
+                            <input id="validation-error" type="email"
                             name="emailAddress"
-                            autoComplete="false"
                             value={formData.emailAddress}
                             onChange={handleFormChange}
                             />
-                            {formValidationErrors.emailAddress !== "" && <p id="user-error">{formValidationErrors.emailAddress}</p>}
-                            <label className="input-label">Current password:</label>
-                            <input type="password" 
+                            <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
+                        </div> :
+                        <input type="email" 
+                        name="emailAddress"
+                        value={formData.emailAddress}
+                        onChange={handleFormChange}
+                        />
+                        }
+                        
+                        <label className="input-label">Current password:</label>
+                        {formValidationErrors.oldPassword !== "" ?
+                        <div> 
+                            <input id="validation-error" type="password" 
                             name="oldPassword"
-                            autoComplete="new-password"
                             value={formData.oldPassword}
                             onChange={handleFormChange}
                             />
-                        </div>
-                        {credentialsError !== "" && <p id="user-error">{credentialsError}</p>}
+                            <p id="validation-error-message">{formValidationErrors.oldPassword}</p>
+                        </div> :
+                        <input type="password" 
+                        name="oldPassword"
+                        value={formData.oldPassword}
+                        onChange={handleFormChange}
+                        />
+                        }
+
+                        {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                         <button>Delete</button>
                         <span>WARNING - All content will be lost.</span>
                     </form>
