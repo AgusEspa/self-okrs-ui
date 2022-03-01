@@ -35,7 +35,7 @@ const Objective = (props) => {
 			setKeyResults(parsedResponse);
             
         } catch (error) {
-            console.log(`Request failed: ${error.response.data.error_message}`);
+            console.log(`Request failed: ${error.response.data}`);
 		}
 
     }
@@ -121,7 +121,7 @@ const Objective = (props) => {
 		<div className="objective-box">
 			<div>
 				<form onSubmit={handleEditObjective}>
-					<textarea className="objective-title" 
+					<textarea 
 						type="text" 
 						placeholder="Title"
 						name="title"
@@ -129,30 +129,33 @@ const Objective = (props) => {
 						onChange={handleEditObjectiveFormChange}
 					/>
 					<div>
-					<label className="objective-card-label">Importance: </label>
-						<input className="input-number"
+						<label>Importance: </label>
+						<input
 							type="number" 
 							placeholder="Importance (1 to 5)"
 							name="importance"
 							value={editObjectiveFormData.importance}
 							min="1" max="5"
 							onChange={handleEditObjectiveFormChange}
-							/>
+						/>
 					</div>	
 					{objectiveIsChanged && <button className="save-changes">Save changes</button>}
 				</form>
 			</div>
 
-			<div>
-				<h3 className="objective-card-subtitle">Key Results: {keyResults.length}</h3>
-				<button onClick={handleToggleKeyResultView}>{toggledKeyResultView ? "hide" : "show"}</button>
-				{toggledKeyResultView && (
-					<div>
-						<ul className="key-results-list">{mappedKeyResults}</ul>
-						<button onClick={handleCreateKeyResult}>Add key result</button>
-					</div>)
-				}
+			<div className="key-result-box">
+				<h3>Key Results: <span>{keyResults.length}</span></h3>
+				<button onClick={handleToggleKeyResultView}>
+					{toggledKeyResultView ? 
+					<img src={"./arrow-down.png"} alt="downwards arrow icon" /> : 
+					<img src={"./arrow-up.png"} alt="upwards arrow icon" />}
+				</button>
 			</div>
+			{toggledKeyResultView && (
+				<div className="key-result-items">
+					<ul>{mappedKeyResults}</ul>
+					<button onClick={handleCreateKeyResult}>Add key result</button>
+				</div>)}
 
 			<button onClick={handleDeleteObjective}>Delete objective</button>
 		</div>

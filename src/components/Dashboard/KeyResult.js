@@ -83,21 +83,21 @@ const KeyResult = (props) => {
 					checked={editKeyResultFormData.isDone}
 					onChange={handleEditKeyResultCheckboxChange}
 				/>
-				<textarea className="key-result-title" rows="3" cols="15"
+				<textarea
 					type="text" 
 					name="title"
 					value={editKeyResultFormData.title}
 					onChange={handleEditKeyResultFormChange}
 				/> 
 
-				{(editKeyResultFormData.dueDate === "" || editKeyResultFormData.dueDate === null) ? 
+				{/* {(editKeyResultFormData.dueDate === "" || editKeyResultFormData.dueDate === null) ? 
 					<button onClick={handleNewDueDate}>add due date</button> : 
 					<input type="date" 
 						name="dueDate"
 						value={editKeyResultFormData.dueDate}
 						onChange={handleEditKeyResultFormChange}
 					/> 
-				}
+				} */}
 				
 				{keyResultIsChanged && <button className="save-changes">Save changes</button>}
 

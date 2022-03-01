@@ -55,6 +55,7 @@ const Objectives = (props) => {
 						id={objective.id}
 						title={objective.title}
 						importance={objective.importance}
+						objectives={props.objectives}
 						setObjectives={props.setObjectives}
 					/>);
 
