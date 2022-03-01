@@ -263,7 +263,7 @@ const Settings = () => {
                     {toggleUsername &&
                     <div className="user-box"> 
                         <h3>Edit username and email address</h3>
-                        <form onSubmit={handleEditUserDetails} autoComplete="new-password" noValidate>
+                        <form onSubmit={handleEditUserDetails} noValidate>
                             
                             <label className="input-label">Username:</label>
                             {formValidationErrors.username !== "" ?
