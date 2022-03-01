@@ -213,9 +213,18 @@ const Settings = () => {
                 <div className="settings-grid">
 
                     <div className="button-box">
-                        <button onClick={handleUsernameToggle}>User details</button>
-                        <button onClick={handlePasswordToggle}>Password</button>
-                        <button onClick={handleDeleteToggle}>Delete Account</button>
+                        <button className="button-box-item" onClick={handleUsernameToggle}>
+                            <label>User details</label>
+                            <img src={"./arrow-right.png"} alt="arrow icon" />
+                        </button>
+                        <button className="button-box-item" onClick={handlePasswordToggle}>
+                            <label>Password</label>
+                            <img src={"./arrow-right.png"} alt="arrow icon" />
+                        </button>
+                        <button className="button-box-item" onClick={handleDeleteToggle}>
+                            <label>Delete Account</label>
+                            <img src={"./arrow-right.png"} alt="arrow icon" />
+                        </button>
                     </div>
 
                     {toggleUsername &&
