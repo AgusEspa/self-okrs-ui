@@ -19,10 +19,6 @@ const Login = () => {
             ...prevState,
             [name]: value 
         }));
-        setFormValidationErrors( prevState => ({
-            ...prevState,
-            [name]: "" 
-        }));
     }
 
     const validateForm = (data) => {
@@ -64,6 +60,9 @@ const Login = () => {
     	        "Content-Type": "application/x-www-form-urlencoded"
     	    }
         }
+
+        setFormValidationErrors({emailAddress: "", password: ""});
+        setCredentialsError("");
 
         try {
             const response = await axios.post(`${baseUrl}/login`, credentials, config);

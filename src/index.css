@@ -199,7 +199,7 @@ input[type="search"], input[type="checkbox"], select {
 }
 .register-box button {
   display: block;
-  margin: 2rem 3rem 1.5rem 3rem;
+  margin: 2rem 3rem .5rem 3rem;
   width: 16rem;
   border-radius: 1.2rem; 
   text-align: center; 
@@ -259,6 +259,19 @@ input[type="search"], input[type="checkbox"], select {
   padding: 0.5rem;
   font-size: 0.8rem;
   color: #414141;
+}
+.successful-registration {
+  border-left: 4px solid #058f00;
+  background-color: #bbddbb;
+  margin: 0.5rem 3rem 1.5rem 3rem;
+  padding: 1rem;
+}
+.successful-registration p {
+  display: block;
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: #1f1f1f;
+  margin: 0;
 }
 #description{
   font-size: 0.9rem;

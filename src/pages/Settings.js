@@ -45,11 +45,6 @@ const Settings = () => {
             ...prevState,
             [name]: value 
         }));
-        setFormValidationErrors( prevState => ({
-            ...prevState,
-            [name]: "" 
-        }));
-        setCredentialsError("");
     }
 
     const validateDetailsForm = (data) => {
@@ -87,6 +82,9 @@ const Settings = () => {
         const validationErrors = validateDetailsForm(formData);
         
         if (validationErrors.emailAddress === "" && validationErrors.username === "" && validationErrors.oldPassword === "") {
+
+            setFormValidationErrors({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
+            setCredentialsError("");
             
             try {
                 await api.put("/users", formData);
@@ -142,6 +140,9 @@ const Settings = () => {
         const validationErrors = validatePasswordForm(formData);
         
         if (validationErrors.oldPassword === "" && validationErrors.newPassword === "" && validationErrors.passwordVerification === "" ) {
+
+            setFormValidationErrors({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
+            setCredentialsError("");
             
             try {
                 await api.put("/users", formData);
@@ -188,6 +189,9 @@ const Settings = () => {
         const validationErrors = validateDeleteForm(formData);
         
         if (validationErrors.emailAddress === "" && validationErrors.oldPassword === "") {
+
+            setFormValidationErrors({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
+            setCredentialsError("");
 
             try {
                 console.log(formData);

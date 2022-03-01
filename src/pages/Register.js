@@ -19,11 +19,6 @@ const Register = () => {
             ...prevState,
             [name]: value 
         }));
-        setFormValidationErrors( prevState => ({
-            ...prevState,
-            [name]: "" 
-        }));
-        setCredentialsError("");
     }
 
     const validateForm = (data) => {
@@ -72,10 +67,13 @@ const Register = () => {
                 emailAddress: formData.emailAddress,
                 password: formData.password};
 
+                setFormValidationErrors({emailAddress: "", username:"", password: "", passwordVerification:""});
+                setCredentialsError("");
+
             try {
                 await axios.post(`${baseUrl}/users/signup`, requestBody);
                 setIsRegistered(true);
-                await new Promise(resolve => setTimeout(resolve, 5000));
+                await new Promise(resolve => setTimeout(resolve, 4000));
                 navigate("/login");
             } catch (error) {
                 if (!error.response) {
@@ -181,13 +179,14 @@ const Register = () => {
                     
                     {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                     <button>Create account</button>
+                    {!isRegistered && 
+                    <div className="successful-registration">
+                    <p>Your account was succesfully created.</p>
+                    <p>Redirecting to login...</p>
+                    </div>}
                 </form>
 
-                {isRegistered && 
-                <div>
-                    <p>Your account was succesfully created.</p>
-                    <p>Redirecting to login page...</p>
-                </div>}
+                
             </div>
         </main>
 	)
