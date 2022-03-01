@@ -1,11 +1,11 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import useAxios from "../utils/useAxios";
 import { AuthContext } from "../context/AuthContext";
 import NavBar from "../components/Dashboard/Navbar/Navbar";
 
 const Settings = () => {
 
-    const { userAuth, logout } = useContext(AuthContext);
+    const { userAuth, setUserAuth, logout } = useContext(AuthContext);
     const [formData, setFormData] = useState({username: userAuth.username, emailAddress: userAuth.emailAddress, oldPassword: "", newPassword: "", passwordVerification: ""});
     const [credentialsError, setCredentialsError] = useState("");
     const [formValidationErrors, setFormValidationErrors] = useState({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
@@ -14,6 +14,30 @@ const Settings = () => {
     const [toggleDelete, setToggleDelete] = useState(false);
 
 	const api = useAxios();
+
+    useEffect( () => {
+		getCredentials();
+    }, []);
+
+	const getCredentials = async () => {
+
+        try {
+            const response = await api.get("/users/authenticated");
+			
+            setUserAuth( prevState => ({
+                ...prevState,
+                username: response.data.username,
+                emailAddress: response.data.emailAddress}
+            ));
+            
+        } catch (error) {
+            if (!error.response) {
+                console.log("Unable to contact the server. Try again later.");
+            } else {
+                logout();
+            }
+        }
+    };
 
     const handleFormChange = (event) => {
         const {name, value} = event.target;
@@ -185,6 +209,11 @@ const Settings = () => {
     const handleUsernameToggle = (event) => {
         event.preventDefault();
         setToggleUsername(prevState => !prevState);
+        setFormData( prevState => ({
+            ...prevState,
+            username: userAuth.username,
+            emailAddress: userAuth.emailAddress}
+        ));
         setTogglePassword(false);
         setToggleDelete(false);
     }
@@ -199,12 +228,16 @@ const Settings = () => {
     const handleDeleteToggle = (event) => {
         event.preventDefault();
         setToggleDelete(prevState => !prevState);
+        setFormData( prevState => ({
+            ...prevState,
+            emailAddress: ""}
+        ));
         setToggleUsername(false);
         setTogglePassword(false);
     }
 
 
-	return (
+    return (
         <div>
             <NavBar />
         
@@ -230,19 +263,19 @@ const Settings = () => {
                     {toggleUsername &&
                     <div className="user-box"> 
                         <h3>Edit username and email address</h3>
-                        <form onSubmit={handleEditUserDetails} noValidate>
+                        <form onSubmit={handleEditUserDetails} autoComplete="new-password" noValidate>
                             
                             <label className="input-label">Username:</label>
                             {formValidationErrors.username !== "" ?
                             <div>
-                            <input id="validation-error" type="text" 
+                            <input autoComplete="new-password" id="validation-error" type="text" 
                                 name="username"
                                 value={formData.username}
                                 onChange={handleFormChange}
                                 />
                                 <p id="user-validation-error-message">{formValidationErrors.username}</p>
                             </div> :
-                            <input type="text" 
+                            <input autoComplete="new-password" type="text"
                                 name="username"
                                 value={formData.username}
                                 onChange={handleFormChange}
@@ -252,14 +285,14 @@ const Settings = () => {
                             <label className="input-label">Email address:</label>
                             {formValidationErrors.emailAddress !== "" ?
                             <div>
-                                <input id="validation-error" type="email"
+                                <input autoComplete="new-password" id="validation-error" type="email"
                                 name="emailAddress"
                                 value={formData.emailAddress}
                                 onChange={handleFormChange}
                                 />
                                 <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
                             </div> :
-                            <input type="email" 
+                            <input autoComplete="new-password" type="email" 
                             name="emailAddress"
                             value={formData.emailAddress}
                             onChange={handleFormChange}
@@ -269,14 +302,14 @@ const Settings = () => {
                             <label className="input-label">Current password:</label>
                             {formValidationErrors.oldPassword !== "" ?
                             <div> 
-                                <input id="validation-error" type="password" 
+                                <input autoComplete="new-password" id="validation-error" type="password" 
                                 name="oldPassword"
                                 value={formData.oldPassword}
                                 onChange={handleFormChange}
                                 />
                                 <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
                             </div> :
-                            <input type="password" 
+                            <input autoComplete="new-password" type="password" 
                             name="oldPassword"
                             value={formData.oldPassword}
                             onChange={handleFormChange}
@@ -291,7 +324,7 @@ const Settings = () => {
                     {togglePassword &&
                     <div className="user-box">
                         <h3>Change password</h3>
-                        <form onSubmit={handleEditUserPassword} noValidate>
+                        <form onSubmit={handleEditUserPassword} autoComplete="off" noValidate>
 
                             <label className="input-label">Current password:</label>
                             {formValidationErrors.oldPassword !== "" ?
@@ -352,7 +385,7 @@ const Settings = () => {
                     {toggleDelete &&
                     <div className="user-box">
                         <h3>Permanently Delete Account</h3>
-                        <form onSubmit={handleDeleteUser} noValidate>
+                        <form onSubmit={handleDeleteUser} autoComplete="off" noValidate>
                             <label className="input-label">Email address:</label>
                             {formValidationErrors.emailAddress !== "" ?
                             <div>
@@ -373,7 +406,7 @@ const Settings = () => {
                             <label className="input-label">Current password:</label>
                             {formValidationErrors.oldPassword !== "" ?
                             <div> 
-                                <input id="validation-error" type="password" 
+                                <input id="validation-error" autoComplete="new-password" type="password" 
                                 name="oldPassword"
                                 value={formData.oldPassword}
                                 onChange={handleFormChange}
