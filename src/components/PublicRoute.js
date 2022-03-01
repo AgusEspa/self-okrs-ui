@@ -6,7 +6,7 @@ function PublicRoute({ children }) {
 
     const { userAuth } = useContext(AuthContext);
     
-    const isAuthenticated = userAuth.username;
+    const isAuthenticated = userAuth.refreshToken;
     
     return (isAuthenticated) ? <Navigate to="/dashboard" /> : children;
 }    

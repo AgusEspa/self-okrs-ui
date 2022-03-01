@@ -6,7 +6,7 @@ function ProtectedRoute({ children }) {
 
     const { userAuth } = useContext(AuthContext);
 
-    const isAuthenticated = userAuth.username;
+    const isAuthenticated = userAuth.refreshToken;
     
     return (isAuthenticated) ? children : <Navigate to="/login" />;
 }    

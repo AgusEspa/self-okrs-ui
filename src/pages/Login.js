@@ -68,17 +68,14 @@ const Login = () => {
         try {
             const response = await axios.post(`${baseUrl}/login`, credentials, config);
 
-            window.localStorage.setItem("username", response.data.username);
-            window.localStorage.setItem("email_address", response.data.emailAddress);
             window.localStorage.setItem("access_token", response.data.access_token);
             window.localStorage.setItem("refresh_token", response.data.refresh_token);
             
-            setUserAuth({
-                username: response.data.username,
-                emailAddress: response.data.emailAddress,
-                accessToken: response.data.access_token,
-                refreshToken: response.data.refresh_token
-            });
+            setUserAuth( prevState => ({
+                ...prevState,
+                accessToken: window.localStorage.getItem("access_token"),
+                refreshToken: window.localStorage.getItem("refresh_token")}
+            ));
 
             navigate("/dashboard");
 
