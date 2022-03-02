@@ -130,7 +130,7 @@ textarea {
 .login-box button {
   display: block;
   width: 16rem;
-  margin: 2rem 3rem .5rem 3rem;
+  margin: 2rem 3rem 1rem 3rem;
   border-radius: 1.2rem; 
   text-align: center; 
   padding: 0.5rem 1rem;
@@ -150,6 +150,9 @@ textarea {
   font-size: 1rem;
   color: #1f1f1f;
   margin: 0.5rem 0rem 0rem 3rem;
+}
+.login-link {
+  margin-top: .7rem;
 }
 #validation-error-message {
   font-family: 'Asap', sans-serif;
@@ -198,7 +201,7 @@ textarea {
 }
 .register-box button {
   display: block;
-  margin: 2rem 3rem .5rem 3rem;
+  margin: 2rem 3rem 1rem 3rem;
   width: 16rem;
   border-radius: 1.2rem; 
   text-align: center; 
@@ -219,6 +222,9 @@ textarea {
   font-size: 1rem;
   color: #1f1f1f;
   margin: 0rem 0rem 0rem 3rem;
+}
+.register-link {
+  margin-top: .7rem;
 }
 .register-box label {
   display: block;
@@ -704,7 +710,8 @@ textarea {
   }
 }
 
-.notification {
+/* NOTIFICATION POPUPS */
+.error-notification {
   position: fixed;
   bottom: 0;
   right: 0;
@@ -715,7 +722,7 @@ textarea {
   padding: 1rem;
   width: 14rem;
   border-radius: .5rem 0 0 .5rem;
-  animation: showMe 0.5s forwards;
+  animation: showMe 0.5s normal;
 }
 @keyframes showMe{
     0%{
@@ -725,10 +732,41 @@ textarea {
         opacity: 1;
     }
 }
-.notification p {
+.error-notification p {
   display: block;
   font-family: 'Asap', sans-serif;
   font-size: 1rem;
   color: #1f1f1f;
   margin: 0;
+}
+
+
+/* 404 PAGE */
+.page-404-container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.page-404-box {
+  border: 2px solid red;
+  border-radius: 1rem;
+  padding: 2rem;
+  background-color: #cecece;
+  margin: 3rem;
+}
+.page-404-box h2 {
+  font-family: 'Asap', sans-serif;
+  font-size: 1.5rem;
+  color: #1f1f1f;
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+.page-404-box h3 {
+  font-family: 'Asap', sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+  color: #1f1f1f;
+  text-align: left;
 }

@@ -1,8 +1,9 @@
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import useAxios from "../utils/useAxios";
 import NavBar from "../components/Dashboard/Navbar/Navbar";
 import Objectives from "../components/Dashboard/Objectives";
-import useAxios from "../utils/useAxios";
-import { AuthContext } from "../context/AuthContext";
-import { useState, useEffect, useContext } from "react";
+import Notification from "../components/Dashboard/Notification";
 
 const Dashboard = () => {
 
@@ -71,9 +72,11 @@ const Dashboard = () => {
             </main>
             
             {(networkError !== "") &&
-            <div className="notification">
-                <p>{networkError}</p>
-            </div>}
+            <Notification 
+                message={networkError} 
+                type={"error"}
+            />}
+            
         </div>
     )
 }

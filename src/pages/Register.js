@@ -184,7 +184,7 @@ const Register = () => {
                     <p>Redirecting to login...</p>
                     </div>}
 
-                    <label>*IMPORTANT: Use limited to demostration purposes only</label>
+                    <div className="register-link"><p>Read legal notice.</p></div>
                 </form>
 
                 

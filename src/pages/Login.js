@@ -140,8 +140,8 @@ const Login = () => {
                     <div className="registration-error-message">
                         <p>{networkError}</p>
                     </div>}
-                <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
-                <div><p>New to self.OKRs? <Link to="/register">Register</Link></p></div>
+                <div className="login-link"><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
+                <div className="login-link"><p>New to self.OKRs? <Link to="/register">Register</Link></p></div>
             </div>
         </main>
 	)
