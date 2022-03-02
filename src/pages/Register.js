@@ -179,7 +179,7 @@ const Register = () => {
                     
                     {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                     <button>Create account</button>
-                    {!isRegistered && 
+                    {isRegistered && 
                     <div className="successful-registration">
                     <p>Your account was succesfully created.</p>
                     <p>Redirecting to login...</p>

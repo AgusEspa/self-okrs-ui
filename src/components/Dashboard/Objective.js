@@ -35,8 +35,14 @@ const Objective = (props) => {
 			setKeyResults(parsedResponse);
             
         } catch (error) {
-            console.log(`Request failed: ${error.response.data}`);
-		}
+            if (!error.response) {
+                props.setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                props.setNotification("");
+            } else {
+                console.log(error.response.data);
+            }
+        }
 
     }
 
@@ -67,8 +73,14 @@ const Objective = (props) => {
 			setObjectiveIsChanged(false);
 
         } catch (error) {
-            console.log(`Request failed: ${error.response.data.error_message}`);
-		}
+            if (!error.response) {
+                props.setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                props.setNotification("");
+            } else {
+                console.log(error.response.data);
+            }
+        }
 
 	}
 
@@ -80,8 +92,14 @@ const Objective = (props) => {
 			props.setObjectives(prevState => ( prevState.filter(objective => objective.id !== props.id)));
             
         } catch (error) {
-            console.log(`Request failed: ${error}`);
-		}
+            if (!error.response) {
+                props.setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                props.setNotification("");
+            } else {
+                console.log(error.response.data);
+            }
+        }
 
 	}
 
@@ -101,8 +119,14 @@ const Objective = (props) => {
 			setKeyResults(prevState => prevState.concat(response.data));
             
         } catch (error) {
-            console.log(`Request failed: ${error.response.data.error_message}`);
-		}
+            if (!error.response) {
+                props.setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                props.setNotification("");
+            } else {
+                console.log(error.response.data);
+            }
+        }
 	}
 
 	const mappedKeyResults = keyResults.map( keyResult => 
@@ -114,6 +138,7 @@ const Objective = (props) => {
 			dueDate={keyResult.dueDate}
 			isDone={keyResult.isDone}
 			setKeyResults={setKeyResults}
+			setNotification={props.setNotification}
 		/>
 	);
 
@@ -147,8 +172,8 @@ const Objective = (props) => {
 				<h3>Key Results: <span>{keyResults.length}</span></h3>
 				<button onClick={handleToggleKeyResultView}>
 					{toggledKeyResultView ? 
-					<img src={"./arrow-down.png"} alt="downwards arrow icon" /> : 
-					<img src={"./arrow-up.png"} alt="upwards arrow icon" />}
+					<img src={"./arrow-up.png"} alt="downwards arrow icon" /> : 
+					<img src={"./arrow-down.png"} alt="upwards arrow icon" />}
 				</button>
 			</div>
 			{toggledKeyResultView && (

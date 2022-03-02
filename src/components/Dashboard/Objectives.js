@@ -22,8 +22,14 @@ const Objectives = (props) => {
 			props.setObjectives(props.objectives.concat(response.data));
             
         } catch (error) {
-            console.log(`Request failed: ${error.response.data.error_message}`);
-		}
+            if (!error.response) {
+                props.setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                props.setNotification("");
+            } else {
+                console.log(error.response.data);
+            }
+        }
 	}
 
 	const sortFunction = (a, b) => {
@@ -57,6 +63,7 @@ const Objectives = (props) => {
 						importance={objective.importance}
 						objectives={props.objectives}
 						setObjectives={props.setObjectives}
+						setNotification={props.setNotification}
 					/>);
 
 

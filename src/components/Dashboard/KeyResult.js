@@ -21,8 +21,14 @@ const KeyResult = (props) => {
 			props.setKeyResults(prevState => ( prevState.filter(KeyResult => KeyResult.id !== props.id)));
             
         } catch (error) {
-            console.log(`Request failed: ${error}`);
-		}
+            if (!error.response) {
+                props.setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                props.setNotification("");
+            } else {
+                console.log(error.response.data);
+            }
+        }
 
 	}
 
@@ -58,9 +64,14 @@ const KeyResult = (props) => {
 			setKeyResultIsChanged(false);
 				
 		} catch (error) {
-			console.log(`Request failed: ${error.response.data.error_message}`);
-		
-		}
+            if (!error.response) {
+                props.setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 4000));
+                props.setNotification("");
+            } else {
+                console.log(error.response.data);
+            }
+        }
 	}
 
 	const handleNewDueDate = () => {

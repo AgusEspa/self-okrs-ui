@@ -12,6 +12,8 @@ const Settings = () => {
     const [toggleUsername, setToggleUsername] = useState(false);
     const [togglePassword, setTogglePassword] = useState(false);
     const [toggleDelete, setToggleDelete] = useState(false);
+    const [notification, setNotification] = useState("");
+
 
 	const api = useAxios();
 
@@ -32,7 +34,9 @@ const Settings = () => {
             
         } catch (error) {
             if (!error.response) {
-                console.log("Unable to contact the server. Try again later.");
+                setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                setNotification("");
             } else {
                 logout();
             }
@@ -92,8 +96,9 @@ const Settings = () => {
 
             } catch (error) {
                 if (!error.response) {
-                    //console.log(error);
-                    setCredentialsError("Unable to contact the server. Try again later.");
+                    setNotification("Unable to contact the server. Please try again later.");
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    setNotification("");
                 } else {
                     if (error.response.status === 422) {
                         setFormValidationErrors( prevState => ({
@@ -106,7 +111,6 @@ const Settings = () => {
                 }
             }
         }
-        
     }
 
     const validatePasswordForm = (data) => {
@@ -150,10 +154,10 @@ const Settings = () => {
 
             } catch (error) {
                 if (!error.response) {
-                    //console.log(error);
-                    setCredentialsError("Unable to contact the server. Try again later.");
+                    setNotification("Unable to contact the server. Please try again later.");
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    setNotification("");
                 } else {
-                    //console.log(`Error: ${error.response.data}`);
                     setCredentialsError(error.response.data);
                 }
             }
@@ -200,13 +204,14 @@ const Settings = () => {
                 logout();
             } catch (error) {
                 if (!error.response) {
-                    //console.log(error);
-                    setCredentialsError("Unable to contact the server. Please try again later.");
+                    setNotification("Unable to contact the server. Please try again later.");
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    setNotification("");
                 } else {
-                    //console.log(error);
                     setCredentialsError("Incorrect email / password");
                 }
             }
+            
         }
     }
 
@@ -430,6 +435,10 @@ const Settings = () => {
                     </div>}
                 </div>
             </main>
+            {(notification !== "") &&
+            <div className="notification">
+                <p>{notification}</p>
+            </div>}
         </div>
 	)
 

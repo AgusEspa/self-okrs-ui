@@ -8,6 +8,7 @@ const Dashboard = () => {
 
     const [objectives, setObjectives] = useState([]);
 	const { setUserAuth, logout } = useContext(AuthContext);
+    const [notification, setNotification] = useState("");
 
     const api = useAxios();
 
@@ -28,7 +29,9 @@ const Dashboard = () => {
             
         } catch (error) {
             if (!error.response) {
-                console.log("Unable to contact the server. Try again later.");
+                setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                setNotification("");
             } else {
                 logout();
             }
@@ -47,7 +50,9 @@ const Dashboard = () => {
             
         } catch (error) {
             if (!error.response) {
-                console.log("Unable to contact the server. Try again later.");
+                setNotification("Unable to contact the server. Please try again later.");
+                await new Promise(resolve => setTimeout(resolve, 5000));
+                setNotification("");
             } else {
                 console.log(error.response.data);
             }
@@ -57,10 +62,18 @@ const Dashboard = () => {
     return (
         <div>
 			<NavBar />
-            <Objectives 
-                objectives={objectives}
-                setObjectives={setObjectives}
-            />
+            <main>
+                <Objectives 
+                    objectives={objectives}
+                    setObjectives={setObjectives}
+                    setNotification={setNotification}
+                />
+            </main>
+            
+            {(notification !== "") &&
+            <div className="notification">
+                <p>{notification}</p>
+            </div>}
         </div>
     )
 }
