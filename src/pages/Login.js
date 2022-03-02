@@ -7,6 +7,7 @@ const Login = () => {
 
     const [loginFormData, setLoginFormData] = useState({emailAddress: "", password: ""});
     const [credentialsError, setCredentialsError] = useState("");
+    const [networkError, setNetworkError] = useState("");
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", password: ""});
     const { setUserAuth } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -63,6 +64,7 @@ const Login = () => {
 
         setFormValidationErrors({emailAddress: "", password: ""});
         setCredentialsError("");
+        setNetworkError("");
 
         try {
             const response = await axios.post(`${baseUrl}/login`, credentials, config);
@@ -79,11 +81,9 @@ const Login = () => {
             navigate("/dashboard");
 
         } catch (error) {
-            if (!error.response) {
-                //console.log(error);
-                setCredentialsError("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                setNetworkError("Unable to contact the server. Please try again later.");
             } else {
-                //console.log(error);
                 setCredentialsError("Incorrect email / password");
             }
         }
@@ -136,6 +136,10 @@ const Login = () => {
                     {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                     <button>Log in</button>
                 </form>
+                {networkError !== "" && 
+                    <div className="registration-error-message">
+                        <p>{networkError}</p>
+                    </div>}
                 <div><p>Forgot your password? <Link to="/register">Reset</Link></p></div>
                 <div><p>New to self.OKRs? <Link to="/register">Register</Link></p></div>
             </div>

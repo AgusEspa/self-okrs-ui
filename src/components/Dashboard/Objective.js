@@ -5,14 +5,11 @@ import KeyResult from "./KeyResult";
 const Objective = (props) => {
 
 	const [ keyResults, setKeyResults ] = useState([]);
-
 	const [ editObjectiveFormData, setEditObjectiveFormData ] = useState( () => ({
 		title: props.title, 
 		importance: props.importance } 
 	));
-
 	const [ objectiveIsChanged, setObjectiveIsChanged ] = useState(false);
-
 	const [ toggledKeyResultView, setToggledKeyResultView ] = useState(false);
 	
 	const api = useAxios();
@@ -35,10 +32,10 @@ const Objective = (props) => {
 			setKeyResults(parsedResponse);
             
         } catch (error) {
-            if (!error.response) {
-                props.setNotification("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                props.setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 5000));
-                props.setNotification("");
+                props.setNetworkError("");
             } else {
                 console.log(error.response.data);
             }
@@ -73,10 +70,10 @@ const Objective = (props) => {
 			setObjectiveIsChanged(false);
 
         } catch (error) {
-            if (!error.response) {
-                props.setNotification("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                props.setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 5000));
-                props.setNotification("");
+                props.setNetworkError("");
             } else {
                 console.log(error.response.data);
             }
@@ -92,10 +89,10 @@ const Objective = (props) => {
 			props.setObjectives(prevState => ( prevState.filter(objective => objective.id !== props.id)));
             
         } catch (error) {
-            if (!error.response) {
-                props.setNotification("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                props.setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 5000));
-                props.setNotification("");
+                props.setNetworkError("");
             } else {
                 console.log(error.response.data);
             }
@@ -119,10 +116,10 @@ const Objective = (props) => {
 			setKeyResults(prevState => prevState.concat(response.data));
             
         } catch (error) {
-            if (!error.response) {
-                props.setNotification("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                props.setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 5000));
-                props.setNotification("");
+                props.setNetworkError("");
             } else {
                 console.log(error.response.data);
             }
@@ -138,7 +135,7 @@ const Objective = (props) => {
 			dueDate={keyResult.dueDate}
 			isDone={keyResult.isDone}
 			setKeyResults={setKeyResults}
-			setNotification={props.setNotification}
+			setNetworkError={props.setNetworkError}
 		/>
 	);
 

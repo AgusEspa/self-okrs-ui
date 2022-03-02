@@ -22,10 +22,10 @@ const Objectives = (props) => {
 			props.setObjectives(props.objectives.concat(response.data));
             
         } catch (error) {
-            if (!error.response) {
-                props.setNotification("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                props.setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 5000));
-                props.setNotification("");
+                props.setNetworkError("");
             } else {
                 console.log(error.response.data);
             }
@@ -63,7 +63,7 @@ const Objectives = (props) => {
 						importance={objective.importance}
 						objectives={props.objectives}
 						setObjectives={props.setObjectives}
-						setNotification={props.setNotification}
+						setNetworkError={props.setNetworkError}
 					/>);
 
 

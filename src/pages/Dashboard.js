@@ -8,7 +8,7 @@ const Dashboard = () => {
 
     const [objectives, setObjectives] = useState([]);
 	const { setUserAuth, logout } = useContext(AuthContext);
-    const [notification, setNotification] = useState("");
+    const [networkError, setNetworkError] = useState("");
 
     const api = useAxios();
 
@@ -29,9 +29,9 @@ const Dashboard = () => {
             
         } catch (error) {
             if (!error.response) {
-                setNotification("Unable to contact the server. Please try again later.");
+                setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 5000));
-                setNotification("");
+                setNetworkError("");
             } else {
                 logout();
             }
@@ -49,10 +49,10 @@ const Dashboard = () => {
 			setObjectives(response.data);
             
         } catch (error) {
-            if (!error.response) {
-                setNotification("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 5000));
-                setNotification("");
+                setNetworkError("");
             } else {
                 console.log(error.response.data);
             }
@@ -66,13 +66,13 @@ const Dashboard = () => {
                 <Objectives 
                     objectives={objectives}
                     setObjectives={setObjectives}
-                    setNotification={setNotification}
+                    setNetworkError={setNetworkError}
                 />
             </main>
             
-            {(notification !== "") &&
+            {(networkError !== "") &&
             <div className="notification">
-                <p>{notification}</p>
+                <p>{networkError}</p>
             </div>}
         </div>
     )

@@ -21,10 +21,10 @@ const KeyResult = (props) => {
 			props.setKeyResults(prevState => ( prevState.filter(KeyResult => KeyResult.id !== props.id)));
             
         } catch (error) {
-            if (!error.response) {
-                props.setNotification("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                props.setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 5000));
-                props.setNotification("");
+                props.setNetworkError("");
             } else {
                 console.log(error.response.data);
             }
@@ -64,10 +64,10 @@ const KeyResult = (props) => {
 			setKeyResultIsChanged(false);
 				
 		} catch (error) {
-            if (!error.response) {
-                props.setNotification("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                props.setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 4000));
-                props.setNotification("");
+                props.setNetworkError("");
             } else {
                 console.log(error.response.data);
             }

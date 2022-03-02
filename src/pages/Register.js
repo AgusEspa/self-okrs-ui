@@ -6,7 +6,7 @@ const Register = () => {
 
     const [formData, setFormData] = useState({emailAddress: "", username:"", password: "", passwordVerification:""});
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", username:"", password: "", passwordVerification:""});
-    const [credentialsError, setCredentialsError] = useState("");
+    const [networkError, setNetworkError] = useState("");
     const [isRegistered, setIsRegistered] = useState(false);
 	const [passwordHelperDisplay, setPasswordHelperDisplay] = useState(false);
 	const navigate = useNavigate();
@@ -68,7 +68,7 @@ const Register = () => {
                 password: formData.password};
 
                 setFormValidationErrors({emailAddress: "", username:"", password: "", passwordVerification:""});
-                setCredentialsError("");
+                setNetworkError("");
 
             try {
                 await axios.post(`${baseUrl}/users/signup`, requestBody);
@@ -76,19 +76,15 @@ const Register = () => {
                 await new Promise(resolve => setTimeout(resolve, 4000));
                 navigate("/login");
             } catch (error) {
-                if (!error.response) {
-                    //console.log(error);
-                    setCredentialsError("Unable to contact the server. Try again later.");
-                } else {
-                    if (error.response.status === 422) {
-                        setFormValidationErrors( prevState => ({
-                            ...prevState,
-                            emailAddress: error.response.data 
-                        }));
-                    } else setCredentialsError(error.response.data);
-                    //console.log(`Error: ${error.response.data}`);
-                    
-                }
+                if (!error.response || error.response.status >= 500) {
+                    setNetworkError("Unable to contact the server. Please try again later.");
+                } else if (error.response.status) {
+                    if (error.response.data.includes("email"))
+                    setFormValidationErrors( prevState => ({
+                        ...prevState,
+                        emailAddress: error.response.data 
+                    }));
+                } else setNetworkError(error.response.data);     
             } 
         }
   	}
@@ -177,8 +173,11 @@ const Register = () => {
                     />
                     }
                     
-                    {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                     <button>Create account</button>
+                    {networkError !== "" && 
+                    <div className="registration-error-message">
+                        <p>{networkError}</p>
+                    </div>}
                     {isRegistered && 
                     <div className="successful-registration">
                     <p>Your account was succesfully created.</p>

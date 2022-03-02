@@ -12,7 +12,7 @@ const Settings = () => {
     const [toggleUsername, setToggleUsername] = useState(false);
     const [togglePassword, setTogglePassword] = useState(false);
     const [toggleDelete, setToggleDelete] = useState(false);
-    const [notification, setNotification] = useState("");
+    const [networkError, setNetworkError] = useState("");
 
 
 	const api = useAxios();
@@ -33,10 +33,10 @@ const Settings = () => {
             ));
             
         } catch (error) {
-            if (!error.response) {
-                setNotification("Unable to contact the server. Please try again later.");
+            if (!error.response || error.response.status >= 500) {
+                setNetworkError("Unable to contact the server. Please try again later.");
                 await new Promise(resolve => setTimeout(resolve, 5000));
-                setNotification("");
+                setNetworkError("");
             } else {
                 logout();
             }
@@ -95,20 +95,22 @@ const Settings = () => {
                 logout();
 
             } catch (error) {
-                if (!error.response) {
-                    setNotification("Unable to contact the server. Please try again later.");
+                if (!error.response || error.response.status >= 500) {
+                    setNetworkError("Unable to contact the server. Please try again later.");
                     await new Promise(resolve => setTimeout(resolve, 5000));
-                    setNotification("");
-                } else {
-                    if (error.response.status === 422) {
-                        setFormValidationErrors( prevState => ({
-                            ...prevState,
-                            emailAddress: error.response.data 
-                        }));
-                    } else setCredentialsError(error.response.data);
-                    //console.log(`Error: ${error.response.data}`);
-                    
-                }
+                    setNetworkError("");
+                } else if (error.response.status) {
+                    if (error.response.data.includes("mail"))
+                    setFormValidationErrors( prevState => ({
+                        ...prevState,
+                        emailAddress: error.response.data 
+                    }));
+                    if (error.response.data.includes("password"))
+                    setFormValidationErrors( prevState => ({
+                        ...prevState,
+                        oldPassword: error.response.data
+                    }));
+                } else setCredentialsError(error.response.data);     
             }
         }
     }
@@ -153,13 +155,22 @@ const Settings = () => {
                 logout();
 
             } catch (error) {
-                if (!error.response) {
-                    setNotification("Unable to contact the server. Please try again later.");
+                if (!error.response || error.response.status >= 500) {
+                    setNetworkError("Unable to contact the server. Please try again later.");
                     await new Promise(resolve => setTimeout(resolve, 5000));
-                    setNotification("");
-                } else {
-                    setCredentialsError(error.response.data);
-                }
+                    setNetworkError("");
+                } else if (error.response.status) {
+                    if (error.response.data.includes("mail"))
+                    setFormValidationErrors( prevState => ({
+                        ...prevState,
+                        emailAddress: error.response.data 
+                    }));
+                    if (error.response.data.includes("password"))
+                    setFormValidationErrors( prevState => ({
+                        ...prevState,
+                        oldPassword: error.response.data
+                    }));
+                } else setCredentialsError(error.response.data);     
             }
         }
         
@@ -167,14 +178,12 @@ const Settings = () => {
 
     const validateDeleteForm = (data) => {
         const errors = {emailAddress: "", oldPassword: ""};
-    
-        const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    
+        
         if (!data.emailAddress) {
             errors.emailAddress = "Email address is required";
         } 
-        else if (!(emailPattern.test(data.emailAddress))) {
-            errors.emailAddress = "Please enter a valid email address";
+        else if (data.emailAddress !== userAuth.emailAddress) {
+            errors.emailAddress = "Please enter this account's email address";
         }
 
         if (!data.oldPassword) {
@@ -203,13 +212,22 @@ const Settings = () => {
                 await api.delete("/users", {data: formData});
                 logout();
             } catch (error) {
-                if (!error.response) {
-                    setNotification("Unable to contact the server. Please try again later.");
+                if (!error.response || error.response.status >= 500) {
+                    setNetworkError("Unable to contact the server. Please try again later.");
                     await new Promise(resolve => setTimeout(resolve, 5000));
-                    setNotification("");
-                } else {
-                    setCredentialsError("Incorrect email / password");
-                }
+                    setNetworkError("");
+                } else if (error.response.status) {
+                    if (error.response.data.includes("mail"))
+                    setFormValidationErrors( prevState => ({
+                        ...prevState,
+                        emailAddress: error.response.data 
+                    }));
+                    if (error.response.data.includes("password"))
+                    setFormValidationErrors( prevState => ({
+                        ...prevState,
+                        oldPassword: error.response.data
+                    }));
+                } else setCredentialsError(error.response.data);     
             }
             
         }
@@ -264,7 +282,7 @@ const Settings = () => {
                             <img src={"./arrow-right.png"} alt="arrow icon" />
                         </button>
                         <button className="button-box-item" onClick={handleDeleteToggle}>
-                            <label>Delete Account</label>
+                            <label id="delete-label">Delete Account</label>
                             <img src={"./arrow-right.png"} alt="arrow icon" />
                         </button>
                     </div>
@@ -274,7 +292,7 @@ const Settings = () => {
                         <h3>Edit username and email address</h3>
                         <form onSubmit={handleEditUserDetails} noValidate>
                             
-                            <label className="input-label">Username:</label>
+                            <label className="input-label">New username:</label>
                             {formValidationErrors.username !== "" ?
                             <div>
                             <input autoComplete="new-password" id="validation-error" type="text" 
@@ -291,7 +309,7 @@ const Settings = () => {
                                 />
                             }
 
-                            <label className="input-label">Email address:</label>
+                            <label className="input-label">New email address:</label>
                             {formValidationErrors.emailAddress !== "" ?
                             <div>
                                 <input autoComplete="new-password" id="validation-error" type="email"
@@ -393,9 +411,9 @@ const Settings = () => {
 
                     {toggleDelete &&
                     <div className="user-box">
-                        <h3>Permanently Delete Account</h3>
+                        <h3 id="delete-title">Permanently Delete Account</h3>
                         <form onSubmit={handleDeleteUser} autoComplete="off" noValidate>
-                            <label className="input-label">Email address:</label>
+                            <label className="input-label">Type yor email address to confirm:</label>
                             {formValidationErrors.emailAddress !== "" ?
                             <div>
                                 <input id="validation-error" type="email"
@@ -435,9 +453,9 @@ const Settings = () => {
                     </div>}
                 </div>
             </main>
-            {(notification !== "") &&
+            {(networkError !== "") &&
             <div className="notification">
-                <p>{notification}</p>
+                <p>{networkError}</p>
             </div>}
         </div>
 	)

@@ -129,7 +129,7 @@ textarea {
 .login-box button {
   display: block;
   width: 16rem;
-  margin: 2rem 3rem 1.5rem 3rem;
+  margin: 2rem 3rem .5rem 3rem;
   border-radius: 1.2rem; 
   text-align: center; 
   padding: 0.5rem 1rem;
@@ -162,10 +162,11 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f7f7f7;
 }
 .register-box {
   background-color: #e2e2e2;
-  border: 1px solid #3a3a3a;
+  border: 1px solid #cfcfcf;
   border-radius: 0.5rem;
   padding: 3rem;
   margin: 3rem;
@@ -263,6 +264,19 @@ textarea {
   padding: 1rem;
 }
 .successful-registration p {
+  display: block;
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: #1f1f1f;
+  margin: 0;
+}
+.registration-error-message {
+  border-left: 4px solid red;
+  background-color: #ffbcbc;
+  margin: 0.5rem 3rem 1.5rem 3rem;
+  padding: 1rem;
+}
+.registration-error-message p {
   display: block;
   font-family: 'Asap', sans-serif;
   font-size: 1rem;
@@ -639,6 +653,9 @@ textarea {
   margin: 0rem 0rem 0rem 0.2rem;
   color: #1f1f1f;
   text-align: left;
+}
+#delete-title, #delete-label {
+  color: red;
 }
 #user-validation-error-message {
   font-family: 'Asap', sans-serif;
