@@ -43,6 +43,7 @@ textarea {
   font-size: 1.2rem;
   background-color: #b34270;
   border-radius: 0.7rem;
+  transition: all 0.3s ease-out;
 }
 .get-started-link a:hover {
   background-color: #c5517f;
@@ -138,6 +139,7 @@ textarea {
   font-size: 1rem;
   border: none;
   outline: 0;
+  transition: all 0.3s ease-out;
 }
 .login-box button:hover {
   background-color: #5e5e5e;
@@ -206,6 +208,7 @@ textarea {
   font-size: 1rem;
   border: none;
   outline: 0;
+  transition: all 0.3s ease-out;
 }
 .register-box button:hover {
   background-color: #5e5e5e;
@@ -275,6 +278,15 @@ textarea {
   background-color: #ffbcbc;
   margin: 0.5rem 3rem 1.5rem 3rem;
   padding: 1rem;
+  animation: showMe 0.5s forwards;
+}
+@keyframes showMe{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }
 .registration-error-message p {
   display: block;
@@ -317,6 +329,7 @@ textarea {
   list-style-type: none;
   padding: 0.5rem;
   margin-right: 2.5rem;
+  transition: all 0.3s ease-out;
 }
 .links-menu li:hover {
   background-color: #c75884;
@@ -353,6 +366,7 @@ textarea {
   margin: 0;
   padding: .4rem 1rem .4rem 1rem;
   border: 0;
+  transition: all 0.3s ease-out;
 }
 .dropdown-menu li:hover {
   background-color: #414141;
@@ -407,6 +421,7 @@ textarea {
   border-radius: 0.3rem;
   padding: .3rem .5rem .3rem .5rem;
   border: none;
+  transition: all 0.3s ease-out;
 }
 .tools-menu button:hover {
   background-color: #dbdbdb;
@@ -582,6 +597,7 @@ textarea {
 }
 .button-box button {
   background-color: #ececec;
+  transition: all 0.3s ease-out;
 }
 .button-box button:hover {
   background-color: #f3f3f3;
@@ -637,6 +653,7 @@ textarea {
   font-size: 1rem;
   border: none;
   outline: 0;
+  transition: all 0.3s ease-out;
 }
 .user-box button:hover {
   background-color: #5e5e5e;
@@ -693,11 +710,20 @@ textarea {
   right: 0;
   z-index: 1;
   border-right: 5px solid red;
-  background-color: #e2e2e2;
+  background-color: #cecece;
   margin: 2rem;
   padding: 1rem;
   width: 14rem;
   border-radius: .5rem 0 0 .5rem;
+  animation: showMe 0.5s forwards;
+}
+@keyframes showMe{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 }
 .notification p {
   display: block;
