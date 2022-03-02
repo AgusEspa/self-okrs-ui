@@ -43,7 +43,7 @@ textarea {
   font-size: 1.2rem;
   background-color: #b34270;
   border-radius: 0.7rem;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 .get-started-link a:hover {
   background-color: #c5517f;
@@ -139,7 +139,7 @@ textarea {
   font-size: 1rem;
   border: none;
   outline: 0;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 .login-box button:hover {
   background-color: #5e5e5e;
@@ -211,7 +211,7 @@ textarea {
   font-size: 1rem;
   border: none;
   outline: 0;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 .register-box button:hover {
   background-color: #5e5e5e;
@@ -335,11 +335,11 @@ textarea {
   list-style-type: none;
   padding: 0.5rem;
   margin-right: 2.5rem;
-  transition: all 0.3s ease-out;
+  border-radius: 0.7rem;
+  transition: background-color 0.2s ease-out;
 }
 .links-menu li:hover {
   background-color: #c75884;
-  border-radius: 0.7rem;
 }
 .links-menu span, .links-menu a {
   color: white;
@@ -372,7 +372,7 @@ textarea {
   margin: 0;
   padding: .4rem 1rem .4rem 1rem;
   border: 0;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 .dropdown-menu li:hover {
   background-color: #414141;
@@ -427,7 +427,7 @@ textarea {
   border-radius: 0.3rem;
   padding: .3rem .5rem .3rem .5rem;
   border: none;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 .tools-menu button:hover {
   background-color: #dbdbdb;
@@ -603,7 +603,7 @@ textarea {
 }
 .button-box button {
   background-color: #ececec;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 .button-box button:hover {
   background-color: #f3f3f3;
@@ -659,7 +659,7 @@ textarea {
   font-size: 1rem;
   border: none;
   outline: 0;
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 .user-box button:hover {
   background-color: #5e5e5e;
