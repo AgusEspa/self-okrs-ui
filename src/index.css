@@ -692,11 +692,12 @@ textarea {
   bottom: 0;
   right: 0;
   z-index: 1;
-  border-left: 4px solid red;
-  background-color: #cccccc;
+  border-right: 5px solid red;
+  background-color: #e2e2e2;
   margin: 2rem;
   padding: 1rem;
   width: 14rem;
+  border-radius: .5rem 0 0 .5rem;
 }
 .notification p {
   display: block;

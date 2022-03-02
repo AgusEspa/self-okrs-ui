@@ -156,7 +156,7 @@ const Register = () => {
                     />
                     }
 
-                    <label>Re-enter password:</label>
+                    <label>Confirm password:</label>
                     {formValidationErrors.passwordVerification !== "" ?
                     <div> 
                         <input id="validation-error" type="password" 
@@ -183,6 +183,8 @@ const Register = () => {
                     <p>Your account was succesfully created.</p>
                     <p>Redirecting to login...</p>
                     </div>}
+
+                    <label>*IMPORTANT: Use limited to demostration purposes only</label>
                 </form>
 
                 
