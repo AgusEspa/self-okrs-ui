@@ -657,6 +657,10 @@ textarea {
 .user-box ::placeholder {
   color: #a5a5a5;
 }
+.button-spinner-container {
+  display: flex;
+  align-items: center;
+}
 .user-box button {
   margin-top: 1.5rem;
   width: auto;
@@ -787,6 +791,10 @@ textarea {
   justify-content: center;
   align-items: center;
   margin: 0 3rem 0 3rem;
+  padding: 0rem;
+}
+.loading-spinner-settings-container {
+  margin: 1.5rem .5rem 0 .5rem;
   padding: 0rem;
 }
 .loading-spinner {
