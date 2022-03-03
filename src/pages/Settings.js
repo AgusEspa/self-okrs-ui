@@ -9,7 +9,7 @@ const Settings = () => {
     const { userAuth, setUserAuth, logout } = useContext(AuthContext);
     const [formData, setFormData] = useState({username: userAuth.username, emailAddress: userAuth.emailAddress, oldPassword: "", newPassword: "", passwordVerification: ""});
     const [credentialsError, setCredentialsError] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [formValidationErrors, setFormValidationErrors] = useState({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
     const [toggleUsername, setToggleUsername] = useState(false);
     const [togglePassword, setTogglePassword] = useState(false);
@@ -362,6 +362,12 @@ const Settings = () => {
 
                             {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                             <button>Save changes</button>
+
+                            {isLoading &&
+                            <div className="loading-spinner-container">
+                                <div className="loading-spinner"></div>
+                            </div>
+                            }
                         </form>
                     </div>}
 
@@ -423,6 +429,12 @@ const Settings = () => {
 
                             {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                             <button>Save changes</button>
+
+                            {isLoading &&
+                            <div className="loading-spinner-container">
+                                <div className="loading-spinner"></div>
+                            </div>
+                            }
                         </form>
                     </div>}
 
@@ -466,6 +478,12 @@ const Settings = () => {
 
                             {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                             <button id="delete">Delete</button>
+
+                            {isLoading &&
+                            <div className="loading-spinner-container">
+                                <div className="loading-spinner"></div>
+                            </div>
+                            }
                         </form>
                     </div>}
                 </div>
