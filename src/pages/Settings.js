@@ -412,7 +412,7 @@ const Settings = () => {
 
                     {toggleDelete &&
                     <div className="user-box">
-                        <h3 id="delete-title">Permanently Delete Account</h3>
+                        <h3 id="delete-title">Permanently Delete Your Account</h3>
                         <form onSubmit={handleDeleteUser} autoComplete="off" noValidate>
                             <label className="input-label">Type yor email address to confirm:</label>
                             {formValidationErrors.emailAddress !== "" ?

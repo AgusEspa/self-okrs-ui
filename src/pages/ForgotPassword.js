@@ -96,7 +96,7 @@ const ForgotPassword = () => {
                     {isSent && 
                     <div className="successful-registration">
                     <p>Your request was sent.</p>
-                    <p>Please check your inbox.</p>
+                    <p>Please check your INBOX or SPAM.</p>
                     </div>}
 
                 </form>
