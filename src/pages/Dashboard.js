@@ -29,15 +29,12 @@ const Dashboard = () => {
             ));
             
         } catch (error) {
-            if (!error.response) {
-                setNetworkError("Unable to contact the server. Please try again later.");
-                await new Promise(resolve => setTimeout(resolve, 5000));
-                setNetworkError("");
-            } else {
-                logout();
-            }
+            setNetworkError("Unable to verify identity. Loging out...");
+            await new Promise(resolve => setTimeout(resolve, 6000));
+            setNetworkError("");
+            logout();
         }
-    };
+    }
 
     useEffect( () => {
         getObjectives();
@@ -58,7 +55,7 @@ const Dashboard = () => {
                 console.log(error.response.data);
             }
         }
-    };
+    }
 
     return (
         <div>

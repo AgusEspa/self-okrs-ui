@@ -7,6 +7,12 @@ const Notification = (props) => {
 				<p>{props.message}</p>
 			</div>
 		)
+	} else if (props.type === "ok") {
+		return (
+			<div className="success-notification">
+				<p>{props.message}</p>
+			</div>
+		)
 	}
 	
 }

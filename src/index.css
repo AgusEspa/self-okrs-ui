@@ -752,6 +752,34 @@ textarea {
   color: #1f1f1f;
   margin: 0;
 }
+.success-notification {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  border-right: 5px solid #058f00;
+  background-color: #cecece;
+  margin: 2rem;
+  padding: 1rem;
+  width: 14rem;
+  border-radius: .5rem 0 0 .5rem;
+  animation: showMe 0.5s normal;
+}
+@keyframes showMe{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.success-notification p {
+  display: block;
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  color: #1f1f1f;
+  margin: 0;
+}
 
 
 /* 404 PAGE */

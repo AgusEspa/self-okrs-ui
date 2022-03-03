@@ -14,7 +14,7 @@ const Settings = () => {
     const [toggleUsername, setToggleUsername] = useState(false);
     const [togglePassword, setTogglePassword] = useState(false);
     const [toggleDelete, setToggleDelete] = useState(false);
-    const [networkError, setNetworkError] = useState("");
+    const [notification, setNotification] = useState({message: "", type: ""});
 
 
 	const api = useAxios();
@@ -35,13 +35,10 @@ const Settings = () => {
             ));
             
         } catch (error) {
-            if (!error.response || error.response.status >= 500) {
-                setNetworkError("Unable to contact the server. Please try again later.");
-                await new Promise(resolve => setTimeout(resolve, 5000));
-                setNetworkError("");
-            } else {
-                logout();
-            }
+            setNotification(prevState => ({message: "Unable to verify identity. Loging out...", type: "error"}));
+            await new Promise(resolve => setTimeout(resolve, 6000));
+            setNotification(prevState => ({message: "", type: ""}));
+            logout();
         }
     };
 
@@ -97,16 +94,18 @@ const Settings = () => {
             try {
                 await api.put("/users", formData);
                 setIsLoading(false);
-
+                setNotification(prevState => ({message: "User details updated. Redirecting to login...", type: "ok"}));
+                await new Promise(resolve => setTimeout(resolve, 6000));
+                setNotification(prevState => ({message: "", type: ""}));
                 logout();
 
             } catch (error) {
                 setIsLoading(false);
 
                 if (!error.response || error.response.status >= 500) {
-                    setNetworkError("Unable to contact the server. Please try again later.");
+                    setNotification(prevState => ({message: "Unable to contact the server. Please try again later.", type: "error"}));
                     await new Promise(resolve => setTimeout(resolve, 5000));
-                    setNetworkError("");
+                    setNotification(prevState => ({message: "", type: ""}));
                 } else if (error.response.status) {
                     if (error.response.data.includes("mail"))
                     setFormValidationErrors( prevState => ({
@@ -164,15 +163,18 @@ const Settings = () => {
             try {
                 await api.put("/users", formData);
                 setIsLoading(false);
+                setNotification(prevState => ({message: "Password updated. Redirecting to login...", type: "ok"}));
+                await new Promise(resolve => setTimeout(resolve, 6000));
+                setNotification(prevState => ({message: "", type: ""}));
                 logout();
 
             } catch (error) {
                 setIsLoading(false);
 
                 if (!error.response || error.response.status >= 500) {
-                    setNetworkError("Unable to contact the server. Please try again later.");
+                    setNotification(prevState => ({message: "Unable to contact the server. Please try again later.", type: "error"}));
                     await new Promise(resolve => setTimeout(resolve, 5000));
-                    setNetworkError("");
+                    setNotification(prevState => ({message: "", type: ""}));
                 } else if (error.response.status) {
                     if (error.response.data.includes("mail"))
                     setFormValidationErrors( prevState => ({
@@ -226,13 +228,16 @@ const Settings = () => {
             try {
                 await api.delete("/users", {data: formData});
                 setIsLoading(false);
+                setNotification(prevState => ({message: "Your account and all personal data were deleted successfully.", type: "ok"}));
+                await new Promise(resolve => setTimeout(resolve, 6000));
+                setNotification(prevState => ({message: "", type: ""}));
                 logout();
             } catch (error) {
                 setIsLoading(false);
                 if (!error.response || error.response.status >= 500) {
-                    setNetworkError("Unable to contact the server. Please try again later.");
+                    setNotification(prevState => ({message: "Unable to contact the server. Please try again later.", type: "error"}));
                     await new Promise(resolve => setTimeout(resolve, 5000));
-                    setNetworkError("");
+                    setNotification(prevState => ({message: "", type: ""}));
                 } else if (error.response.status) {
                     if (error.response.data.includes("mail"))
                     setFormValidationErrors( prevState => ({
@@ -491,10 +496,10 @@ const Settings = () => {
                     </div>}
                 </div>
             </main>
-            {(networkError !== "") &&
+            {(notification.message !== "") &&
             <Notification 
-                message={networkError} 
-                type={"error"}
+                message={notification.message} 
+                type={notification.type}
             />}
         </div>
 	)
