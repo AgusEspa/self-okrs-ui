@@ -8,6 +8,7 @@ const Login = () => {
     const [loginFormData, setLoginFormData] = useState({emailAddress: "", password: ""});
     const [credentialsError, setCredentialsError] = useState("");
     const [networkError, setNetworkError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", password: ""});
     const { setUserAuth } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -24,6 +25,8 @@ const Login = () => {
 
     const validateForm = (data) => {
         const errors = {emailAddress:"", password:""};
+        
+        setFormValidationErrors(errors);
     
         const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     
@@ -44,9 +47,14 @@ const Login = () => {
 
     const handleLogin = (event) => {
         event.preventDefault();
+
+        setCredentialsError("");
+        setNetworkError("");
+
         const validationErrors = validateForm(loginFormData);
 
         if (validationErrors.emailAddress === "" && validationErrors.password === "") {
+            setIsLoading(true);
             login(); 
         }
     }
@@ -62,10 +70,6 @@ const Login = () => {
     	    }
         }
 
-        setFormValidationErrors({emailAddress: "", password: ""});
-        setCredentialsError("");
-        setNetworkError("");
-
         try {
             const response = await axios.post(`${baseUrl}/login`, credentials, config);
 
@@ -78,9 +82,12 @@ const Login = () => {
                 refreshToken: window.localStorage.getItem("refresh_token")}
             ));
 
+            setIsLoading(false);
+
             navigate("/dashboard");
 
         } catch (error) {
+            setIsLoading(false);
             if (!error.response || error.response.status >= 500) {
                 setNetworkError("Unable to contact the server. Please try again later.");
             } else {
@@ -136,6 +143,13 @@ const Login = () => {
                     {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
                     <button>Log in</button>
                 </form>
+
+                {isLoading &&
+                <div className="loading-spinner-container">
+                    <div className="loading-spinner"></div>
+                </div>
+                }
+
                 {networkError !== "" && 
                     <div className="registration-error-message">
                         <p>{networkError}</p>

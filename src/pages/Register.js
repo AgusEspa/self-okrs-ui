@@ -8,6 +8,7 @@ const Register = () => {
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", username:"", password: "", passwordVerification:""});
     const [networkError, setNetworkError] = useState("");
     const [isRegistered, setIsRegistered] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 	const [passwordHelperDisplay, setPasswordHelperDisplay] = useState(false);
 	const navigate = useNavigate();
 
@@ -23,6 +24,7 @@ const Register = () => {
 
     const validateForm = (data) => {
         const errors = {emailAddress: "", username:"", password: "", passwordVerification:""};
+        setFormValidationErrors(errors);
     
         const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     
@@ -59,6 +61,8 @@ const Register = () => {
   	const handleRegistration = async (event) => {
 		event.preventDefault();
 
+        setNetworkError("");
+
         const validationErrors = validateForm(formData);
 
         if (validationErrors.emailAddress === "" && validationErrors.username === "" && validationErrors.password === "" && validationErrors.passwordVerification === "") {
@@ -66,16 +70,17 @@ const Register = () => {
             const requestBody = {username: formData.username, 
                 emailAddress: formData.emailAddress,
                 password: formData.password};
-
-                setFormValidationErrors({emailAddress: "", username:"", password: "", passwordVerification:""});
-                setNetworkError("");
+                
+            setIsLoading(true);
 
             try {
                 await axios.post(`${baseUrl}/users/signup`, requestBody);
+                setIsLoading(false);
                 setIsRegistered(true);
                 await new Promise(resolve => setTimeout(resolve, 4000));
                 navigate("/login");
             } catch (error) {
+                setIsLoading(false);
                 if (!error.response || error.response.status >= 500) {
                     setNetworkError("Unable to contact the server. Please try again later.");
                 } else if (error.response.status) {
@@ -174,6 +179,13 @@ const Register = () => {
                     }
                     
                     <button>Create account</button>
+
+                    {isLoading &&
+                    <div className="loading-spinner-container">
+                        <div className="loading-spinner"></div>
+                    </div>
+                    }
+
                     {networkError !== "" && 
                     <div className="registration-error-message">
                         <p>{networkError}</p>

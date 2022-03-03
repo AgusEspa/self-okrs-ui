@@ -9,6 +9,7 @@ const Settings = () => {
     const { userAuth, setUserAuth, logout } = useContext(AuthContext);
     const [formData, setFormData] = useState({username: userAuth.username, emailAddress: userAuth.emailAddress, oldPassword: "", newPassword: "", passwordVerification: ""});
     const [credentialsError, setCredentialsError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [formValidationErrors, setFormValidationErrors] = useState({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
     const [toggleUsername, setToggleUsername] = useState(false);
     const [togglePassword, setTogglePassword] = useState(false);
@@ -54,6 +55,7 @@ const Settings = () => {
 
     const validateDetailsForm = (data) => {
         const errors = {username:"", emailAddress: "", oldPassword: ""};
+        setFormValidationErrors(errors);
     
         const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     
@@ -84,18 +86,23 @@ const Settings = () => {
     const handleEditUserDetails = async (event) => {
         event.preventDefault();
 
+        setCredentialsError("");
+
         const validationErrors = validateDetailsForm(formData);
         
         if (validationErrors.emailAddress === "" && validationErrors.username === "" && validationErrors.oldPassword === "") {
 
-            setFormValidationErrors({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
-            setCredentialsError("");
+            setIsLoading(true);
             
             try {
                 await api.put("/users", formData);
+                setIsLoading(false);
+
                 logout();
 
             } catch (error) {
+                setIsLoading(false);
+
                 if (!error.response || error.response.status >= 500) {
                     setNetworkError("Unable to contact the server. Please try again later.");
                     await new Promise(resolve => setTimeout(resolve, 5000));
@@ -118,6 +125,8 @@ const Settings = () => {
 
     const validatePasswordForm = (data) => {
         const errors = {oldPassword: "", newPassword: "", passwordVerification: ""};
+
+        setFormValidationErrors(errors);
     
         if (!data.oldPassword) {
             errors.oldPassword = "Password is required";
@@ -144,18 +153,22 @@ const Settings = () => {
     const handleEditUserPassword =  async (event) => {
         event.preventDefault();
 
+        setCredentialsError("");
+
         const validationErrors = validatePasswordForm(formData);
         
         if (validationErrors.oldPassword === "" && validationErrors.newPassword === "" && validationErrors.passwordVerification === "" ) {
 
-            setFormValidationErrors({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
-            setCredentialsError("");
+            setIsLoading(true);
             
             try {
                 await api.put("/users", formData);
+                setIsLoading(false);
                 logout();
 
             } catch (error) {
+                setIsLoading(false);
+
                 if (!error.response || error.response.status >= 500) {
                     setNetworkError("Unable to contact the server. Please try again later.");
                     await new Promise(resolve => setTimeout(resolve, 5000));
@@ -179,6 +192,8 @@ const Settings = () => {
 
     const validateDeleteForm = (data) => {
         const errors = {emailAddress: "", oldPassword: ""};
+
+        setFormValidationErrors(errors);
         
         if (!data.emailAddress) {
             errors.emailAddress = "Email address is required";
@@ -200,19 +215,20 @@ const Settings = () => {
     const handleDeleteUser = async (event) => {
         event.preventDefault();
 
+        setCredentialsError("");
+
         const validationErrors = validateDeleteForm(formData);
         
         if (validationErrors.emailAddress === "" && validationErrors.oldPassword === "") {
 
-            setFormValidationErrors({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
-            setCredentialsError("");
+            setIsLoading(true);
 
             try {
-                console.log(formData);
-
                 await api.delete("/users", {data: formData});
+                setIsLoading(false);
                 logout();
             } catch (error) {
+                setIsLoading(false);
                 if (!error.response || error.response.status >= 500) {
                     setNetworkError("Unable to contact the server. Please try again later.");
                     await new Promise(resolve => setTimeout(resolve, 5000));

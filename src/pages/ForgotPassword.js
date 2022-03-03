@@ -6,6 +6,7 @@ const ForgotPassword = () => {
     const [formData, setFormData] = useState({emailAddress: ""});
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: ""});
     const [networkError, setNetworkError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 	const [isSent, setIsSent] = useState("");
 
 	const baseUrl = "http://localhost:8080/api";
@@ -20,6 +21,8 @@ const ForgotPassword = () => {
 
     const validateForm = (data) => {
         const errors = {emailAddress: ""};
+        
+        setFormValidationErrors(errors);
     
         const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
     
@@ -37,17 +40,22 @@ const ForgotPassword = () => {
   	const handleResetPasswordRequest = async (event) => {
 		event.preventDefault();
 
+        setIsSent(false);
+        setNetworkError("");
+
         const validationErrors = validateForm(formData);
 
         if (validationErrors.emailAddress === "") {
 
-            setFormValidationErrors({emailAddress: ""});
             setNetworkError("");
+            setIsLoading(true);
 
             try {
                 await axios.post(`${baseUrl}/users/forgot_password`, formData);
+                setIsLoading(false);
                 setIsSent(true);
             } catch (error) {
+                setIsLoading(false);
                 if (!error.response || error.response.status >= 500) {
                     setNetworkError("Unable to contact the server. Please try again later.");
                 } else if (error.response.status) {
@@ -89,6 +97,11 @@ const ForgotPassword = () => {
                     }
                     
                     <button>Submit</button>
+                    {isLoading &&
+                    <div className="loading-spinner-container">
+                        <div className="loading-spinner"></div>
+                    </div>
+                    }
                     {networkError !== "" && 
                     <div className="registration-error-message">
                         <p>{networkError}</p>

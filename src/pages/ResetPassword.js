@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 const ResetPassword = () => {
 
     const [formData, setFormData] = useState({newPassword: "", passwordVerification:""});
-    const [formValidationErrors, setFormValidationErrors] = useState({password: "", passwordVerification:""});
+    const [formValidationErrors, setFormValidationErrors] = useState({newPassword: "", passwordVerification:""});
     const [networkError, setNetworkError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
     const [isSubmited, setIsSubmited] = useState(false);
 	const [passwordHelperDisplay, setPasswordHelperDisplay] = useState(false);
 	const navigate = useNavigate();
@@ -23,6 +24,8 @@ const ResetPassword = () => {
 
     const validateForm = (data) => {
         const errors = {newPassword: "", passwordVerification:""};
+
+        setFormValidationErrors(errors);
 
         if (!data.newPassword) {
             errors.newPassword = "Password is required";
@@ -43,6 +46,9 @@ const ResetPassword = () => {
   	const handlePasswordReset = async (event) => {
 		event.preventDefault();
 
+        setNetworkError("");
+        setIsSubmited(false);
+
         const validationErrors = validateForm(formData);
 
         if (validationErrors.newPassword === "" && validationErrors.passwordVerification === "") {
@@ -53,15 +59,17 @@ const ResetPassword = () => {
             const requestBody = {newPassword: formData.newPassword, 
                 passwordToken: token};
 
-                setFormValidationErrors({newPassword: "", passwordVerification:""});
                 setNetworkError("");
+                setIsLoading(true);
 
             try {
                 await axios.put(`${baseUrl}/users/reset_password`, requestBody);
+                setIsLoading(false);
                 setIsSubmited(true);
                 await new Promise(resolve => setTimeout(resolve, 4000));
                 navigate("/login");
             } catch (error) {
+                setIsLoading(false);
                 if (!error.response || error.response.status >= 500) {
                     setNetworkError("Unable to contact the server. Please try again later.");
                 } else if (error.response.status) {
@@ -126,6 +134,11 @@ const ResetPassword = () => {
                     }
                     
                     <button>Submit</button>
+                    {isLoading &&
+                    <div className="loading-spinner-container">
+                        <div className="loading-spinner"></div>
+                    </div>
+                    }
                     {networkError !== "" && 
                     <div className="registration-error-message">
                         <p>{networkError}</p>
