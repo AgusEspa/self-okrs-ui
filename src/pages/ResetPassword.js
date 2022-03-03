@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
 
-    const [formData, setFormData] = useState({emailAddress: "", username:"", password: "", passwordVerification:""});
-    const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", username:"", password: "", passwordVerification:""});
+    const [formData, setFormData] = useState({newPassword: "", passwordVerification:""});
+    const [formValidationErrors, setFormValidationErrors] = useState({password: "", passwordVerification:""});
     const [networkError, setNetworkError] = useState("");
-    const [isRegistered, setIsRegistered] = useState(false);
+    const [isSubmited, setIsSubmited] = useState(false);
 	const [passwordHelperDisplay, setPasswordHelperDisplay] = useState(false);
 	const navigate = useNavigate();
 
@@ -22,33 +22,17 @@ const ResetPassword = () => {
     }
 
     const validateForm = (data) => {
-        const errors = {emailAddress: "", username:"", password: "", passwordVerification:""};
-    
-        const emailPattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-    
-        if (!data.emailAddress) {
-            errors.emailAddress = "Email address is required";
-        } 
-        else if (!(emailPattern.test(data.emailAddress))) {
-            errors.emailAddress = "Please enter a valid email address";
-        }
+        const errors = {newPassword: "", passwordVerification:""};
 
-        if (!data.username) {
-            errors.username = "Username is required";
-        } 
-        else if (data.username.length < 3) {
-            errors.username = "Username must be at least 3 characters long";
-        }
-
-        if (!data.password) {
-            errors.password = "Password is required";
-        } else if (data.password.length < 8) {
-            errors.password = "Password must be at least 8 characters long";
+        if (!data.newPassword) {
+            errors.newPassword = "Password is required";
+        } else if (data.newPassword.length < 8) {
+            errors.newPassword = "Password must be at least 8 characters long";
         }
 
         if (!data.passwordVerification) {
             errors.passwordVerification = "Plese re-enter the password";
-        } else if (data.password !== data.passwordVerification) {
+        } else if (data.newPassword !== data.passwordVerification) {
             errors.passwordVerification = "Passwords don't match";
         }
 
@@ -56,23 +40,25 @@ const ResetPassword = () => {
         return errors;
     }
 
-  	const handleRegistration = async (event) => {
+  	const handlePasswordReset = async (event) => {
 		event.preventDefault();
 
         const validationErrors = validateForm(formData);
 
-        if (validationErrors.emailAddress === "" && validationErrors.username === "" && validationErrors.password === "" && validationErrors.passwordVerification === "") {
-        
-            const requestBody = {username: formData.username, 
-                emailAddress: formData.emailAddress,
-                password: formData.password};
+        if (validationErrors.newPassword === "" && validationErrors.passwordVerification === "") {
 
-                setFormValidationErrors({emailAddress: "", username:"", password: "", passwordVerification:""});
+            const params = new URLSearchParams(window.location.search);
+            const token = params.get("token");
+        
+            const requestBody = {newPassword: formData.newPassword, 
+                passwordToken: token};
+
+                setFormValidationErrors({newPassword: "", passwordVerification:""});
                 setNetworkError("");
 
             try {
-                await axios.post(`${baseUrl}/users/signup`, requestBody);
-                setIsRegistered(true);
+                await axios.put(`${baseUrl}/users/reset_password`, requestBody);
+                setIsSubmited(true);
                 await new Promise(resolve => setTimeout(resolve, 4000));
                 navigate("/login");
             } catch (error) {
@@ -97,61 +83,27 @@ const ResetPassword = () => {
 					<img className="logo" src={"./logo.png"} alt="self.OKRs logo"/>
 				</div>  
 
-                <form onSubmit={handleRegistration} noValidate>
-
-                    <label>Username:</label>
-                    {formValidationErrors.username !== "" ?
-                    <div>
-                    <input id="validation-error" type="text" 
-                        name="username"
-                        value={formData.username}
-                        onChange={handleFormChange}
-                        />
-                        <p id="validation-error-message">{formValidationErrors.username}</p>
-                    </div> :
-                    <input type="text" 
-                        name="username"
-                        value={formData.username}
-                        onChange={handleFormChange}
-                        />
-                    }
-
-                    <label>Email address:</label>
-                    {formValidationErrors.emailAddress !== "" ?
-                    <div>
-                        <input id="validation-error" type="email"
-                        name="emailAddress"
-                        value={formData.emailAddress}
-                        onChange={handleFormChange}
-                        />
-                        <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
-                    </div> :
-                    <input type="email" 
-                    name="emailAddress"
-                    value={formData.emailAddress}
-                    onChange={handleFormChange}
-                    />
-                    }
+                <form onSubmit={handlePasswordReset} noValidate>
 
                     <div className="password">
-                        <label>Password:</label>
+                        <label>New Password:</label>
                         <img src={"./info.png"} alt="information icon"
                             onMouseEnter={() => setPasswordHelperDisplay(true)}
         				    onMouseLeave={() => setPasswordHelperDisplay(false)} />
                         {passwordHelperDisplay && <span className="password-helper">Password must have at least 8 characters</span>}
                     </div>
-                    {formValidationErrors.password !== "" ?
+                    {formValidationErrors.newPassword !== "" ?
                     <div> 
                         <input id="validation-error" type="password" 
-                        name="password"
-                        value={formData.password}
+                        name="newPassword"
+                        value={formData.newPassword}
                         onChange={handleFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.password}</p>
+                        <p id="validation-error-message">{formValidationErrors.newPassword}</p>
                     </div> :
                     <input type="password" 
-                    name="password"
-                    value={formData.password}
+                    name="newPassword"
+                    value={formData.newPassword}
                     onChange={handleFormChange}
                     />
                     }
@@ -173,18 +125,17 @@ const ResetPassword = () => {
                     />
                     }
                     
-                    <button>Create account</button>
+                    <button>Submit</button>
                     {networkError !== "" && 
                     <div className="registration-error-message">
                         <p>{networkError}</p>
                     </div>}
-                    {isRegistered && 
+                    {isSubmited && 
                     <div className="successful-registration">
-                    <p>Your account was succesfully created.</p>
+                    <p>Your password was reset succesfully.</p>
                     <p>Redirecting to login...</p>
                     </div>}
 
-                    <div className="register-link"><p>Read legal notice.</p></div>
                 </form>
 
                 
