@@ -45,7 +45,6 @@ const ForgotPassword = () => {
             setNetworkError("");
 
             try {
-				
                 await axios.post(`${baseUrl}/users/forgot_password`, formData);
                 setIsSent(true);
             } catch (error) {
