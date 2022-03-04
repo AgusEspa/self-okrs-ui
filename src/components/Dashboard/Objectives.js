@@ -68,7 +68,7 @@ const Objectives = (props) => {
 
 
 	return (
-		<main>
+		<>
 			<ToolBar 
 				handleCreateObjective={handleCreateObjective}
 				searchTerm={searchTerm}
@@ -77,7 +77,7 @@ const Objectives = (props) => {
 			<div className="objectives-container">
 				{mappedSearchedObjectives}
 			</div>
-		</main>
+		</>
 	);
 }
 

@@ -309,8 +309,8 @@ const Settings = () => {
     return (
         <div>
             <NavBar />
-        
             <main className="settings-container">
+            <div className="settings-box">
                 <h2>Account Settings</h2>
                 <div className="settings-grid">
 
@@ -528,6 +528,7 @@ const Settings = () => {
                         </form>
                     </div>}
                 </div>
+            </div>
             </main>
             {(notification.message !== "") &&
             <Notification 

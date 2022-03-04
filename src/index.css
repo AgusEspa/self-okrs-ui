@@ -1,8 +1,15 @@
 /* || GENERAL STYLES */
+html {
+  font-size: 1em;
+}
+@media screen and (max-width: 750px) {
+  html {
+    font-size: .9em;
+  }
+}
 body {
   margin: 0;
   padding: 0;
-  background: #432f70;
 }
 button {
   cursor: pointer;
@@ -40,7 +47,7 @@ textarea {
   display: flex;
   position: relative;
   justify-content: space-between;
-  background: #503a83;
+  background-color: #432f70;
 }
 .header-logo-box {
   margin: 2rem 0rem 2rem 5rem;
@@ -68,6 +75,7 @@ textarea {
   border-radius: 0.7rem;
 }
 .about-container {
+  min-height: 90vh;
   padding: 1rem;
   display: block;
   background-color: #e2e2e2;
@@ -97,17 +105,19 @@ textarea {
 
 /* LOGIN PAGE */
 .login-container {
+  min-height: 90vh;
+  background-color: #432f70;
   padding: 3rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 .login-box {
   background-color: #e2e2e2;
   border: 1px solid #3a3a3a;
   border-radius: 0.5rem;
   padding: 3rem;
-  margin: 3rem;
+  margin: 1rem 0 0 0;
   max-width: 22rem;
 }
 .logo-box {
@@ -181,10 +191,11 @@ textarea {
 
 /* REGISTRATION PAGE */
 .register-container {
+  min-height: 90vh;
   padding: 3rem;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   background-color: #f7f7f7;
 }
 .register-box {
@@ -192,7 +203,7 @@ textarea {
   border: 1px solid #cfcfcf;
   border-radius: 0.5rem;
   padding: 3rem;
-  margin: 3rem;
+  margin: 1rem 0 0 0;
   max-width: 22rem;
 }
 .register-box h3 {
@@ -468,15 +479,20 @@ textarea {
 }
 
 /* OBJECTIVES */
+.dashboard-container {
+  margin: 0;
+  padding: 0;
+}
 .objectives-container {
-  margin-left: auto;
-  margin-right: auto;
+  background-color: #432f70;
+  min-height: 90vh;
+  margin: 0;
 }
 .objective-box {
   display: inline-block;  
   border: 1px solid #3a3a3a;
   border-radius: 0.5rem;
-  margin: 2rem 0rem 0rem 2rem;
+  margin: 2rem 0 0 2rem;
   padding: 0;
   background-color: #f0f0f0;
 }
@@ -588,13 +604,18 @@ textarea {
 
 /* SETTINGS PAGE */
 .settings-container {
+  background-color: #432f70;
+  margin: 0;
+  padding: 2rem;
+  min-height: 90vh;
+}
+.settings-box {
   padding: 2rem;
   display: block;
   background-color: #e2e2e2;
   border: 1px solid #3a3a3a;
   border-radius: 0.5rem;
-  margin: 2rem;
-  padding: 1.5rem;
+  margin: 0;
 }
 .settings-container h2 {
   font-family: 'Asap', sans-serif;
@@ -836,6 +857,7 @@ textarea {
   justify-content: center;
   align-items: center;
   background-color: white;
+  margin: 0;
 }
 .page-404-box {
   border: 2px solid red;

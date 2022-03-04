@@ -60,7 +60,7 @@ const Dashboard = () => {
     return (
         <div>
 			<NavBar />
-            <main>
+            <main className="dashboard-container">
                 <Objectives 
                     objectives={objectives}
                     setObjectives={setObjectives}
