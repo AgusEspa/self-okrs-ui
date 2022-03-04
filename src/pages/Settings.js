@@ -3,11 +3,13 @@ import { AuthContext } from "../context/AuthContext";
 import useAxios from "../utils/useAxios";
 import NavBar from "../components/Dashboard/Navbar/Navbar";
 import Notification from "../components/Dashboard/Notification";
+import DeleteModal from "../components/Settings/DeleteModal";
 
 const Settings = () => {
 
     const { userAuth, setUserAuth, logout } = useContext(AuthContext);
     const [formData, setFormData] = useState({username: userAuth.username, emailAddress: userAuth.emailAddress, oldPassword: "", newPassword: "", passwordVerification: ""});
+    const [deleteFormData, setDeleteFormData] = useState({emailAddress: "", oldPassword: ""});
     const [credentialsError, setCredentialsError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [formValidationErrors, setFormValidationErrors] = useState({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
@@ -15,6 +17,7 @@ const Settings = () => {
     const [togglePassword, setTogglePassword] = useState(false);
     const [toggleDelete, setToggleDelete] = useState(false);
     const [notification, setNotification] = useState({message: "", type: ""});
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
 
 	const api = useAxios();
@@ -45,6 +48,14 @@ const Settings = () => {
     const handleFormChange = (event) => {
         const {name, value} = event.target;
         setFormData( prevState => ({
+            ...prevState,
+            [name]: value 
+        }));
+    }
+
+    const handleDeleteFormChange = (event) => {
+        const {name, value} = event.target;
+        setDeleteFormData( prevState => ({
             ...prevState,
             [name]: value 
         }));
@@ -217,16 +228,10 @@ const Settings = () => {
     const handleDeleteUser = async (event) => {
         event.preventDefault();
 
-        setCredentialsError("");
-
-        const validationErrors = validateDeleteForm(formData);
-        
-        if (validationErrors.emailAddress === "" && validationErrors.oldPassword === "") {
-
-            setIsLoading(true);
+        setIsLoading(true);
 
             try {
-                await api.delete("/users", {data: formData});
+                await api.delete("/users", {data: deleteFormData});
                 setIsLoading(false);
                 setNotification(prevState => ({message: "Your account and all personal data were deleted successfully.", type: "ok"}));
                 await new Promise(resolve => setTimeout(resolve, 6000));
@@ -251,8 +256,6 @@ const Settings = () => {
                     }));
                 } else setCredentialsError(error.response.data);     
             }
-            
-        }
     }
 
     const handleUsernameToggle = (event) => {
@@ -283,6 +286,16 @@ const Settings = () => {
         ));
         setToggleUsername(false);
         setTogglePassword(false);
+    }
+
+    const handleDeleteButton = (event) => {
+        setCredentialsError("");
+
+        const validationErrors = validateDeleteForm(deleteFormData);
+
+        if (validationErrors.emailAddress === "" && validationErrors.oldPassword === "") {
+            setModalIsOpen(true);
+        }
     }
 
 
@@ -454,15 +467,15 @@ const Settings = () => {
                             <div>
                                 <input id="validation-error" type="email"
                                 name="emailAddress"
-                                value={formData.emailAddress}
-                                onChange={handleFormChange}
+                                value={deleteFormData.emailAddress}
+                                onChange={handleDeleteFormChange}
                                 />
                                 <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
                             </div> :
                             <input type="email" 
                             name="emailAddress"
-                            value={formData.emailAddress}
-                            onChange={handleFormChange}
+                            value={deleteFormData.emailAddress}
+                            onChange={handleDeleteFormChange}
                             />
                             }
                             
@@ -471,27 +484,30 @@ const Settings = () => {
                             <div> 
                                 <input id="validation-error" autoComplete="new-password" type="password" 
                                 name="oldPassword"
-                                value={formData.oldPassword}
-                                onChange={handleFormChange}
+                                value={deleteFormData.oldPassword}
+                                onChange={handleDeleteFormChange}
                                 />
                                 <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
                             </div> :
                             <input type="password" 
                             name="oldPassword"
-                            value={formData.oldPassword}
-                            onChange={handleFormChange}
+                            value={deleteFormData.oldPassword}
+                            onChange={handleDeleteFormChange}
                             />
                             }
 
                             {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                             <div className="button-spinner-container">
-                                <button>Delete</button>
+                                <button type="button" id="delete" onClick={handleDeleteButton}>Delete</button>
                                 {isLoading &&
                                 <div className="loading-spinner-settings-container">
                                     <div className="loading-spinner"></div>
                                 </div>
                                 }
                             </div>
+                            {modalIsOpen &&
+                                <DeleteModal setModalIsOpen={setModalIsOpen} />
+                            }
                         </form>
                     </div>}
                 </div>

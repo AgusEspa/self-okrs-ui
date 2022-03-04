@@ -16,6 +16,24 @@ textarea {
   margin: 0;
   padding: 0;
 }
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+.modal-container {
+  z-index: 10;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 
 /* HOME PAGE */
 .header-container {
@@ -702,6 +720,35 @@ textarea {
 #delete {
   background-color: #af0000; 
 }
+.delete-modal-box {
+  background-color: #e2e2e2;
+  border-radius: .5rem;
+  border: 2px solid #af0000;
+  padding: 1rem;
+}
+.delete-modal-box h3 {
+  font-family: 'Asap', sans-serif;
+  font-size: 1.2rem;
+  margin: 0;
+  color: #1f1f1f;
+  text-align: left;
+}
+.delete-modal-box p {
+  font-family: 'Asap', sans-serif;
+  font-size: 1rem;
+  margin-top: .5rem;
+  color: #1f1f1f;
+  text-align: left;
+}
+.delete-modal-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.delete-modal-button-container button {
+  margin: 1rem 2rem 0 2rem;
+}
+
 @media screen and (max-width: 750px) {
   .settings-grid {
     display: block;
