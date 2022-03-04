@@ -10,6 +10,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  background-color: #432f70;
 }
 button {
   cursor: pointer;
@@ -75,7 +76,6 @@ textarea {
   border-radius: 0.7rem;
 }
 .about-container {
-  min-height: 90vh;
   padding: 1rem;
   display: block;
   background-color: #e2e2e2;
@@ -105,7 +105,6 @@ textarea {
 
 /* LOGIN PAGE */
 .login-container {
-  min-height: 90vh;
   background-color: #432f70;
   padding: 3rem;
   display: flex;
@@ -191,16 +190,14 @@ textarea {
 
 /* REGISTRATION PAGE */
 .register-container {
-  min-height: 90vh;
   padding: 3rem;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background-color: #f7f7f7;
 }
 .register-box {
   background-color: #e2e2e2;
-  border: 1px solid #cfcfcf;
+  border: 1px solid #3a3a3a;
   border-radius: 0.5rem;
   padding: 3rem;
   margin: 1rem 0 0 0;
@@ -485,7 +482,6 @@ textarea {
 }
 .objectives-container {
   background-color: #432f70;
-  min-height: 90vh;
   margin: 0;
 }
 .objective-box {
@@ -607,7 +603,6 @@ textarea {
   background-color: #432f70;
   margin: 0;
   padding: 2rem;
-  min-height: 90vh;
 }
 .settings-box {
   padding: 2rem;
@@ -856,7 +851,6 @@ textarea {
   position: relative;
   justify-content: center;
   align-items: center;
-  background-color: white;
   margin: 0;
 }
 .page-404-box {

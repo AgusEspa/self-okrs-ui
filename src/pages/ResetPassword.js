@@ -97,7 +97,7 @@ const ResetPassword = () => {
                 <form onSubmit={handlePasswordReset} noValidate>
 
                     <div className="password">
-                        <label>New Password:</label>
+                        <label>New password:</label>
                         <img src={"./info.png"} alt="information icon"
                             onMouseEnter={() => setPasswordHelperDisplay(true)}
         				    onMouseLeave={() => setPasswordHelperDisplay(false)} />
