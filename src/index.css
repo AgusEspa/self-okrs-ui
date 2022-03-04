@@ -427,6 +427,41 @@ textarea {
   font-family: 'Asap', sans-serif;
   font-size: 1.1rem;
 }
+.responsive-links-menu{
+  display: none !important;
+}
+@media screen and (max-width: 750px) {
+  .links-menu {
+    display: none !important;
+  }
+  .responsive-links-menu {
+    display: inline !important;
+  }
+  .responsive-links-menu {
+    height: 100%;
+  }
+  .responsive-links-menu ul {
+    display: flex;
+    margin: 0;
+  }
+  .responsive-links-menu li {
+    cursor: pointer;
+    list-style-type: none;
+    padding: 0.5rem;
+    margin-right: 2.5rem;
+    border-radius: 0.7rem;
+    transition: background-color 0.2s ease-out;
+  }
+  .responsive-links-menu li:hover {
+    background-color: #c75884;
+  }
+  .responsive-links-menu span, .links-menu a {
+    color: white;
+    font-family: 'Asap', sans-serif;
+    text-decoration: none;
+    font-size: 1.15rem;
+  }
+}
 
 /* TOOLBAR */
 .toolbar {
