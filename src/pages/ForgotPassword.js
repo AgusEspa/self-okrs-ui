@@ -6,6 +6,7 @@ const ForgotPassword = () => {
     const [formData, setFormData] = useState({emailAddress: ""});
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: ""});
     const [networkError, setNetworkError] = useState("");
+    const [buttonIsEnabled, setButtonIsEnabled] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 	const [isSent, setIsSent] = useState("");
 
@@ -49,6 +50,7 @@ const ForgotPassword = () => {
 
             setNetworkError("");
             setIsLoading(true);
+            setButtonIsEnabled(false);
 
             try {
                 await axios.post(`${baseUrl}/users/forgot_password`, formData);
@@ -56,6 +58,7 @@ const ForgotPassword = () => {
                 setIsSent(true);
             } catch (error) {
                 setIsLoading(false);
+                setButtonIsEnabled(true);
                 if (!error.response || error.response.status >= 500) {
                     setNetworkError("Unable to contact the server. Please try again later.");
                 } else if (error.response.status) {
@@ -96,7 +99,11 @@ const ForgotPassword = () => {
                     />
                     }
                     
-                    <button>Submit</button>
+                    {buttonIsEnabled ? 
+                        <button>Submit</button> :
+                        <button disabled>Submiting...</button>
+                    }
+
                     {isLoading &&
                     <div className="loading-spinner-container">
                         <div className="loading-spinner"></div>

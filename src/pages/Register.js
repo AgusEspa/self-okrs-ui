@@ -9,6 +9,7 @@ const Register = () => {
     const [networkError, setNetworkError] = useState("");
     const [isRegistered, setIsRegistered] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [buttonIsEnabled, setButtonIsEnabled] = useState(true);
 	const [passwordHelperDisplay, setPasswordHelperDisplay] = useState(false);
 	const navigate = useNavigate();
 
@@ -72,6 +73,7 @@ const Register = () => {
                 password: formData.password};
                 
             setIsLoading(true);
+            setButtonIsEnabled(false);
 
             try {
                 await axios.post(`${baseUrl}/users/signup`, requestBody);
@@ -81,6 +83,7 @@ const Register = () => {
                 navigate("/login");
             } catch (error) {
                 setIsLoading(false);
+                setButtonIsEnabled(true);
                 if (!error.response || error.response.status >= 500) {
                     setNetworkError("Unable to contact the server. Please try again later.");
                 } else if (error.response.status) {
@@ -178,7 +181,10 @@ const Register = () => {
                     />
                     }
                     
-                    <button>Create account</button>
+                    {buttonIsEnabled ? 
+                        <button>Create account</button> :
+                        <button disabled>Creating account...</button>
+                    }
 
                     {isLoading &&
                     <div className="loading-spinner-container">

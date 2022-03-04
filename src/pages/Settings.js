@@ -12,6 +12,7 @@ const Settings = () => {
     const [deleteFormData, setDeleteFormData] = useState({emailAddress: "", oldPassword: ""});
     const [credentialsError, setCredentialsError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [buttonIsEnabled, setButtonIsEnabled] = useState(true);
     const [formValidationErrors, setFormValidationErrors] = useState({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
     const [toggleUsername, setToggleUsername] = useState(false);
     const [togglePassword, setTogglePassword] = useState(false);
@@ -101,6 +102,7 @@ const Settings = () => {
         if (validationErrors.emailAddress === "" && validationErrors.username === "" && validationErrors.oldPassword === "") {
 
             setIsLoading(true);
+            setButtonIsEnabled(false);
             
             try {
                 await api.put("/users", formData);
@@ -112,6 +114,7 @@ const Settings = () => {
 
             } catch (error) {
                 setIsLoading(false);
+                setButtonIsEnabled(true);
 
                 if (!error.response || error.response.status >= 500) {
                     setNotification(prevState => ({message: "Unable to contact the server. Please try again later.", type: "error"}));
@@ -170,6 +173,7 @@ const Settings = () => {
         if (validationErrors.oldPassword === "" && validationErrors.newPassword === "" && validationErrors.passwordVerification === "" ) {
 
             setIsLoading(true);
+            setButtonIsEnabled(false);
             
             try {
                 await api.put("/users", formData);
@@ -181,6 +185,7 @@ const Settings = () => {
 
             } catch (error) {
                 setIsLoading(false);
+                setButtonIsEnabled(true);
 
                 if (!error.response || error.response.status >= 500) {
                     setNotification(prevState => ({message: "Unable to contact the server. Please try again later.", type: "error"}));
@@ -229,6 +234,7 @@ const Settings = () => {
         event.preventDefault();
 
         setIsLoading(true);
+        setButtonIsEnabled(false);
 
             try {
                 await api.delete("/users", {data: deleteFormData});
@@ -239,6 +245,7 @@ const Settings = () => {
                 logout();
             } catch (error) {
                 setIsLoading(false);
+                setButtonIsEnabled(true);
                 if (!error.response || error.response.status >= 500) {
                     setNotification(prevState => ({message: "Unable to contact the server. Please try again later.", type: "error"}));
                     await new Promise(resolve => setTimeout(resolve, 5000));
@@ -380,7 +387,10 @@ const Settings = () => {
 
                             {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                             <div className="button-spinner-container">
-                                <button>Save changes</button>
+                                {buttonIsEnabled ? 
+                                    <button>Save changes</button> :
+                                    <button disabled>Saving changes...</button>
+                                }
                                 {isLoading &&
                                 <div className="loading-spinner-settings-container">
                                     <div className="loading-spinner"></div>
@@ -448,7 +458,10 @@ const Settings = () => {
 
                             {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                             <div className="button-spinner-container">
-                                <button>Save changes</button>
+                                {buttonIsEnabled ? 
+                                    <button>Save changes</button> :
+                                    <button disabled>Saving changes...</button>
+                                }
                                 {isLoading &&
                                 <div className="loading-spinner-settings-container">
                                     <div className="loading-spinner"></div>
@@ -498,7 +511,11 @@ const Settings = () => {
 
                             {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
                             <div className="button-spinner-container">
-                                <button type="button" id="delete" onClick={handleDeleteButton}>Delete</button>
+                                {buttonIsEnabled ? 
+                                    <button type="button" id="delete" onClick={handleDeleteButton}>Delete account</button> :
+                                    <button disabled>Deleting account...</button>
+                                }
+                                
                                 {isLoading &&
                                 <div className="loading-spinner-settings-container">
                                     <div className="loading-spinner"></div>

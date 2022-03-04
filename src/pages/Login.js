@@ -9,6 +9,7 @@ const Login = () => {
     const [credentialsError, setCredentialsError] = useState("");
     const [networkError, setNetworkError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [buttonIsEnabled, setButtonIsEnabled] = useState(true);
     const [formValidationErrors, setFormValidationErrors] = useState({emailAddress: "", password: ""});
     const { setUserAuth } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -55,6 +56,7 @@ const Login = () => {
 
         if (validationErrors.emailAddress === "" && validationErrors.password === "") {
             setIsLoading(true);
+            setButtonIsEnabled(false);
             login(); 
         }
     }
@@ -82,12 +84,11 @@ const Login = () => {
                 refreshToken: window.localStorage.getItem("refresh_token")}
             ));
 
-            setIsLoading(false);
-
             navigate("/dashboard");
 
         } catch (error) {
             setIsLoading(false);
+            setButtonIsEnabled(true);
             if (!error.response || error.response.status >= 500) {
                 setNetworkError("Unable to contact the server. Please try again later.");
             } else {
@@ -141,7 +142,10 @@ const Login = () => {
                         />
                     }
                     {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
-                    <button>Log in</button>
+                    {buttonIsEnabled ? 
+                        <button>Log in</button> :
+                        <button disabled>Loging in...</button>
+                    }   
                 </form>
 
                 {isLoading &&

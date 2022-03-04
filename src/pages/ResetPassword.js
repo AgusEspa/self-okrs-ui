@@ -8,6 +8,7 @@ const ResetPassword = () => {
     const [formValidationErrors, setFormValidationErrors] = useState({newPassword: "", passwordVerification:""});
     const [networkError, setNetworkError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [buttonIsEnabled, setButtonIsEnabled] = useState(true);
     const [isSubmited, setIsSubmited] = useState(false);
 	const [passwordHelperDisplay, setPasswordHelperDisplay] = useState(false);
 	const navigate = useNavigate();
@@ -61,6 +62,7 @@ const ResetPassword = () => {
 
                 setNetworkError("");
                 setIsLoading(true);
+                setButtonIsEnabled(false);
 
             try {
                 await axios.put(`${baseUrl}/users/reset_password`, requestBody);
@@ -70,6 +72,7 @@ const ResetPassword = () => {
                 navigate("/login");
             } catch (error) {
                 setIsLoading(false);
+                setButtonIsEnabled(false);
                 if (!error.response || error.response.status >= 500) {
                     setNetworkError("Unable to contact the server. Please try again later.");
                 } else if (error.response.status) {
@@ -133,7 +136,11 @@ const ResetPassword = () => {
                     />
                     }
                     
-                    <button>Submit</button>
+                    {buttonIsEnabled ? 
+                        <button>Create account</button> :
+                        <button disabled>Creating account...</button>
+                    }
+
                     {isLoading &&
                     <div className="loading-spinner-container">
                         <div className="loading-spinner"></div>
