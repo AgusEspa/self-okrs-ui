@@ -1,0 +1,128 @@
+@use './colors.scss';
+@use './fonts.scss';
+
+.loginContainer {
+	background-color: colors.$darkPurple;
+	padding: 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+}
+  
+.loginBox {
+	background-color: colors.$backgroundGray;
+	border: 1px solid colors.$borderGray;
+	border-radius: 0.5rem;
+	padding: 3rem;
+	margin: 1rem 0 0 0;
+	max-width: 22rem;
+	&::placeholder {
+		color: colors.$placeholderGray;
+	}
+
+	h3 {
+		font-family: fonts.$fonts;
+		font-size: 1.2rem;
+		color: colors.$textDarkGray;
+		margin-top: 0;
+		margin-bottom: 1rem;
+	}
+
+	input {
+		display: block;
+		width: 15rem;
+		border: 0;
+		margin: 1.5rem 3rem .5rem 3rem;
+		font-size: 1rem;
+		font-family: fonts.$fonts;
+		padding: 0.5rem;
+		background-color: colors.$inputBackground;
+		border-bottom: 1px solid colors.$inputBorder;
+		border-radius: 0.5rem;
+	}
+
+	button {
+		display: block;
+		width: 16rem;
+		margin: 2rem 3rem 1rem 3rem;
+		border-radius: 1.2rem; 
+		text-align: center; 
+		padding: 0.5rem 1rem;
+		background-color: colors.$buttonBackground; 
+		color: colors.$buttonText; 
+		font-size: 1rem;
+		border: none;
+		outline: 0;
+		transition: all 0.1s ease-out;
+		&:hover {
+			background-color: colors.$buttonHover;
+	  	}
+	}
+
+	p {
+		display: block;
+		font-family: fonts.$fonts;
+		font-size: 1rem;
+		color: colors.$textDarkGray;
+		margin: 0.5rem 0rem 0rem 3rem;
+	}
+
+	.validationError {
+		border: 1px solid colors.$errorDarkRed;
+	}
+
+	.validationErrorMessage {
+		font-family: fonts.$fonts;
+		color: colors.$errorDarkRed;
+		font-size: 0.9rem;
+		margin: 0rem 0rem 0rem 3.2rem;
+	}
+}
+
+.logoBox {
+	width: 43%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1rem;
+	margin-bottom: 3rem;
+}
+  
+.logo {
+	width: 9.4rem;
+}
+
+.loginLink {
+	margin-top: .7rem;
+}
+  
+.loadingSpinnerContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 3rem 0 3rem;
+	padding: 0rem;
+}
+
+.loginErrorMessage {
+	border-left: 4px solid colors.$errorDarkRed;
+	background-color: colors.$errorLightRed;
+	margin: 0.5rem 3rem 1.5rem 3rem;
+	padding: 1rem;
+	animation: showMe 1s forwards;
+
+	p {
+		display: block;
+		font-family: fonts.$fonts;
+		font-size: 1rem;
+		color: colors.$textDarkGray;
+		margin: 0;
+	}
+}
+@keyframes showMe{
+	0%{
+		opacity: 0;
+	}
+	100%{
+		opacity: 1;
+	}
+}

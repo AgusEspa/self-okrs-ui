@@ -1,7 +1,9 @@
 import { useState, useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import styles from "../styles/Login.module.scss"
+import resources from "../styles/Resources.module.scss"
 
 const Login = () => {
 
@@ -98,22 +100,22 @@ const Login = () => {
     }
 
 	return (
-        <main className="login-container">
-            <div className="login-box">
-                <div className="logo-box">
-                    <img className="logo" src={"./logo.png"} alt="self.OKRs logo"/> 
+        <main className={styles.loginContainer}>
+            <div className={styles.loginBox}>
+                <div className={styles.logoBox}>
+                    <img className={styles.logo} src={"./logo.png"} alt="self.OKRs logo"/> 
                 </div>
 
                 <form onSubmit={handleLogin} noValidate>
                     {formValidationErrors.emailAddress !== "" ?
                     <div>
-                        <input id="validation-error" type="email"
+                        <input className={styles.validationError} type="email"
                         placeholder="Email address"
                         name="emailAddress"
                         value={loginFormData.emailAddress}
                         onChange={handleLoginFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
+                        <p className={styles.validationErrorMessage}>{formValidationErrors.emailAddress}</p>
                     </div> :
                     <div>
                         <input type="email" 
@@ -126,13 +128,13 @@ const Login = () => {
                     }
                     {formValidationErrors.password !== "" ?
                     <div> 
-                        <input id="validation-error" type="password" 
+                        <input className={styles.validationError} type="password" 
                         placeholder="Password"
                         name="password"
                         value={loginFormData.password}
                         onChange={handleLoginFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.password}</p>
+                        <p className={styles.validationErrorMessage}>{formValidationErrors.password}</p>
                     </div> :
                     <input type="password" 
                         placeholder="Password"
@@ -141,7 +143,7 @@ const Login = () => {
                         onChange={handleLoginFormChange}
                         />
                     }
-                    {credentialsError !== "" && <p id="validation-error-message">{credentialsError}</p>}
+                    {credentialsError !== "" && <p className={styles.validationErrorMessage}>{credentialsError}</p>}
                     {buttonIsEnabled ? 
                         <button>Log in</button> :
                         <button disabled>Loging in...</button>
@@ -149,17 +151,17 @@ const Login = () => {
                 </form>
 
                 {isLoading &&
-                <div className="loading-spinner-container">
-                    <div className="loading-spinner"></div>
+                <div className={styles.loadingSpinnerContainer}>
+                    <div className={resources.spinner}></div>
                 </div>
                 }
 
                 {networkError !== "" && 
-                    <div className="registration-error-message">
+                    <div className={styles.loginErrorMessage}>
                         <p>{networkError}</p>
                     </div>}
-                <div className="login-link"><p>Forgot your password? <Link to="/forgot_password">Reset</Link></p></div>
-                <div className="login-link"><p>New to self.OKRs? <Link to="/register">Register</Link></p></div>
+                <div className={styles.loginLink}><p>Forgot your password? <Link to="/forgot_password">Reset</Link></p></div>
+                <div className={styles.loginLink}><p>New to self.OKRs? <Link to="/register">Register</Link></p></div>
             </div>
         </main>
 	)

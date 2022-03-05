@@ -1,17 +1,4 @@
-/* || GENERAL STYLES */
-html {
-  font-size: 1em;
-}
-@media screen and (max-width: 750px) {
-  html {
-    font-size: .9em;
-  }
-}
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #432f70;
-}
+
 button {
   cursor: pointer;
 }
@@ -42,151 +29,6 @@ textarea {
   transform: translate(-50%, -50%);
 }
 
-
-/* HOME PAGE */
-.header-container {
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  background-color: #432f70;
-}
-.header-logo-box {
-  margin: 2rem 0rem 2rem 5rem;
-}
-.header-logo {
-  width: 10rem;
-}
-.get-started-link {
-  margin: 2rem 5rem 2rem 0rem;
-}
-.get-started-link a {
-  display: block;
-  cursor: pointer;
-  text-decoration: none;
-  padding: 0.7rem;
-  color: white;
-  font-family: 'Asap', sans-serif;
-  font-size: 1.2rem;
-  background-color: #b34270;
-  border-radius: 0.7rem;
-  transition: all 0.1s ease-out;
-}
-.get-started-link a:hover {
-  background-color: #c5517f;
-  border-radius: 0.7rem;
-}
-.about-container {
-  padding: 1rem;
-  display: block;
-  background-color: #e2e2e2;
-  border-radius: 0.5rem;
-  margin: 2rem;
-}
-.about-container h2 {
-  font-family: 'Asap', sans-serif;
-  font-size: 1.7rem;
-  color: #1f1f1f;
-  margin: 0;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-.about-container h3 {
-  font-family: 'Asap', sans-serif;
-  font-size: 1.4rem;
-  color: #1f1f1f;
-  padding-bottom: 1rem;
-  margin: 0;
-}
-.about-container p {
-  font-size: 1.1rem;
-  font-family: 'Asap', sans-serif;
-  margin: 0;
-}
-
-/* LOGIN PAGE */
-.login-container {
-  background-color: #432f70;
-  padding: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-.login-box {
-  background-color: #e2e2e2;
-  border: 1px solid #3a3a3a;
-  border-radius: 0.5rem;
-  padding: 3rem;
-  margin: 1rem 0 0 0;
-  max-width: 22rem;
-}
-.logo-box {
-  width: 43%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1rem;
-  margin-bottom: 3rem;
-}
-.logo {
-  width: 9.4rem;
-}
-.login-box h3 {
-  font-family: 'Asap', sans-serif;
-  font-size: 1.2rem;
-  color: #1f1f1f;
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
-.login-box input {
-  display: block;
-  width: 15rem;
-  border: 0;
-  margin: 1.5rem 3rem .5rem 3rem;
-  font-size: 1rem;
-  font-family: 'Asap', sans-serif;
-  padding: 0.5rem;
-  background-color: #f3f3f3;
-  border-bottom: 1px solid #c4c4c4;
-  border-radius: 0.5rem;
-}
-#validation-error {
-  border: 1px solid red;
-}
-.login-box ::placeholder {
-  color: #a5a5a5;
-}
-.login-box button {
-  display: block;
-  width: 16rem;
-  margin: 2rem 3rem 1rem 3rem;
-  border-radius: 1.2rem; 
-  text-align: center; 
-  padding: 0.5rem 1rem;
-  background-color: #7e7e7e; 
-  color: #fff; 
-  font-size: 1rem;
-  border: none;
-  outline: 0;
-  transition: all 0.1s ease-out;
-}
-.login-box button:hover {
-  background-color: #5e5e5e;
-}
-.login-box p {
-  display: block;
-  font-family: 'Asap', sans-serif;
-  font-size: 1rem;
-  color: #1f1f1f;
-  margin: 0.5rem 0rem 0rem 3rem;
-}
-.login-link {
-  margin-top: .7rem;
-}
-#validation-error-message {
-  font-family: 'Asap', sans-serif;
-  color: red;
-  font-size: 0.9rem;
-  margin: 0rem 0rem 0rem 3.2rem;
-}
 
 /* REGISTRATION PAGE */
 .register-container {
@@ -314,28 +156,7 @@ textarea {
   color: #1f1f1f;
   margin: 0;
 }
-.registration-error-message {
-  border-left: 4px solid red;
-  background-color: #ffbcbc;
-  margin: 0.5rem 3rem 1.5rem 3rem;
-  padding: 1rem;
-  animation: showMe 0.5s forwards;
-}
-@keyframes showMe{
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-}
-.registration-error-message p {
-  display: block;
-  font-family: 'Asap', sans-serif;
-  font-size: 1rem;
-  color: #1f1f1f;
-  margin: 0;
-}
+
 #description{
   font-size: 0.9rem;
   color: #414141;
@@ -451,24 +272,27 @@ textarea {
 	.links-menu.active {
 		display: block;
     position: absolute;
+    height: 100%;
     right: 0;
     z-index: 1;
     padding-top: .7rem;
 	}
   .links-menu ul {
     margin: 0;
+    padding: 0;
 		display: block;
+    background-color: #292929;
   }
   .links-menu li {
     cursor: pointer;
     list-style-type: none;
     padding: 0.5rem;
     margin: 0;
-    border-radius: 0.7rem;
+    border-radius: 0;
     transition: none;
   }
   .links-menu li:hover {
-    background-color: #c75884;
+    background-color: #363636;
   }
   .links-menu span, .links-menu a {
     color: white;
@@ -482,41 +306,48 @@ textarea {
     position: relative;
     display: inline-block;
   }
+  .dropdown span {
+    color: #c2c2c2;
+    cursor: default;
+  }
   .dropdown-menu-container {
     display: block;
     position: relative;
-    background-color: transparent;
     right: 0;
     z-index: 1;
     padding-top: 0;
   }
   .dropdown-menu {
-    background-color: transparent;
     margin: 0;
     border-radius: 0.7rem;
   }
   .dropdown-menu ul {
     list-style-type: none;
     display: block;
+    position: relative;
     padding: 0;
     border-radius: 0;
   }
   .dropdown-menu li {
-    cursor: pointer;
-    list-style-type: none;
+    color: white;
+    cursor: default;
+    height: 100%;
+    font-family: 'Asap', sans-serif;
+    text-decoration: none;
+    font-size: 1.15rem;
+    padding: 0.5rem;
     margin: 0;
-    padding: 0;
-    border: 0;
     transition: none;
   }
   .dropdown-menu li:hover {
-    background-color: #414141;
+    cursor: default;
+    background-color: #424242;
     border-radius: 0;
   }
   .dropdown-menu button, .dropdown-menu a {
     border: none;
-    background-color: transparent;
     cursor: pointer;
+    background-color: transparent;
     text-decoration: none;
     padding: 0;
     margin: 0;
@@ -524,6 +355,7 @@ textarea {
   }
   .dropdown-menu span {
     color: white;
+    cursor: pointer;
     font-family: 'Asap', sans-serif;
     font-size: 1.1rem;
   }
@@ -978,30 +810,8 @@ textarea {
 
 
 /* LOADING SPINNER */
-.loading-spinner-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 3rem 0 3rem;
-  padding: 0rem;
-}
+
 .loading-spinner-settings-container {
   margin: 1.5rem .5rem 0 .5rem;
   padding: 0rem;
-}
-.loading-spinner {
-  width: 1rem;
-  height: 1rem;
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #383636;
-  border-radius: 50%;
-  animation: spinner 1.5s linear infinite;
-}
-@keyframes spinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

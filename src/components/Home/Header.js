@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
+import styles from '../../styles/Home.module.scss';
 
 const Header = () => {
 
 	return (
-		<header className="header-container">
-			<div className="header-logo-box">
-        		<img className="header-logo" src={"./logo.png"} alt="self.OKRs logo"/> 
+		<header className={styles.headerContainer}>
+			<div className={styles.headerLogoBox}>
+        		<img className={styles.headerLogo} src={"./logo.png"} alt="self.OKRs logo"/> 
       		</div>
-			<div className="get-started-link">
+			<div className={styles.getStartedLink}>
 				<Link to="/login">Get started!</Link>
 			</div>
 			
