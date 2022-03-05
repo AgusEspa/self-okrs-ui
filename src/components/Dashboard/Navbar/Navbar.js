@@ -6,7 +6,6 @@ import UserMenu from "./UserMenu";
 const NavBar = (props) => {
 
 	const { userAuth, logout } = useContext(AuthContext);
-	const [userMenuDisplay, setUserMenuDisplay] = useState(false);
 	const [responsiveNavDisplay, setResponsiveNavDisplay] = useState(false);
 
 	const handleResponsiveNavToggle = (event) => {
@@ -26,11 +25,9 @@ const NavBar = (props) => {
 				  	<li>
 					  	<Link to="/dashboard"><span>Dashboard</span></Link>
 					</li>
-					<li
-						onMouseEnter={() => setUserMenuDisplay(true)}
-        				onMouseLeave={() => setUserMenuDisplay(false)}>
+					<li className="dropdown">
 						<span>{userAuth.username}</span>
-						{userMenuDisplay && <UserMenu logout={logout} />}
+						<UserMenu logout={logout} />
 					</li>
 				</ul>
 			</div>

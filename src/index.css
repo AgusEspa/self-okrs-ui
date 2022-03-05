@@ -69,7 +69,7 @@ textarea {
   font-size: 1.2rem;
   background-color: #b34270;
   border-radius: 0.7rem;
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 .get-started-link a:hover {
   background-color: #c5517f;
@@ -166,7 +166,7 @@ textarea {
   font-size: 1rem;
   border: none;
   outline: 0;
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 .login-box button:hover {
   background-color: #5e5e5e;
@@ -237,7 +237,7 @@ textarea {
   font-size: 1rem;
   border: none;
   outline: 0;
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 .register-box button:hover {
   background-color: #5e5e5e;
@@ -371,7 +371,7 @@ textarea {
   padding: 0.5rem;
   margin-right: 2.5rem;
   border-radius: 0.7rem;
-  transition: background-color 0.2s ease-out;
+  transition: background-color 0.1s ease-out;
 }
 .links-menu li:hover {
   background-color: #c75884;
@@ -382,13 +382,21 @@ textarea {
   text-decoration: none;
   font-size: 1.15rem;
 }
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
 /* DROPDOWN MENU */
 .dropdown-menu-container {
-  background-color: transparent;
+  display: none;
   position: absolute;
-  right: 2.5rem;
+  background-color: transparent;
+  right: 0;
   z-index: 1;
   padding-top: .7rem;
+}
+.dropdown:hover .dropdown-menu-container {
+  display: block;
 }
 .dropdown-menu {
   background-color: #292929;
@@ -407,7 +415,7 @@ textarea {
   margin: 0;
   padding: .4rem 1rem .4rem 1rem;
   border: 0;
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 .dropdown-menu li:hover {
   background-color: #414141;
@@ -450,7 +458,7 @@ textarea {
     padding: 0.5rem;
     margin-right: 2.5rem;
     border-radius: 0.7rem;
-    transition: background-color 0.2s ease-out;
+    transition: background-color 0.1s ease-out;
   }
   .responsive-links-menu li:hover {
     background-color: #c75884;
@@ -497,7 +505,7 @@ textarea {
   border-radius: 0.3rem;
   padding: .3rem .5rem .3rem .5rem;
   border: none;
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 .tools-menu button:hover {
   background-color: #dbdbdb;
@@ -681,7 +689,7 @@ textarea {
 }
 .button-box button {
   background-color: #ececec;
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 .button-box button:hover {
   background-color: #f3f3f3;
@@ -741,7 +749,7 @@ textarea {
   font-size: 1rem;
   border: none;
   outline: 0;
-  transition: all 0.2s ease-out;
+  transition: all 0.1s ease-out;
 }
 .user-box button:hover {
   background-color: #5e5e5e;
