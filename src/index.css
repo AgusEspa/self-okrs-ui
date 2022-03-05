@@ -386,6 +386,9 @@ textarea {
   position: relative;
   display: inline-block;
 }
+.nav-toggle {
+  display: none;
+}
 /* DROPDOWN MENU */
 .dropdown-menu-container {
   display: none;
@@ -435,39 +438,94 @@ textarea {
   font-family: 'Asap', sans-serif;
   font-size: 1.1rem;
 }
-.responsive-links-menu{
-  display: none !important;
-}
+/* HAMBURGER MENU */
 @media screen and (max-width: 750px) {
+  .nav-toggle {
+    display: block;
+    position: relative;
+    margin-right: 2.5rem;
+  }
   .links-menu {
-    display: none !important;
-  }
-  .responsive-links-menu {
-    display: inline !important;
-  }
-  .responsive-links-menu {
-    height: 100%;
-  }
-  .responsive-links-menu ul {
-    display: flex;
+    display: none;
+	}
+	.links-menu.active {
+		display: block;
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    padding-top: .7rem;
+	}
+  .links-menu ul {
     margin: 0;
+		display: block;
   }
-  .responsive-links-menu li {
+  .links-menu li {
     cursor: pointer;
     list-style-type: none;
     padding: 0.5rem;
-    margin-right: 2.5rem;
+    margin: 0;
     border-radius: 0.7rem;
-    transition: background-color 0.1s ease-out;
+    transition: none;
   }
-  .responsive-links-menu li:hover {
+  .links-menu li:hover {
     background-color: #c75884;
   }
-  .responsive-links-menu span, .links-menu a {
+  .links-menu span, .links-menu a {
     color: white;
     font-family: 'Asap', sans-serif;
     text-decoration: none;
     font-size: 1.15rem;
+    padding: 0;
+    margin: 0;
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  .dropdown-menu-container {
+    display: block;
+    position: relative;
+    background-color: transparent;
+    right: 0;
+    z-index: 1;
+    padding-top: 0;
+  }
+  .dropdown-menu {
+    background-color: transparent;
+    margin: 0;
+    border-radius: 0.7rem;
+  }
+  .dropdown-menu ul {
+    list-style-type: none;
+    display: block;
+    padding: 0;
+    border-radius: 0;
+  }
+  .dropdown-menu li {
+    cursor: pointer;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    transition: none;
+  }
+  .dropdown-menu li:hover {
+    background-color: #414141;
+    border-radius: 0;
+  }
+  .dropdown-menu button, .dropdown-menu a {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    border-radius: none;
+  }
+  .dropdown-menu span {
+    color: white;
+    font-family: 'Asap', sans-serif;
+    font-size: 1.1rem;
   }
 }
 

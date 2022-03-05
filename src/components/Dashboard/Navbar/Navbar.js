@@ -19,38 +19,22 @@ const NavBar = (props) => {
       		<div className="nav-logo-box">
 				<img className="nav-logo" src={"./logo.png"} alt="self.OKRs logo"/> 
 			</div>
-			  
-			<div className="links-menu">
-			  	<ul>
-				  	<li>
-					  	<Link to="/dashboard"><span>Dashboard</span></Link>
-					</li>
-					<li className="dropdown">
-						<span>{userAuth.username}</span>
-						<UserMenu logout={logout} />
-					</li>
-				</ul>
+			
+			<div>
+				<button className="nav-toggle" onClick={handleResponsiveNavToggle}>...</button>
+				<div className={responsiveNavDisplay ? "links-menu active" : "links-menu"}>
+					<ul>
+						<li>
+							<Link to="/dashboard"><span>Dashboard</span></Link>
+						</li>
+						<li className="dropdown">
+							<span>{userAuth.username}</span>
+							<UserMenu logout={logout} />
+						</li>
+					</ul>
+				</div>
 			</div>
 
-			<div className="responsive-links-menu">
-				<button onClick={handleResponsiveNavToggle}>X</button>
-				{responsiveNavDisplay &&
-			  	<ul>
-				  	<li>
-					  	<Link to="/dashboard"><span>Dashboard</span></Link>
-						<span>{userAuth.username}</span>
-						<ul>
-							<li>
-							<Link to="/settings"><span>Settings</span></Link>
-							</li>
-							<li>
-							<button onClick={props.logout}><span>Logout</span></button>
-							</li>
-						</ul>
-					</li>
-				</ul>}
-			</div>
-			
     	</nav>
 	);
 }
