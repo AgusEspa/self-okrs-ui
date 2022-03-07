@@ -63,6 +63,9 @@
 							background-color: transparent;
 							cursor: pointer;
 						}
+						.delete {
+							color: variables.$errorDarkRed;
+						}
 				}
 			}
 
@@ -81,6 +84,9 @@
 					margin: 0rem 0rem 0rem 0.2rem;
 					color: variables.$textDarkGray;
 					text-align: left;
+				}
+				.delete {
+					color: variables.$errorDarkRed;
 				}
 			
 				label {
@@ -115,6 +121,7 @@
 					font-size: 1rem;
 					border: none;
 					outline: 0;
+					cursor: pointer;
 					transition: all 0.1s ease-out;
 					&:hover {
 						background-color: variables.$buttonHover;
@@ -146,6 +153,12 @@
 					.loadingSpinnerContainer {	
 						margin: 1.5rem .5rem 0 .5rem;
 						padding: 0rem;
+					}
+				}
+				.deleteButton {
+					background-color: variables.$errorDarkRed;
+					&:hover {
+						background-color: variables.$errorButtonHover;
 					}
 				}
 			}

@@ -269,6 +269,7 @@ const Settings = () => {
 
     const handleUsernameToggle = (event) => {
         event.preventDefault();
+        setFormValidationErrors({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
         setToggleUsername(prevState => !prevState);
         setFormData( prevState => ({
             ...prevState,
@@ -281,6 +282,7 @@ const Settings = () => {
 
     const handlePasswordToggle = (event) => {
         event.preventDefault();
+        setFormValidationErrors({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
         setTogglePassword(prevState => !prevState);
         setToggleUsername(false);
         setToggleDelete(false);
@@ -288,6 +290,7 @@ const Settings = () => {
 
     const handleDeleteToggle = (event) => {
         event.preventDefault();
+        setFormValidationErrors({username: "", emailAddress: "", oldPassword: "", newPassword: "", passwordVerification: ""});
         setToggleDelete(prevState => !prevState);
         setFormData( prevState => ({
             ...prevState,
@@ -326,7 +329,7 @@ const Settings = () => {
                                 <img src={"./arrow-right.png"} alt="arrow icon" />
                             </button>
                             <button onClick={handleDeleteToggle}>
-                                <label id="delete-label">Delete Account</label>
+                                <label className={styles.delete}>Delete Account</label>
                                 <img src={"./arrow-right.png"} alt="arrow icon" />
                             </button>
                         </div>
@@ -475,7 +478,7 @@ const Settings = () => {
 
                         {toggleDelete &&
                         <div className={styles.userBox}>
-                            <h3 id="delete-title">Permanently Delete Your Account</h3>
+                            <h3 className={styles.delete}>Permanently Delete Your Account</h3>
                             <form onSubmit={handleDeleteUser} autoComplete="off" noValidate>
                                 <label>Type yor email address to confirm:</label>
                                 {formValidationErrors.emailAddress !== "" ?
@@ -514,7 +517,7 @@ const Settings = () => {
                                 {credentialsError !== "" && <p className={styles.validationErrorMessage}>{credentialsError}</p>}
                                 <div className={styles.submitButtonBox}>
                                     {buttonIsEnabled ? 
-                                        <button type="button" id="delete" onClick={handleDeleteButton}>Delete account</button> :
+                                        <button type="button" className={styles.deleteButton} onClick={handleDeleteButton}>Delete account</button> :
                                         <button disabled>Deleting account...</button>
                                     }
                                     
