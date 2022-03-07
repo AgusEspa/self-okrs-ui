@@ -8,6 +8,8 @@
 	background-color: variables.$lightPink;
 
 	.navLogoBox {
+		display: flex;
+		align-items: center;
 		margin-left: 2rem;
 		padding: 0.7rem;
 	}

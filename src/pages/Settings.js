@@ -4,6 +4,8 @@ import useAxios from "../utils/useAxios";
 import NavBar from "../components/Dashboard/Navbar/Navbar";
 import Notification from "../components/Dashboard/Notification";
 import DeleteModal from "../components/Settings/DeleteModal";
+import styles from "../styles/Settings.module.scss";
+import resources from "../styles/Resources.module.scss";
 
 const Settings = () => {
 
@@ -309,226 +311,226 @@ const Settings = () => {
     return (
         <div>
             <NavBar />
-            <main className="settings-container">
-            <div className="settings-box">
-                <h2>Account Settings</h2>
-                <div className="settings-grid">
+            <main className={styles.settingsContainer}>
+                <div className={styles.settingsBox}>
+                    <h2>Account Settings</h2>
+                    <div className={styles.settingsGrid}>
 
-                    <div className="button-box">
-                        <button className="button-box-item" onClick={handleUsernameToggle}>
-                            <label>User details</label>
-                            <img src={"./arrow-right.png"} alt="arrow icon" />
-                        </button>
-                        <button className="button-box-item" onClick={handlePasswordToggle}>
-                            <label>Password</label>
-                            <img src={"./arrow-right.png"} alt="arrow icon" />
-                        </button>
-                        <button className="button-box-item" onClick={handleDeleteToggle}>
-                            <label id="delete-label">Delete Account</label>
-                            <img src={"./arrow-right.png"} alt="arrow icon" />
-                        </button>
-                    </div>
+                        <div className={styles.buttonsBox}>
+                            <button onClick={handleUsernameToggle}>
+                                <label>User details</label>
+                                <img src={"./arrow-right.png"} alt="arrow icon" />
+                            </button>
+                            <button onClick={handlePasswordToggle}>
+                                <label>Password</label>
+                                <img src={"./arrow-right.png"} alt="arrow icon" />
+                            </button>
+                            <button onClick={handleDeleteToggle}>
+                                <label id="delete-label">Delete Account</label>
+                                <img src={"./arrow-right.png"} alt="arrow icon" />
+                            </button>
+                        </div>
 
-                    {toggleUsername &&
-                    <div className="user-box"> 
-                        <h3>Edit username and email address</h3>
-                        <form onSubmit={handleEditUserDetails} noValidate>
-                            
-                            <label className="input-label">New username:</label>
-                            {formValidationErrors.username !== "" ?
-                            <div>
-                            <input autoComplete="new-password" id="validation-error" type="text" 
-                                name="username"
-                                value={formData.username}
-                                onChange={handleFormChange}
-                                />
-                                <p id="user-validation-error-message">{formValidationErrors.username}</p>
-                            </div> :
-                            <input autoComplete="new-password" type="text"
-                                name="username"
-                                value={formData.username}
-                                onChange={handleFormChange}
-                                />
-                            }
+                        {toggleUsername &&
+                        <div className={styles.userBox}> 
+                            <h3>Edit username and email address</h3>
+                            <form onSubmit={handleEditUserDetails} noValidate>
+                                
+                                <label>New username:</label>
+                                {formValidationErrors.username !== "" ?
+                                <div>
+                                <input autoComplete="new-password" className={styles.validationError} type="text" 
+                                    name="username"
+                                    value={formData.username}
+                                    onChange={handleFormChange}
+                                    />
+                                    <p className={styles.validationErrorMessage}>{formValidationErrors.username}</p>
+                                </div> :
+                                <input autoComplete="new-password" type="text"
+                                    name="username"
+                                    value={formData.username}
+                                    onChange={handleFormChange}
+                                    />
+                                }
 
-                            <label className="input-label">New email address:</label>
-                            {formValidationErrors.emailAddress !== "" ?
-                            <div>
-                                <input autoComplete="new-password" id="validation-error" type="email"
+                                <label>New email address:</label>
+                                {formValidationErrors.emailAddress !== "" ?
+                                <div>
+                                    <input autoComplete="new-password" className={styles.validationError} type="email"
+                                    name="emailAddress"
+                                    value={formData.emailAddress}
+                                    onChange={handleFormChange}
+                                    />
+                                    <p className={styles.validationErrorMessage}>{formValidationErrors.emailAddress}</p>
+                                </div> :
+                                <input autoComplete="new-password" type="email" 
                                 name="emailAddress"
                                 value={formData.emailAddress}
                                 onChange={handleFormChange}
                                 />
-                                <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
-                            </div> :
-                            <input autoComplete="new-password" type="email" 
-                            name="emailAddress"
-                            value={formData.emailAddress}
-                            onChange={handleFormChange}
-                            />
-                            }
-                            
-                            <label className="input-label">Current password:</label>
-                            {formValidationErrors.oldPassword !== "" ?
-                            <div> 
-                                <input autoComplete="new-password" id="validation-error" type="password" 
+                                }
+                                
+                                <label>Current password:</label>
+                                {formValidationErrors.oldPassword !== "" ?
+                                <div> 
+                                    <input autoComplete="new-password" className={styles.validationError} type="password" 
+                                    name="oldPassword"
+                                    value={formData.oldPassword}
+                                    onChange={handleFormChange}
+                                    />
+                                    <p className={styles.validationErrorMessage}>{formValidationErrors.oldPassword}</p>
+                                </div> :
+                                <input autoComplete="new-password" type="password" 
                                 name="oldPassword"
                                 value={formData.oldPassword}
                                 onChange={handleFormChange}
                                 />
-                                <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
-                            </div> :
-                            <input autoComplete="new-password" type="password" 
-                            name="oldPassword"
-                            value={formData.oldPassword}
-                            onChange={handleFormChange}
-                            />
-                            }
-
-                            {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
-                            <div className="button-spinner-container">
-                                {buttonIsEnabled ? 
-                                    <button>Save changes</button> :
-                                    <button disabled>Saving changes...</button>
                                 }
-                                {isLoading &&
-                                <div className="loading-spinner-settings-container">
-                                    <div className="loading-spinner"></div>
+
+                                {credentialsError !== "" && <p className={styles.validationErrorMessage}>{credentialsError}</p>}
+                                <div className={styles.submitButtonBox}>
+                                    {buttonIsEnabled ? 
+                                        <button>Save changes</button> :
+                                        <button disabled>Saving changes...</button>
+                                    }
+                                    {isLoading &&
+                                    <div className={styles.loadingSpinnerContainer}>
+                                        <div className={resources.spinner}></div>
+                                    </div>
+                                    }
                                 </div>
-                                }
-                            </div>
-                        </form>
-                    </div>}
+                            </form>
+                        </div>}
 
-                    {togglePassword &&
-                    <div className="user-box">
-                        <h3>Change password</h3>
-                        <form onSubmit={handleEditUserPassword} autoComplete="off" noValidate>
+                        {togglePassword &&
+                        <div className={styles.userBox}>
+                            <h3>Change password</h3>
+                            <form onSubmit={handleEditUserPassword} autoComplete="off" noValidate>
 
-                            <label className="input-label">Current password:</label>
-                            {formValidationErrors.oldPassword !== "" ?
-                            <div> 
-                                <input id="validation-error" type="password" 
+                                <label>Current password:</label>
+                                {formValidationErrors.oldPassword !== "" ?
+                                <div> 
+                                    <input className={styles.validationError} type="password" 
+                                    name="oldPassword"
+                                    value={formData.oldPassword}
+                                    onChange={handleFormChange}
+                                    />
+                                    <p className={styles.validationErrorMessage}>{formValidationErrors.oldPassword}</p>
+                                </div> :
+                                <input type="password" 
                                 name="oldPassword"
                                 value={formData.oldPassword}
                                 onChange={handleFormChange}
                                 />
-                                <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
-                            </div> :
-                            <input type="password" 
-                            name="oldPassword"
-                            value={formData.oldPassword}
-                            onChange={handleFormChange}
-                            />
-                            }
-                            
-                            <label className="input-label">New password:</label>
-                            {formValidationErrors.newPassword !== "" ?
-                            <div> 
-                                <input id="validation-error" type="password" 
+                                }
+                                
+                                <label>New password:</label>
+                                {formValidationErrors.newPassword !== "" ?
+                                <div> 
+                                    <input className={styles.validationError} type="password" 
+                                    name="newPassword"
+                                    value={formData.newPassword}
+                                    onChange={handleFormChange}
+                                    />
+                                    <p className={styles.validationErrorMessage}>{formValidationErrors.newPassword}</p>
+                                </div> :
+                                <input type="password" 
                                 name="newPassword"
                                 value={formData.newPassword}
                                 onChange={handleFormChange}
                                 />
-                                <p id="user-validation-error-message">{formValidationErrors.newPassword}</p>
-                            </div> :
-                            <input type="password" 
-                            name="newPassword"
-                            value={formData.newPassword}
-                            onChange={handleFormChange}
-                            />
-                            }
+                                }
 
-                            <label className="input-label">Re-enter password:</label>
-                            {formValidationErrors.passwordVerification !== "" ?
-                            <div> 
-                                <input id="validation-error" type="password" 
+                                <label>Re-enter password:</label>
+                                {formValidationErrors.passwordVerification !== "" ?
+                                <div> 
+                                    <input className={styles.validationError} type="password" 
+                                    name="passwordVerification"
+                                    value={formData.passwordVerification}
+                                    onChange={handleFormChange}
+                                    />
+                                    <p className={styles.validationErrorMessage}>{formValidationErrors.passwordVerification}</p>
+                                </div> :
+                                <input type="password" 
                                 name="passwordVerification"
                                 value={formData.passwordVerification}
                                 onChange={handleFormChange}
                                 />
-                                <p id="user-validation-error-message">{formValidationErrors.passwordVerification}</p>
-                            </div> :
-                            <input type="password" 
-                            name="passwordVerification"
-                            value={formData.passwordVerification}
-                            onChange={handleFormChange}
-                            />
-                            }
-
-                            {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
-                            <div className="button-spinner-container">
-                                {buttonIsEnabled ? 
-                                    <button>Save changes</button> :
-                                    <button disabled>Saving changes...</button>
                                 }
-                                {isLoading &&
-                                <div className="loading-spinner-settings-container">
-                                    <div className="loading-spinner"></div>
+
+                                {credentialsError !== "" && <p className={styles.validationErrorMessage}>{credentialsError}</p>}
+                                <div className={styles.submitButtonBox}>
+                                    {buttonIsEnabled ? 
+                                        <button>Save changes</button> :
+                                        <button disabled>Saving changes...</button>
+                                    }
+                                    {isLoading &&
+                                    <div className={styles.loadingSpinnerContainer}>
+                                        <div className={resources.spinner}></div>
+                                    </div>
+                                    }
                                 </div>
-                                }
-                            </div>
-                        </form>
-                    </div>}
+                            </form>
+                        </div>}
 
-                    {toggleDelete &&
-                    <div className="user-box">
-                        <h3 id="delete-title">Permanently Delete Your Account</h3>
-                        <form onSubmit={handleDeleteUser} autoComplete="off" noValidate>
-                            <label className="input-label">Type yor email address to confirm:</label>
-                            {formValidationErrors.emailAddress !== "" ?
-                            <div>
-                                <input id="validation-error" type="email"
+                        {toggleDelete &&
+                        <div className={styles.userBox}>
+                            <h3 id="delete-title">Permanently Delete Your Account</h3>
+                            <form onSubmit={handleDeleteUser} autoComplete="off" noValidate>
+                                <label>Type yor email address to confirm:</label>
+                                {formValidationErrors.emailAddress !== "" ?
+                                <div>
+                                    <input className={styles.validationError} type="email"
+                                    name="emailAddress"
+                                    value={deleteFormData.emailAddress}
+                                    onChange={handleDeleteFormChange}
+                                    />
+                                    <p className={styles.validationErrorMessage}>{formValidationErrors.emailAddress}</p>
+                                </div> :
+                                <input type="email" 
                                 name="emailAddress"
                                 value={deleteFormData.emailAddress}
                                 onChange={handleDeleteFormChange}
                                 />
-                                <p id="user-validation-error-message">{formValidationErrors.emailAddress}</p>
-                            </div> :
-                            <input type="email" 
-                            name="emailAddress"
-                            value={deleteFormData.emailAddress}
-                            onChange={handleDeleteFormChange}
-                            />
-                            }
-                            
-                            <label className="input-label">Current password:</label>
-                            {formValidationErrors.oldPassword !== "" ?
-                            <div> 
-                                <input id="validation-error" autoComplete="new-password" type="password" 
+                                }
+                                
+                                <label>Current password:</label>
+                                {formValidationErrors.oldPassword !== "" ?
+                                <div> 
+                                    <input className={styles.validationError} autoComplete="new-password" type="password" 
+                                    name="oldPassword"
+                                    value={deleteFormData.oldPassword}
+                                    onChange={handleDeleteFormChange}
+                                    />
+                                    <p className={styles.validationErrorMessage}>{formValidationErrors.oldPassword}</p>
+                                </div> :
+                                <input type="password" 
                                 name="oldPassword"
                                 value={deleteFormData.oldPassword}
                                 onChange={handleDeleteFormChange}
                                 />
-                                <p id="user-validation-error-message">{formValidationErrors.oldPassword}</p>
-                            </div> :
-                            <input type="password" 
-                            name="oldPassword"
-                            value={deleteFormData.oldPassword}
-                            onChange={handleDeleteFormChange}
-                            />
-                            }
+                                }
 
-                            {credentialsError !== "" && <p id="user-validation-error-message">{credentialsError}</p>}
-                            <div className="button-spinner-container">
-                                {buttonIsEnabled ? 
-                                    <button type="button" id="delete" onClick={handleDeleteButton}>Delete account</button> :
-                                    <button disabled>Deleting account...</button>
-                                }
-                                
-                                {isLoading &&
-                                <div className="loading-spinner-settings-container">
-                                    <div className="loading-spinner"></div>
+                                {credentialsError !== "" && <p className={styles.validationErrorMessage}>{credentialsError}</p>}
+                                <div className={styles.submitButtonBox}>
+                                    {buttonIsEnabled ? 
+                                        <button type="button" id="delete" onClick={handleDeleteButton}>Delete account</button> :
+                                        <button disabled>Deleting account...</button>
+                                    }
+                                    
+                                    {isLoading &&
+                                    <div className={styles.loadingSpinnerContainer}>
+                                        <div className={resources.spinner}></div>
+                                    </div>
+                                    }
                                 </div>
+                                {modalIsOpen &&
+                                    <DeleteModal setModalIsOpen={setModalIsOpen} />
                                 }
-                            </div>
-                            {modalIsOpen &&
-                                <DeleteModal setModalIsOpen={setModalIsOpen} />
-                            }
-                        </form>
-                    </div>}
+                            </form>
+                        </div>}
+                    </div>
                 </div>
-            </div>
             </main>
             {(notification.message !== "") &&
             <Notification 

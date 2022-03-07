@@ -1,15 +1,16 @@
+import styles from "../../styles/Notification.module.scss";
 
 const Notification = (props) => {
 
 	if (props.type === "error") {
 		return (
-			<div className="error-notification">
+			<div className={styles.errorNotification}>
 				<p>{props.message}</p>
 			</div>
 		)
 	} else if (props.type === "ok") {
 		return (
-			<div className="success-notification">
+			<div className={styles.successNotification}>
 				<p>{props.message}</p>
 			</div>
 		)

@@ -1,3 +1,4 @@
+import styles from "../../styles/Modals.module.scss";
 
 const DeleteModal = (props) => {
 
