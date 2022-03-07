@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { Link } from "react-router-dom";
 import UserMenu from "./UserMenu";
+import styles from "../../../styles/Navbar.module.scss"
 
 const NavBar = (props) => {
 
@@ -15,19 +16,20 @@ const NavBar = (props) => {
 	
 
 	return (
-		<nav className="navbar">
-      		<div className="nav-logo-box">
-				<img className="nav-logo" src={"./logo.png"} alt="self.OKRs logo"/> 
+		<nav className={styles.navbarContainer}>
+      		
+			<div className={styles.navLogoBox}>
+				<img className={styles.navLogo} src={"./logo.png"} alt="self.OKRs logo"/> 
 			</div>
 			
-			<div>
-				<button className="nav-toggle" onClick={handleResponsiveNavToggle}>...</button>
-				<div className={responsiveNavDisplay ? "links-menu active" : "links-menu"}>
+			<div className={styles.navLinksContainer}>
+				<button className={styles.navToggle} onClick={handleResponsiveNavToggle}>...</button>
+				<div className={responsiveNavDisplay ? styles.linksMenuActive : styles.linksMenu}>
 					<ul>
 						<li>
 							<Link to="/dashboard"><span>Dashboard</span></Link>
 						</li>
-						<li className="dropdown">
+						<li className={styles.dropdownButton}>
 							<span>{userAuth.username}</span>
 							<UserMenu logout={logout} />
 						</li>

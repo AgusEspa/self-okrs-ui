@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import styles from "../../../styles/Navbar.module.scss"
 
 const UserMenu = (props) => {
 
 	return(
-		<div className="dropdown-menu-container">
-			<div className="dropdown-menu">
+		<div className={styles.dropdownMenuContainer}>
+			<div className={styles.dropdownMenuBox}>
 				<ul>
 					<li>
 						<Link to="/settings"><span>Settings</span></Link>
