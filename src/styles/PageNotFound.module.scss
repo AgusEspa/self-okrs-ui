@@ -1,0 +1,28 @@
+.page-404-container {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+  }
+  .page-404-box {
+	border: 2px solid red;
+	border-radius: 1rem;
+	padding: 2rem;
+	background-color: #cecece;
+	margin: 3rem;
+  }
+  .page-404-box h2 {
+	font-family: 'Asap', sans-serif;
+	font-size: 1.5rem;
+	color: #1f1f1f;
+	margin: 0 0 2rem 0;
+	text-align: center;
+  }
+  .page-404-box h3 {
+	font-family: 'Asap', sans-serif;
+	font-size: 1.2rem;
+	margin: 0;
+	color: #1f1f1f;
+	text-align: left;
+  }

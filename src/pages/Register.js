@@ -1,6 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import styles from "../styles/Login.module.scss";
+import resources from "../styles/Resources.module.scss";
 
 const Register = () => {
 
@@ -99,23 +101,23 @@ const Register = () => {
 
 
 	return (
-		<main className="register-container">
-            <div className="register-box">
-                <div className="logo-box">
-					<img className="logo" src={"./logo.png"} alt="self.OKRs logo"/>
-				</div>  
+		<main className={styles.loginContainer}>
+            <div className={styles.loginBox}>
+                <div className={styles.logoBox}>
+                    <img className={styles.logo} src={"./logo.png"} alt="self.OKRs logo"/> 
+                </div>  
 
                 <form onSubmit={handleRegistration} noValidate>
 
                     <label>Username:</label>
                     {formValidationErrors.username !== "" ?
                     <div>
-                    <input id="validation-error" type="text" 
+                    <input className={styles.validationError} type="text" 
                         name="username"
                         value={formData.username}
                         onChange={handleFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.username}</p>
+                        <p className={styles.validationErrorMessage}>{formValidationErrors.username}</p>
                     </div> :
                     <input type="text" 
                         name="username"
@@ -127,12 +129,12 @@ const Register = () => {
                     <label>Email address:</label>
                     {formValidationErrors.emailAddress !== "" ?
                     <div>
-                        <input id="validation-error" type="email"
+                        <input className={styles.validationError} type="email"
                         name="emailAddress"
                         value={formData.emailAddress}
                         onChange={handleFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
+                        <p className={styles.validationErrorMessage}>{formValidationErrors.emailAddress}</p>
                     </div> :
                     <input type="email" 
                     name="emailAddress"
@@ -141,21 +143,21 @@ const Register = () => {
                     />
                     }
 
-                    <div className="password">
+                    <div className={styles.labelBox}>
                         <label>Password:</label>
                         <img src={"./info.png"} alt="information icon"
                             onMouseEnter={() => setPasswordHelperDisplay(true)}
         				    onMouseLeave={() => setPasswordHelperDisplay(false)} />
-                        {passwordHelperDisplay && <span className="password-helper">Password must have at least 8 characters</span>}
+                        {passwordHelperDisplay && <div className={styles.passwordHelper}><p>Password must have at least 8 characters</p></div>}
                     </div>
                     {formValidationErrors.password !== "" ?
                     <div> 
-                        <input id="validation-error" type="password" 
+                        <input className={styles.validationError} type="password" 
                         name="password"
                         value={formData.password}
                         onChange={handleFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.password}</p>
+                        <p className={styles.validationErrorMessage}>{formValidationErrors.password}</p>
                     </div> :
                     <input type="password" 
                     name="password"
@@ -167,12 +169,12 @@ const Register = () => {
                     <label>Confirm password:</label>
                     {formValidationErrors.passwordVerification !== "" ?
                     <div> 
-                        <input id="validation-error" type="password" 
+                        <input className={styles.validationError} type="password" 
                         name="passwordVerification"
                         value={formData.passwordVerification}
                         onChange={handleFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.passwordVerification}</p>
+                        <p className={styles.validationErrorMessage}>{formValidationErrors.passwordVerification}</p>
                     </div> :
                     <input type="password" 
                     name="passwordVerification"
@@ -187,22 +189,21 @@ const Register = () => {
                     }
 
                     {isLoading &&
-                    <div className="loading-spinner-container">
-                        <div className="loading-spinner"></div>
+                    <div className={styles.loadingSpinnerContainer}>
+                        <div className={resources.spinner}></div>
                     </div>
                     }
 
                     {networkError !== "" && 
-                    <div className="registration-error-message">
+                    <div className={styles.loginErrorMessage}>
                         <p>{networkError}</p>
                     </div>}
                     {isRegistered && 
-                    <div className="successful-registration">
+                    <div className={styles.successfulRegistrationMessage}>
                     <p>Your account was succesfully created.</p>
                     <p>Redirecting to login...</p>
                     </div>}
 
-                    <div className="register-link"><p>Read legal notice.</p></div>
                 </form>
 
                 

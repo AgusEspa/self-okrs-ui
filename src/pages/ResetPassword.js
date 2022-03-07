@@ -1,6 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import styles from "../styles/Login.module.scss";
+import resources from "../styles/Resources.module.scss";
 
 const ResetPassword = () => {
 
@@ -88,29 +90,29 @@ const ResetPassword = () => {
 
 
 	return (
-		<main className="register-container">
-            <div className="register-box">
-                <div className="logo-box">
-					<img className="logo" src={"./logo.png"} alt="self.OKRs logo"/>
+		<main className={styles.loginContainer}>
+            <div className={styles.loginBox}>
+                <div className={styles.logoBox}>
+					<img className={styles.logo} src={"./logo.png"} alt="self.OKRs logo"/>
 				</div>  
 
                 <form onSubmit={handlePasswordReset} noValidate>
 
-                    <div className="password">
+                    <div className={styles.labelBox}>
                         <label>New password:</label>
                         <img src={"./info.png"} alt="information icon"
                             onMouseEnter={() => setPasswordHelperDisplay(true)}
         				    onMouseLeave={() => setPasswordHelperDisplay(false)} />
-                        {passwordHelperDisplay && <span className="password-helper">Password must have at least 8 characters</span>}
+                        {passwordHelperDisplay && <div className={styles.passwordHelper}><p>Password must have at least 8 characters</p></div>}
                     </div>
                     {formValidationErrors.newPassword !== "" ?
                     <div> 
-                        <input id="validation-error" type="password" 
+                        <input className={styles.validationError} type="password" 
                         name="newPassword"
                         value={formData.newPassword}
                         onChange={handleFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.newPassword}</p>
+                        <p className={styles.validationErrorMessage}>{formValidationErrors.newPassword}</p>
                     </div> :
                     <input type="password" 
                     name="newPassword"
@@ -122,12 +124,12 @@ const ResetPassword = () => {
                     <label>Confirm password:</label>
                     {formValidationErrors.passwordVerification !== "" ?
                     <div> 
-                        <input id="validation-error" type="password" 
+                        <input className={styles.validationError} type="password" 
                         name="passwordVerification"
                         value={formData.passwordVerification}
                         onChange={handleFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.passwordVerification}</p>
+                        <p className={styles.validationErrorMessage}>{formValidationErrors.passwordVerification}</p>
                     </div> :
                     <input type="password" 
                     name="passwordVerification"
@@ -142,16 +144,16 @@ const ResetPassword = () => {
                     }
 
                     {isLoading &&
-                    <div className="loading-spinner-container">
-                        <div className="loading-spinner"></div>
+                    <div className={styles.loadingSpinnerContainer}>
+                        <div className={resources.spinner}></div>
                     </div>
                     }
                     {networkError !== "" && 
-                    <div className="registration-error-message">
+                    <div className={styles.loginErrorMessage}>
                         <p>{networkError}</p>
                     </div>}
                     {isSubmited && 
-                    <div className="successful-registration">
+                    <div className={styles.successfulRegistrationMessage}>
                     <p>Your password was reset succesfully.</p>
                     <p>Redirecting to login...</p>
                     </div>}

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import styles from "../styles/Login.module.scss";
+import resources from "../styles/Resources.module.scss";
 
 const ForgotPassword = () => {
 
@@ -74,10 +76,10 @@ const ForgotPassword = () => {
 
 
 	return (
-		<main className="register-container">
-            <div className="register-box">
-                <div className="logo-box">
-					<img className="logo" src={"./logo.png"} alt="self.OKRs logo"/>
+		<main className={styles.loginContainer}>
+            <div className={styles.loginBox}>
+                <div className={styles.logoBox}>
+					<img className={styles.logo} src={"./logo.png"} alt="self.OKRs logo"/>
 				</div>  
 
                 <form onSubmit={handleResetPasswordRequest} noValidate>
@@ -85,12 +87,12 @@ const ForgotPassword = () => {
                     <label>Email address:</label>
                     {formValidationErrors.emailAddress !== "" ?
                     <div>
-                        <input id="validation-error" type="email"
+                        <input className={styles.validationError} type="email"
                         name="emailAddress"
                         value={formData.emailAddress}
                         onChange={handleFormChange}
                         />
-                        <p id="validation-error-message">{formValidationErrors.emailAddress}</p>
+                        <p className={styles.validationErrorMessage}>{formValidationErrors.emailAddress}</p>
                     </div> :
                     <input type="email" 
                     name="emailAddress"
@@ -105,16 +107,16 @@ const ForgotPassword = () => {
                     }
 
                     {isLoading &&
-                    <div className="loading-spinner-container">
-                        <div className="loading-spinner"></div>
+                    <div className={styles.loadingSpinnerContainer}>
+                        <div className={resources.spinner}></div>
                     </div>
                     }
                     {networkError !== "" && 
-                    <div className="registration-error-message">
+                    <div className={styles.loginErrorMessage}>
                         <p>{networkError}</p>
                     </div>}
                     {isSent && 
-                    <div className="successful-registration">
+                    <div className={styles.successfulRegistrationMessage}>
                     <p>Your request was sent.</p>
                     <p>Please check your INBOX or SPAM.</p>
                     </div>}

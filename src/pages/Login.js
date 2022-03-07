@@ -2,8 +2,8 @@ import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
-import styles from "../styles/Login.module.scss"
-import resources from "../styles/Resources.module.scss"
+import styles from "../styles/Login.module.scss";
+import resources from "../styles/Resources.module.scss";
 
 const Login = () => {
 
